@@ -1,0 +1,340 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  JOB_SEEKER
+  COMPANY
+  ADMIN
+}
+
+enum ApplicationStatus {
+  DRAFT
+  SUBMITTED
+  REVIEWING
+  SHORTLISTED
+  OFFER_SENT
+  HIRED
+  REJECTED
+  APPEALING
+}
+
+enum PaymentType {
+  SEEKER_ANNUAL
+  SEEKER_OFFER
+  COMPANY_ANNUAL
+  COMPANY_JOB_POST
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  REFUNDED
+  FAILED
+}
+
+enum CompanyStatus {
+  PENDING
+  APPROVED
+  SUSPENDED
+}
+
+enum AuditAction {
+  USER_REGISTERED
+  RESUME_UPLOADED
+  RESUME_ANONYMIZED
+  ANSWER_TRANSCRIBED
+  ANSWER_SCORED
+  APPLICATION_SUBMITTED
+  CANDIDATE_HIRED
+  CANDIDATE_REJECTED
+  OFFER_SENT
+  OFFER_ACCEPTED
+  PAYMENT_CHARGED
+  PAYMENT_REFUNDED
+  COMPANY_APPROVED
+  COMPANY_SUSPENDED
+  QUESTION_FLAGGED
+  APPEAL_OPENED
+  APPEAL_RESOLVED
+  ADMIN_OVERRIDE
+  IDENTITY_UNSEALED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  clerkId   String   @unique
+  email     String   @unique
+  role      UserRole @default(JOB_SEEKER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  jobSeekerProfile JobSeekerProfile?
+  companyProfile   CompanyProfile?
+  stripeCustomer   StripeCustomer?
+  payments         Payment[]
+  auditLogs        AuditLog[] @relation("actorLogs")
+}
+
+model JobSeekerProfile {
+  id               String   @id @default(cuid())
+  userId           String   @unique
+  applicantCode    String   @unique
+  registrationPaid Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  user             User                  @relation(fields: [userId], references: [id])
+  resumes          ResumeDocument[]
+  coverLetters     CoverLetterDocument[]
+  applications     Application[]
+}
+
+model CompanyProfile {
+  id                String        @id @default(cuid())
+  userId            String        @unique
+  name              String
+  logo              String?
+  address           String?
+  contactPerson     String?
+  phone             String?
+  website           String?
+  industry          String?
+  annualRevenue     String?
+  meritPledgeSigned Boolean       @default(false)
+  meritPledgeDate   DateTime?
+  status            CompanyStatus @default(PENDING)
+  averageRating     Float         @default(0)
+  totalRatings      Int           @default(0)
+  annualPaid        Boolean       @default(false)
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  user              User            @relation(fields: [userId], references: [id])
+  jobs              JobPost[]
+  ratings           CompanyRating[]
+}
+
+model JobPost {
+  id                     String   @id @default(cuid())
+  companyId              String
+  title                  String
+  description            String
+  requiredQualifications String
+  preferredQualifications String?
+  salaryMin              Int?
+  salaryMax              Int?
+  location               String
+  isRemote               Boolean  @default(false)
+  isHybrid               Boolean  @default(false)
+  openPositions          Int      @default(1)
+  isActive               Boolean  @default(true)
+  paymentConfirmed       Boolean  @default(false)
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+  company                CompanyProfile      @relation(fields: [companyId], references: [id])
+  questions              InterviewQuestion[]
+  applications           Application[]
+  complianceFlags        ComplianceFlag[]
+}
+
+model InterviewQuestion {
+  id           String   @id @default(cuid())
+  jobPostId    String
+  order        Int
+  questionText String
+  timeLimitSec Int      @default(120)
+  idealAnswer  String?
+  weight       Float    @default(1.0)
+  isFlagged    Boolean  @default(false)
+  flagReason   String?
+  jobPost      JobPost           @relation(fields: [jobPostId], references: [id])
+  answers      InterviewAnswer[]
+}
+
+model Application {
+  id                     String            @id @default(cuid())
+  jobSeekerId            String
+  jobPostId              String
+  anonymousCode          String            @unique
+  status                 ApplicationStatus @default(DRAFT)
+  totalScore             Float?
+  aiConfidence           Float?
+  requiresHumanReview    Boolean           @default(false)
+  accommodationRequested Boolean           @default(false)
+  accommodationType      String?
+  identityUnsealed       Boolean           @default(false)
+  unsealedAt             DateTime?
+  unsealedBy             String?
+  hireDate               DateTime?
+  resumeDocId            String?
+  coverLetterDocId       String?
+  createdAt              DateTime          @default(now())
+  updatedAt              DateTime          @updatedAt
+  jobSeeker              JobSeekerProfile    @relation(fields: [jobSeekerId], references: [id])
+  jobPost                JobPost             @relation(fields: [jobPostId], references: [id])
+  resume                 ResumeDocument?     @relation(fields: [resumeDocId], references: [id])
+  coverLetter            CoverLetterDocument? @relation(fields: [coverLetterDocId], references: [id])
+  answers                InterviewAnswer[]
+  aiScores               AIScoreResult[]
+  offers                 Offer[]
+  appeals                Appeal[]
+}
+
+model ResumeDocument {
+  id                String   @id @default(cuid())
+  jobSeekerId       String
+  originalUrl       String
+  anonymizedUrl     String?
+  originalText      String?
+  anonymizedText    String?
+  anonymizationDone Boolean  @default(false)
+  confidenceScore   Float?
+  flaggedForReview  Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  jobSeeker         JobSeekerProfile      @relation(fields: [jobSeekerId], references: [id])
+  applications      Application[]
+  aiAnonymization   AIAnonymizationResult[]
+}
+
+model CoverLetterDocument {
+  id                String   @id @default(cuid())
+  jobSeekerId       String
+  originalUrl       String
+  anonymizedUrl     String?
+  anonymizedText    String?
+  anonymizationDone Boolean  @default(false)
+  confidenceScore   Float?
+  createdAt         DateTime @default(now())
+  jobSeeker         JobSeekerProfile @relation(fields: [jobSeekerId], references: [id])
+  applications      Application[]
+}
+
+model InterviewAnswer {
+  id                   String   @id @default(cuid())
+  applicationId        String
+  questionId           String
+  audioUrl             String?
+  transcript           String?
+  anonymizedTranscript String?
+  isWritten            Boolean  @default(false)
+  createdAt            DateTime @default(now())
+  application          Application       @relation(fields: [applicationId], references: [id])
+  question             InterviewQuestion @relation(fields: [questionId], references: [id])
+  scoreResult          AIScoreResult?
+}
+
+model AIAnonymizationResult {
+  id              String   @id @default(cuid())
+  resumeId        String
+  vectorsRemoved  Json
+  confidenceScore Float
+  flaggedItems    Json?
+  requiresReview  Boolean  @default(false)
+  reviewedBy      String?
+  reviewedAt      DateTime?
+  createdAt       DateTime @default(now())
+  resume          ResumeDocument @relation(fields: [resumeId], references: [id])
+}
+
+model AIScoreResult {
+  id                  String   @id @default(cuid())
+  applicationId       String
+  answerId            String   @unique
+  score               Float
+  explanation         String
+  strengths           String[]
+  missingPoints       String[]
+  confidence          Float
+  requiresHumanReview Boolean  @default(false)
+  humanReviewedBy     String?
+  humanReviewedAt     DateTime?
+  humanOverrideScore  Float?
+  createdAt           DateTime @default(now())
+  application         Application     @relation(fields: [applicationId], references: [id])
+  answer              InterviewAnswer @relation(fields: [answerId], references: [id])
+}
+
+model Offer {
+  id            String   @id @default(cuid())
+  applicationId String
+  hireDate      DateTime
+  salary        Int?
+  message       String?
+  isAccepted    Boolean?
+  acceptedAt    DateTime?
+  paymentDone   Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  application   Application @relation(fields: [applicationId], references: [id])
+}
+
+model CompanyRating {
+  id        String   @id @default(cuid())
+  companyId String
+  rating    Int
+  review    String?
+  isVisible Boolean  @default(true)
+  createdAt DateTime @default(now())
+  company   CompanyProfile @relation(fields: [companyId], references: [id])
+}
+
+model Payment {
+  id              String        @id @default(cuid())
+  userId          String
+  type            PaymentType
+  status          PaymentStatus @default(PENDING)
+  amountCents     Int
+  stripePaymentId String?       @unique
+  stripeInvoiceId String?
+  metadata        Json?
+  createdAt       DateTime      @default(now())
+  user            User @relation(fields: [userId], references: [id])
+}
+
+model StripeCustomer {
+  id               String @id @default(cuid())
+  userId           String @unique
+  stripeCustomerId String @unique
+  user             User @relation(fields: [userId], references: [id])
+}
+
+model AuditLog {
+  id         String      @id @default(cuid())
+  actorId    String?
+  actorType  String
+  action     AuditAction
+  targetId   String?
+  targetType String?
+  metadata   Json?
+  ipAddress  String?
+  confidence Float?
+  status     String      @default("OK")
+  createdAt  DateTime    @default(now())
+  actor      User? @relation("actorLogs", fields: [actorId], references: [id])
+}
+
+model ComplianceFlag {
+  id           String   @id @default(cuid())
+  jobPostId    String
+  questionText String
+  flagReason   String
+  reviewedBy   String?
+  reviewedAt   DateTime?
+  isResolved   Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  jobPost      JobPost @relation(fields: [jobPostId], references: [id])
+}
+
+model Appeal {
+  id            String   @id @default(cuid())
+  applicationId String
+  reason        String
+  status        String   @default("OPEN")
+  reviewerNotes String?
+  reviewedBy    String?
+  resolvedAt    DateTime?
+  createdAt     DateTime @default(now())
+  application   Application @relation(fields: [applicationId], references: [id])
+}

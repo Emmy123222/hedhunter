@@ -1,0 +1,20 @@
+{
+  "indexes": [
+    { "collectionGroup": "jobPosts",       "queryScope": "COLLECTION", "fields": [{ "fieldPath": "isActive", "order": "ASCENDING" }, { "fieldPath": "paymentConfirmed", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" }] },
+    { "collectionGroup": "jobPosts",       "queryScope": "COLLECTION", "fields": [{ "fieldPath": "companyId", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" }] },
+    { "collectionGroup": "applications",   "queryScope": "COLLECTION", "fields": [{ "fieldPath": "jobSeekerId", "order": "ASCENDING" }, { "fieldPath": "updatedAt", "order": "DESCENDING" }] },
+    { "collectionGroup": "applications",   "queryScope": "COLLECTION", "fields": [{ "fieldPath": "jobSeekerId", "order": "ASCENDING" }, { "fieldPath": "jobPostId", "order": "ASCENDING" }] },
+    { "collectionGroup": "applications",   "queryScope": "COLLECTION", "fields": [{ "fieldPath": "jobPostId", "order": "ASCENDING" }, { "fieldPath": "totalScore", "order": "DESCENDING" }] },
+    { "collectionGroup": "applications",   "queryScope": "COLLECTION", "fields": [{ "fieldPath": "jobSeekerId", "order": "ASCENDING" }, { "fieldPath": "status", "order": "ASCENDING" }] },
+    { "collectionGroup": "applications",   "queryScope": "COLLECTION", "fields": [{ "fieldPath": "jobPostId", "order": "ASCENDING" }, { "fieldPath": "status", "order": "ASCENDING" }] },
+    { "collectionGroup": "offers",         "queryScope": "COLLECTION", "fields": [{ "fieldPath": "applicationId", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" }] },
+    { "collectionGroup": "companyRatings", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "companyId", "order": "ASCENDING" }, { "fieldPath": "isVisible", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" }] },
+    { "collectionGroup": "companyRatings", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "companyId", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" }] },
+    { "collectionGroup": "resumeDocuments","queryScope": "COLLECTION", "fields": [{ "fieldPath": "jobSeekerId", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" }] },
+    { "collectionGroup": "coverLetterDocuments", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "jobSeekerId", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" }] },
+    { "collectionGroup": "payments",       "queryScope": "COLLECTION", "fields": [{ "fieldPath": "userId", "order": "ASCENDING" }, { "fieldPath": "type", "order": "ASCENDING" }, { "fieldPath": "status", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "DESCENDING" }] },
+    { "collectionGroup": "appeals",        "queryScope": "COLLECTION", "fields": [{ "fieldPath": "status", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "ASCENDING" }] },
+    { "collectionGroup": "complianceFlags","queryScope": "COLLECTION", "fields": [{ "fieldPath": "isResolved", "order": "ASCENDING" }, { "fieldPath": "createdAt", "order": "ASCENDING" }] }
+  ],
+  "fieldOverrides": []
+}
