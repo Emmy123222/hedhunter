@@ -19,6 +19,20 @@ async function verifyIdToken(token: string): Promise<{ uid: string; email: strin
   return { uid: user.localId, email: user.email ?? "" };
 }
 
+async function hasCompanyActivity(uid: string): Promise<boolean> {
+  const profile = await adminCol.companyProfiles(uid).get();
+  if (profile.data()?.annualPaid === true) return true;
+  const jobs = await adminCol.jobPostsCol().where("companyId", "==", uid).limit(1).get();
+  return !jobs.empty;
+}
+
+async function hasSeekerActivity(uid: string): Promise<boolean> {
+  const profile = await adminCol.jobSeekerProfiles(uid).get();
+  if (profile.data()?.registrationPaid === true) return true;
+  const apps = await adminCol.applicationsCol().where("jobSeekerId", "==", uid).limit(1).get();
+  return !apps.empty;
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json().catch(() => null);
@@ -28,22 +42,37 @@ export async function POST(req: NextRequest) {
     const role: UserRole = (body.role as UserRole) ?? "JOB_SEEKER";
 
     try {
-      // Block cross-role registration — an email already registered as COMPANY
-      // cannot re-register as JOB_SEEKER and vice-versa.
       const existingSnap = await adminCol.users(uid).get();
+
       if (existingSnap.exists) {
         const existingRole = existingSnap.data()?.role as UserRole | undefined;
+
         if (existingRole && existingRole !== role) {
-          const existingLabel = existingRole === "COMPANY" ? "a company" : "a job seeker";
-          const targetPage    = existingRole === "COMPANY" ? "/login/company" : "/login/job-seeker";
-          return NextResponse.json(
-            { error: `This email is already registered as ${existingLabel}. Please sign in at ${targetPage}.` },
-            { status: 409 }
-          );
+          // Check if the existing role has any real activity
+          const activity = existingRole === "JOB_SEEKER"
+            ? await hasSeekerActivity(uid)
+            : await hasCompanyActivity(uid);
+
+          if (activity) {
+            // User has real data in the other role — hard block
+            const existingLabel = existingRole === "COMPANY" ? "a company" : "a job seeker";
+            const targetPage    = existingRole === "COMPANY" ? "/login/company" : "/login/job-seeker";
+            return NextResponse.json(
+              { error: `This email is already registered as ${existingLabel} with an active account. Please sign in at ${targetPage}.` },
+              { status: 409 }
+            );
+          }
+
+          // No activity — safe to switch role. Clean up old profile.
+          if (existingRole === "JOB_SEEKER") {
+            await adminCol.jobSeekerProfiles(uid).delete().catch(() => {});
+          } else if (existingRole === "COMPANY") {
+            await adminCol.companyProfiles(uid).delete().catch(() => {});
+          }
         }
       }
 
-      // Create user doc (no merge — role must not be overwritten silently)
+      // Write user doc with correct role
       await adminCol.users(uid).set({
         uid, email, role,
         createdAt: FieldValue.serverTimestamp(),
@@ -80,7 +109,6 @@ export async function POST(req: NextRequest) {
       }
     } catch (dbErr: any) {
       console.warn("[register] Firestore write failed:", dbErr.message);
-      // Continue — session cookie still created so user can log in
     }
 
     const sessionToken = await createSessionCookie({ uid, email, role });
