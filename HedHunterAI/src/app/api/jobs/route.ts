@@ -28,7 +28,6 @@ export async function GET(req: NextRequest) {
   const enriched = await Promise.all(paged.map(async (j: any) => {
     const compSnap = await adminCol.companyProfiles(j.companyId).get();
     const comp     = compSnap.data();
-    if (comp?.status !== "APPROVED") return null;
     return { ...j, company: { uid: j.companyId, name: comp?.name, averageRating: comp?.averageRating, meritPledgeSigned: comp?.meritPledgeSigned } };
   }));
 
