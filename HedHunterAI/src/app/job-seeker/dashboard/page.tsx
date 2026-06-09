@@ -31,22 +31,38 @@ export default async function JobSeekerDashboard() {
 
   const profile = profileSnap.data()!;
 
-  // Safely fetch applications — collection may be empty
+  // Single-field where to avoid composite index requirement; sort in memory
   let apps: any[] = [];
   try {
     const appsSnap = await adminCol.applicationsCol()
-      .where("jobSeekerId", "==", session.uid)
-      .orderBy("updatedAt", "desc").limit(5).get();
-    apps = appsSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+      .where("jobSeekerId", "==", session.uid).limit(50).get();
+    const raw = appsSnap.docs.map(d => ({ id: d.id, ...d.data() })) as any[];
+
+    // Enrich with job title
+    const enriched = await Promise.all(raw.map(async (a: any) => {
+      try {
+        const jobSnap = await adminCol.jobPosts(a.jobPostId).get();
+        return { ...a, jobTitle: jobSnap.data()?.title ?? "Position" };
+      } catch { return { ...a, jobTitle: "Position" }; }
+    }));
+
+    apps = enriched.sort((a: any, b: any) =>
+      (b.updatedAt?.seconds ?? 0) - (a.updatedAt?.seconds ?? 0)
+    ).slice(0, 5);
   } catch {
     // No applications yet
   }
 
+  const submittedApps  = apps.filter((a:any) => a.status !== "DRAFT");
+  const interviewCount = apps.filter((a:any) => ["SUBMITTED","REVIEWING","SHORTLISTED"].includes(a.status)).length;
+  const offerCount     = apps.filter((a:any) => ["OFFER_SENT","HIRED"].includes(a.status)).length;
+  const bestScore      = apps.reduce((max:number,a:any) => Math.max(max, a.totalScore ?? 0), 0);
+
   const stats = [
-    { label:"Applications", value: apps.length, icon:<FileText size={18}/>, color:"#5b8def" },
-    { label:"Interviews",   value: apps.filter((a:any) => a.status==="REVIEWING"||a.status==="SHORTLISTED").length, icon:<Briefcase size={18}/>, color:"#3ce8ff" },
-    { label:"Offers",       value: apps.filter((a:any) => a.status==="OFFER_SENT"||a.status==="HIRED").length, icon:<Gift size={18}/>, color:"#3ddc97" },
-    { label:"Best Score",   value: apps.reduce((max:number,a:any)=>Math.max(max,a.totalScore??0),0)+"pts", icon:<TrendingUp size={18}/>, color:"#f5a524" },
+    { label:"Applications", value: submittedApps.length,   icon:<FileText size={18}/>, color:"#5b8def" },
+    { label:"Interviews",   value: interviewCount,          icon:<Briefcase size={18}/>, color:"#3ce8ff" },
+    { label:"Offers",       value: offerCount,              icon:<Gift size={18}/>, color:"#3ddc97" },
+    { label:"Best Score",   value: bestScore + "pts",       icon:<TrendingUp size={18}/>, color:"#f5a524" },
   ];
 
   return (
