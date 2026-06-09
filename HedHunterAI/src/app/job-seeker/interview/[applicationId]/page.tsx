@@ -22,12 +22,25 @@ export default function InterviewPage({ params }: { params: { applicationId: str
   const [hasAccommodation, setAccom]      = useState(false);
   const [consentGiven, setConsentGiven]   = useState(false);
   const [loading, setLoading]             = useState(true);
+  const [scoring, setScoring]             = useState(false);
 
   useEffect(() => {
     fetch(`/api/applications/${params.applicationId}/questions`)
       .then(r => r.json())
       .then(d => { setQuestions(d.questions ?? []); setLoading(false); });
   }, [params.applicationId]);
+
+  // Auto-score when all questions answered
+  useEffect(() => {
+    if (questions.length > 0 && answered.length === questions.length && !scoring) {
+      setScoring(true);
+      fetch("/api/score-interview", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ applicationId: params.applicationId }),
+      }).catch(() => {}).finally(() => setScoring(false));
+    }
+  }, [answered.length, questions.length, params.applicationId, scoring]);
 
   if (loading) return (
     <DashboardShell role="JOB_SEEKER" title="Interview">
@@ -50,7 +63,9 @@ export default function InterviewPage({ params }: { params: { applicationId: str
           <CheckCircle size={24} style={{ color: "#3ddc97" }}/>
           <div>
             <p className="font-medium" style={{ color: "#0f172a" }}>All questions answered</p>
-            <p className="text-sm" style={{ color: "#64748b" }}>Your answers are being scored.</p>
+            <p className="text-sm" style={{ color: "#64748b" }}>
+              {scoring ? "AI is scoring your answers…" : "Your answers have been scored."}
+            </p>
           </div>
         </div>
         <ButtonLink href={`/job-seeker/applications/${params.applicationId}`} variant="accent" fullWidth>
