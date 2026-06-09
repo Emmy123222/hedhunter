@@ -63,6 +63,7 @@
     },
     "scheme": "hedhunter",
     "extra": {
+      "apiUrl": "https://www.hedhunterai.com",
       "eas": {
         "projectId": "YOUR_EAS_PROJECT_ID"
       }
