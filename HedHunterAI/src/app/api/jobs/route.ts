@@ -47,7 +47,14 @@ export async function POST(req: NextRequest) {
 
   const body   = await req.json();
   const parsed = jobPostSchema.safeParse(body);
-  if (!parsed.success) return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
+  if (!parsed.success) {
+    const flat = parsed.error.flatten();
+    const fieldMsgs = Object.entries(flat.fieldErrors)
+      .map(([f, errs]) => `${f}: ${(errs as string[]).join(", ")}`)
+      .join("; ");
+    const msg = fieldMsgs || flat.formErrors.join("; ") || "Validation failed";
+    return NextResponse.json({ error: msg }, { status: 400 });
+  }
 
   const ref = await adminCol.jobPostsCol().add({
     ...parsed.data,
