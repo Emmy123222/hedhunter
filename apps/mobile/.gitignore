@@ -4,3 +4,15 @@
 
 expo-env.d.ts
 # @end expo-cli.expo/
+
+# env files — NEVER commit (contain secret keys)
+.env
+.env.local
+.env.*
+
+# dependencies
+node_modules/
+package-lock.json
+
+# expo
+.expo/
