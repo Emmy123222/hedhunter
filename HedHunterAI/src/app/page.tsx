@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import Link from "next/link";
+import Image from "next/image";
 
 function Dot({ color = "#3ce8ff" }: { color?: string }) {
   return <span className="inline-block rounded-full w-1.5 h-1.5 flex-none" style={{ background: color, boxShadow: `0 0 10px ${color}` }} />;
@@ -67,49 +68,16 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Dossier card */}
-            <div className="relative overflow-hidden rounded-[17px]" style={{ background: "linear-gradient(180deg,#f5f7fa,#0a1326)", border: "1px solid rgba(0,0,0,.11)", boxShadow: "0 28px 55px -28px rgba(0,0,0,.6)" }}>
-              <span className="absolute left-0 right-0 top-0 h-px" style={{ background: "linear-gradient(90deg,transparent,rgba(60,232,255,.7),transparent)" }} />
-              <div className="flex items-center justify-between px-4 py-3.5" style={{ borderBottom: "1px solid rgba(0,0,0,.07)", background: "rgba(255,255,255,.015)" }}>
-                <div className="flex items-center gap-2.5">
-                  <div className="relative w-8 h-8 rounded-lg grid place-items-center" style={{ background: "repeating-linear-gradient(135deg,#0a0a0a 0 4px,#1a1a1a 4px 8px)", border: "1px solid #000" }}>
-                    <span style={{ fontFamily: "JetBrains Mono,monospace", fontSize: 12, color: "#3ce8ff" }}>#</span>
-                  </div>
-                  <div>
-                    <p style={{ fontFamily: "JetBrains Mono,monospace", fontSize: 12.5, color: "#0f172a" }}>Applicant #4827</p>
-                    <MonoLabel>Identity protected</MonoLabel>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2.5">
-                  <div className="text-right"><MonoLabel>Merit</MonoLabel><p style={{ fontFamily: "JetBrains Mono,monospace", fontSize: 11, color: "#475569", fontWeight: 500 }}>87 / 100</p></div>
-                  <div className="relative grid place-items-center w-11 h-11 rounded-full" style={{ background: "conic-gradient(#3ce8ff 87%,rgba(0,0,0,.07) 0)" }}>
-                    <span className="absolute inset-1.5 rounded-full" style={{ background: "#f5f7fa" }} />
-                    <span className="relative" style={{ fontFamily: "JetBrains Mono,monospace", fontSize: 12, fontWeight: 600, color: "#0f172a" }}>87</span>
-                  </div>
-                </div>
-              </div>
-              <div className="p-4 grid gap-4">
-                {[{ k: "Position", v: "Senior Backend Engineer · Remote" }, { k: "Experience", v: "8 yrs · distributed systems, payments infra" }, { k: "Education", v: "Applicant earned a B.S. in Computer Science" }].map(f => (
-                  <div key={f.k} className="grid gap-3" style={{ gridTemplateColumns: "96px 1fr", fontSize: 13, alignItems: "start" }}>
-                    <MonoLabel>{f.k}</MonoLabel><span style={{ color: "#475569" }}>{f.v}</span>
-                  </div>
-                ))}
-                <div className="grid gap-2">
-                  {[{ q: "Q1·Sys", v: 4.8, w: 96 }, { q: "Q2·DB", v: 4.6, w: 92 }, { q: "Q3·API", v: 4.4, w: 88 }, { q: "Q4·Sec", v: 3.7, w: 74 }].map(b => (
-                    <div key={b.q} className="grid items-center gap-2.5" style={{ gridTemplateColumns: "52px 1fr 24px", fontFamily: "JetBrains Mono,monospace", fontSize: 10, color: "#64748b" }}>
-                      <span>{b.q}</span>
-                      <div className="rounded-full overflow-hidden" style={{ height: 5, background: "rgba(0,0,0,.06)" }}>
-                        <div className="fill-anim h-full rounded-full" style={{ width: `${b.w}%`, background: "linear-gradient(90deg,#5b8def,#3ce8ff)" }} />
-                      </div>
-                      <span style={{ color: "#0f172a" }}>{b.v}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="flex items-center justify-between flex-wrap gap-2 px-4 py-3" style={{ borderTop: "1px solid rgba(0,0,0,.07)", background: "rgba(255,255,255,.015)" }}>
-                <span className="flex items-center gap-2"><Dot color="#3ddc97" /><MonoLabel>AI confidence · HIGH</MonoLabel></span>
-                <span className="flex items-center gap-2"><Dot color="#f5a524" /><MonoLabel color="#f5a524">Human review required</MonoLabel></span>
-              </div>
+            {/* Hero image */}
+            <div className="flex items-center justify-center lg:justify-end">
+              <Image
+                src="/HedHunhterAi 1.png"
+                alt="HedHunter AI"
+                width={680}
+                height={680}
+                priority
+                style={{ width: "100%", maxWidth: 680, height: "auto", objectFit: "contain" }}
+              />
             </div>
           </div>
         </div>
