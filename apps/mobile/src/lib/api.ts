@@ -42,6 +42,7 @@ export const authApi = {
 export const jobsApi = {
   list: (params?: { page?: number; search?: string; remote?: boolean }) =>
     api.get("/api/jobs", { params }),
+  listMine: () => api.get("/api/jobs?mine=true"),
   get: (jobId: string) => api.get(`/api/jobs/${jobId}`),
   create: (body: unknown) => api.post("/api/jobs", body),
   update: (jobId: string, body: unknown) => api.patch(`/api/jobs/${jobId}`, body),

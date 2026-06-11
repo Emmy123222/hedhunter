@@ -7,9 +7,24 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const search   = searchParams.get("search")?.toLowerCase() ?? "";
   const isRemote = searchParams.get("isRemote");
+  const mine     = searchParams.get("mine") === "true";
   const page     = parseInt(searchParams.get("page") ?? "1");
   const limit    = Math.min(parseInt(searchParams.get("limit") ?? "20"), 50);
 
+  // Company fetching their own jobs (mobile company screen)
+  if (mine) {
+    const session = await getSessionFromCookies();
+    if (!session || session.role !== "COMPANY") {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const snap = await adminCol.jobPostsCol().where("companyId", "==", session.uid).get();
+    const jobs = snap.docs
+      .map(d => ({ id: d.id, ...d.data() }))
+      .sort((a: any, b: any) => (b.createdAt?.seconds ?? 0) - (a.createdAt?.seconds ?? 0)) as any[];
+    return NextResponse.json({ jobs, total: jobs.length, page: 1, pages: 1 });
+  }
+
+  // Public job-seeker listing
   const snap = await adminCol.jobPostsCol()
     .where("isActive", "==", true)
     .where("paymentConfirmed", "==", true)
@@ -17,13 +32,11 @@ export async function GET(req: NextRequest) {
   let jobs = snap.docs.map(d => ({ id: d.id, ...d.data() })) as any[];
   jobs.sort((a, b) => (b.createdAt?.seconds ?? 0) - (a.createdAt?.seconds ?? 0));
 
-  if (search)           jobs = jobs.filter((j: any) => j.title?.toLowerCase().includes(search));
+  if (search)              jobs = jobs.filter((j: any) => j.title?.toLowerCase().includes(search));
   if (isRemote === "true") jobs = jobs.filter((j: any) => j.isRemote);
 
-  const total  = jobs.length;
-  const paged  = jobs.slice((page - 1) * limit, page * limit);
-
-  // Enrich with company profile
+  const total    = jobs.length;
+  const paged    = jobs.slice((page - 1) * limit, page * limit);
   const enriched = await Promise.all(paged.map(async (j: any) => {
     const compSnap = await adminCol.companyProfiles(j.companyId).get();
     const comp     = compSnap.data();

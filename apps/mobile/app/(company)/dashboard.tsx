@@ -15,10 +15,10 @@ export default function CompanyDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([jobsApi.list(), applicationsApi.list()])
+    Promise.all([jobsApi.listMine(), applicationsApi.list()])
       .then(([jobsRes, appsRes]) => {
         const jobs = jobsRes.data.jobs ?? [];
-        const apps = appsRes.data.applications ?? [];
+        const apps = appsRes.data ?? [];
         setStats({
           jobs:        jobs.length,
           candidates:  apps.length,

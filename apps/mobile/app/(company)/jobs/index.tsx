@@ -15,7 +15,7 @@ export default function CompanyJobsScreen() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    jobsApi.list()
+    jobsApi.listMine()
       .then(r => setJobs(r.data.jobs ?? []))
       .catch(() => {})
       .finally(() => setLoading(false));
