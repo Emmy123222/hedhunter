@@ -40,7 +40,7 @@ export default function AdminLoginPage() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4" style={{ background: "#ffffff" }}>
       <div className="mb-8 text-center">
-        <Logo height={52} href="/" />
+        <Logo height={76} href="/" />
         <p className="mt-3 text-sm font-mono" style={{ color: "#64748b" }}>Admin access</p>
       </div>
 

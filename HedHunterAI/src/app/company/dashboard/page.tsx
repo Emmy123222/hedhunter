@@ -21,9 +21,9 @@ export default async function CompanyDashboard() {
   const jobs = jobsSnap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a:any,b:any)=>(b.createdAt?.seconds??0)-(a.createdAt?.seconds??0)).slice(0,5) as any[];
 
   const stats = [
-    { label:"Active Jobs",      value: jobs.filter((j:any) => j.isActive).length, icon:<Briefcase size={18}/>, color:"#5b8def" },
-    { label:"Total Applicants", value: "—", icon:<Users size={18}/>, color:"#3ce8ff" },
-    { label:"Rating",           value: (profile.averageRating ?? 0).toFixed(1)+"★", icon:<Star size={18}/>, color:"#3ddc97" },
+    { label:"Active Jobs",      value: jobs.filter((j:any) => j.isActive).length, icon:<Briefcase size={18}/>, color:"#0f172a" },
+    { label:"Total Applicants", value: "—", icon:<Users size={18}/>, color:"#0f172a" },
+    { label:"Rating",           value: (profile.averageRating ?? 0).toFixed(1)+"★", icon:<Star size={18}/>, color:"#0f172a" },
     { label:"Status",           value: profile.status, icon:<DollarSign size={18}/>, color:"#0f172a" },
   ];
 

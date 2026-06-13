@@ -22,7 +22,7 @@ export default async function CompanyRatingsPage() {
           <Card key={r.id}>
             <div className="flex items-center gap-1 mb-2">
               {[1,2,3,4,5].map(s => (
-                <Star key={s} size={13} fill={s <= r.rating ? "#f5c518" : "transparent"} style={{ color: s <= r.rating ? "#f5c518" : "#94a3b8" }}/>
+                <Star key={s} size={13} fill={s <= r.rating ? "#0f172a" : "transparent"} style={{ color: s <= r.rating ? "#0f172a" : "#94a3b8" }}/>
               ))}
             </div>
             {r.review && <p className="text-sm leading-relaxed italic" style={{ color: "#475569" }}>&ldquo;{r.review}&rdquo;</p>}

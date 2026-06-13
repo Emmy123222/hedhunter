@@ -60,8 +60,8 @@ export function HireCandidateForm({ applicationId, applicantCode, onHired }: Hir
   return (
     <div className="space-y-4">
       <div className="p-3 rounded-lg flex items-start gap-2.5"
-        style={{ background: "rgba(245,197,24,.06)", border: "1px solid rgba(245,197,24,.2)" }}>
-        <AlertTriangle size={14} style={{ color: "#f5c518", marginTop: 1 }}/>
+        style={{ background: "rgba(126,138,163,.06)", border: "1px solid rgba(126,138,163,.2)" }}>
+        <AlertTriangle size={14} style={{ color: "#0f172a", marginTop: 1 }}/>
         <p className="text-xs" style={{ color: "#475569" }}>
           Hiring <strong style={{ color: "#0f172a" }}>{applicantCode}</strong> will reveal their identity, create an offer record, and notify them via email. This action is final and audited.
         </p>

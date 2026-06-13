@@ -44,7 +44,7 @@ export function Sidebar({role}:{role:UserRole}) {
   return (
     <aside className="w-56 flex-none flex flex-col gap-1 py-6 px-4" style={{borderRight:"1px solid rgba(0,0,0,.07)",background:"rgba(255,255,255,.01)"}}>
       <div className="flex justify-center mb-4 pb-4" style={{borderBottom:"1px solid rgba(0,0,0,.07)"}}>
-        <Logo height={44} href="/" />
+        <Logo height={68} href="/" />
       </div>
       {nav.map(item=>{
         const active = path===item.href || (item.href!=="/" && path.startsWith(item.href));
