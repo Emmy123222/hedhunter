@@ -55,8 +55,8 @@ export default function AnonymizationReviewScreen() {
             <Card className="gap-3">
               <View className="flex-row items-center justify-between">
                 <MonoText>Resume · {formatDate(item.createdAt)}</MonoText>
-                <View style={{ backgroundColor: item.confidenceScore >= 0.8 ? "#4ade8022" : "#fbbf2422", borderRadius: 8, paddingHorizontal: 8, paddingVertical: 3 }}>
-                  <Text style={{ fontSize: 11, color: item.confidenceScore >= 0.8 ? "#4ade80" : "#fbbf24", fontFamily: "monospace" }}>
+                <View style={{ backgroundColor: item.confidenceScore >= 0.8 ? "#4ade8022" : "rgba(243,238,228,0.13)", borderRadius: 8, paddingHorizontal: 8, paddingVertical: 3 }}>
+                  <Text style={{ fontSize: 11, color: item.confidenceScore >= 0.8 ? "#4ade80" : "#f3eee4", fontFamily: "monospace" }}>
                     {Math.round(item.confidenceScore * 100)}% conf
                   </Text>
                 </View>
@@ -67,8 +67,8 @@ export default function AnonymizationReviewScreen() {
                   <MonoText>Flagged items</MonoText>
                   {item.flaggedItems.slice(0, 3).map((fi: any, j: number) => (
                     <View key={j} className="flex-row gap-2 items-start">
-                      <Ionicons name="alert-circle" size={13} color="#fbbf24" style={{ marginTop: 1 }} />
-                      <Text className="text-yellow-300 text-xs flex-1">
+                      <Ionicons name="alert-circle" size={13} color="#f3eee4" style={{ marginTop: 1 }} />
+                      <Text className="text-text text-xs flex-1">
                         "{fi.original}" — {fi.reason}
                       </Text>
                     </View>

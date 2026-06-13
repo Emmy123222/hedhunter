@@ -47,7 +47,7 @@ export default function CompanyDashboard() {
           {[
             { label: "Jobs",        value: stats.jobs,        color: "#5b8def" },
             { label: "Candidates",  value: stats.candidates,  color: "#3ce8ff" },
-            { label: "Shortlisted", value: stats.shortlisted, color: "#f5a524" },
+            { label: "Shortlisted", value: stats.shortlisted, color: "#f3eee4" },
             { label: "Hired",       value: stats.hired,       color: "#4ade80" },
           ].map(s => (
             <Card key={s.label} className="flex-1 min-w-[44%] items-center py-4 px-0">

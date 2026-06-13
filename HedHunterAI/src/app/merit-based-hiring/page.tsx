@@ -1,19 +1,11 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Card } from "@/components/ui/Card";
-import { ShieldCheck, Scale, FileCheck } from "lucide-react";
+import { ShieldCheck, Scale } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Merit Based Hiring Pledge" };
 
-const REGS = [
-  { name: "Title VII (US)", desc: "Prohibits employment discrimination based on race, color, religion, sex, or national origin." },
-  { name: "EEOC Guidelines", desc: "Equal Employment Opportunity Commission guidelines covering all aspects of employment." },
-  { name: "EU AI Act", desc: "Requires AI hiring tools to be transparent, auditable, and non-discriminatory." },
-  { name: "NYC Local Law 144", desc: "Requires bias audits for AI tools used in employment decisions in New York City." },
-  { name: "GDPR", desc: "Governs how personal data is collected, processed, and stored for EU citizens." },
-  { name: "ADA / Section 508", desc: "Requires accommodation for applicants with disabilities, including interview accommodations." },
-];
 
 export default function MeritBasedHiringPage() {
   return (
@@ -50,22 +42,7 @@ export default function MeritBasedHiringPage() {
           </div>
         </Card>
 
-        <div className="mb-12">
-          <div className="flex items-center gap-2 mb-6">
-            <FileCheck size={20} style={{ color: "#5b8def" }} />
-            <h2 style={{ fontFamily: "Instrument Serif,serif", fontSize: 26, fontWeight: 400 }}>Compliance framework</h2>
-          </div>
-          <div className="grid md:grid-cols-2 gap-4">
-            {REGS.map(r => (
-              <Card key={r.name} padded={false} hover>
-                <div className="px-5 py-4">
-                  <p className="font-mono text-xs mb-1.5" style={{ color: "#3ce8ff", letterSpacing: ".1em" }}>{r.name}</p>
-                  <p className="text-sm" style={{ color: "#475569" }}>{r.desc}</p>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
+
       </div>
       <Footer />
     </div>

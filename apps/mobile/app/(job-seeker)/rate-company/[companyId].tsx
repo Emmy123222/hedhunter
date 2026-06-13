@@ -58,7 +58,7 @@ export default function RateCompanyScreen() {
                 <Ionicons
                   name={star <= rating ? "star" : "star-outline"}
                   size={36}
-                  color={star <= rating ? "#f5a524" : "#7e8aa3"}
+                  color={star <= rating ? "#f3eee4" : "#7e8aa3"}
                 />
               </Pressable>
             ))}

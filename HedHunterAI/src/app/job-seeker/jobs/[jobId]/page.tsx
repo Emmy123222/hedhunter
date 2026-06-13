@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/Badge";
 import { ApplyButton } from "./ApplyButton";
 import { notFound } from "next/navigation";
 import { formatCurrency } from "@/utils/formatCurrency";
-import { MapPin, Shield } from "lucide-react";
+import { MapPin } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Job Detail" };
@@ -35,12 +35,6 @@ export default async function JobDetailPage({ params }: { params: { jobId: strin
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <h2 style={{ fontFamily:"Instrument Serif,serif", fontSize:24, fontWeight:400, color:"#0f172a" }}>{job.title}</h2>
-                {comp?.meritPledgeSigned && (
-                  <span className="inline-flex items-center gap-1 text-[9.5px] font-mono uppercase px-1.5 py-0.5 rounded"
-                    style={{ background:"rgba(61,220,151,.09)", color:"#3ddc97", border:"1px solid rgba(61,220,151,.22)" }}>
-                    <Shield size={10}/>Merit Pledge
-                  </span>
-                )}
               </div>
               <p className="text-sm" style={{ color:"#64748b" }}>{comp?.name} · <span className="flex-inline items-center gap-1"><MapPin size={11} style={{display:"inline"}}/>{job.location}{job.isRemote?" · Remote":""}</span></p>
             </div>

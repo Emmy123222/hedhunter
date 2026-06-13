@@ -27,11 +27,11 @@ export default async function AdminDashboard() {
     { label:"Total Users",       value: users.length,                                  color:"#5b8def" },
     { label:"Job Seekers",       value: users.filter(u => u.role === "JOB_SEEKER").length, color:"#3ce8ff" },
     { label:"Companies",         value: users.filter(u => u.role === "COMPANY").length,    color:"#3ddc97" },
-    { label:"Jobs Posted",       value: jobsSnap.size,                                 color:"#f5a524" },
+    { label:"Jobs Posted",       value: jobsSnap.size,                                 color:"#0f172a" },
     { label:"Revenue",           value: formatCurrency(totalRevenueCents),             color:"#3ddc97" },
-    { label:"Pending Approvals", value: pendingSnap.size,                              color:"#f5a524" },
+    { label:"Pending Approvals", value: pendingSnap.size,                              color:"#0f172a" },
     { label:"Open Appeals",      value: appealsSnap.size,                              color:"#ff5e5e" },
-    { label:"Flagged Questions", value: flagsSnap.size,                                color:"#f5a524" },
+    { label:"Flagged Questions", value: flagsSnap.size,                                color:"#0f172a" },
   ];
 
   const logs = logsSnap.docs.map(d => ({ id: d.id, ...d.data() })) as any[];

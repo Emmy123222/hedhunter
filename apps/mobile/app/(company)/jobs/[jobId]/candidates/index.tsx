@@ -76,9 +76,9 @@ export default function CandidatesListScreen() {
                 </View>
 
                 {app.requiresHumanReview && (
-                  <View className="flex-row gap-2 items-center bg-yellow-500/10 border border-yellow-500/30 rounded-lg px-2.5 py-1.5">
-                    <Ionicons name="eye" size={13} color="#fbbf24" />
-                    <Text className="text-yellow-300 text-xs">Human review flagged</Text>
+                  <View className="flex-row gap-2 items-center bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5">
+                    <Ionicons name="eye" size={13} color="#f3eee4" />
+                    <Text className="text-text text-xs">Human review flagged</Text>
                   </View>
                 )}
               </Card>

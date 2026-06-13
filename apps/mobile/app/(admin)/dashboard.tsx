@@ -35,10 +35,10 @@ export default function AdminDashboard() {
   const statCards = [
     { label: "Users",       value: stats.totalUsers,        color: "#5b8def", href: "/(admin)/users" },
     { label: "Companies",   value: stats.totalCompanies,    color: "#3ce8ff", href: "/(admin)/companies" },
-    { label: "Pending",     value: stats.pendingCompanies,  color: "#f5a524", href: "/(admin)/companies" },
+    { label: "Pending",     value: stats.pendingCompanies,  color: "#f3eee4", href: "/(admin)/companies" },
     { label: "Applications",value: stats.totalApplications, color: "#c084fc", href: "/(admin)/audit-logs" },
     { label: "Flagged",     value: stats.flaggedItems,      color: "#f87171", href: "/(admin)/flagged-questions" },
-    { label: "Appeals",     value: stats.openAppeals,       color: "#fbbf24", href: "/(admin)/appeals" },
+    { label: "Appeals",     value: stats.openAppeals,       color: "#f3eee4", href: "/(admin)/appeals" },
   ];
 
   return (

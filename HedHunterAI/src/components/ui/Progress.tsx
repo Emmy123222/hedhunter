@@ -3,7 +3,7 @@ import { clsx } from "clsx";
 const COLORS = {
   cyan:   { bar: "linear-gradient(90deg,#5b8def,#3ce8ff)", glow: "rgba(60,232,255,.3)" },
   good:   { bar: "linear-gradient(90deg,#22c97a,#3ddc97)", glow: "rgba(61,220,151,.3)" },
-  warn:   { bar: "linear-gradient(90deg,#e0921a,#f5a524)", glow: "rgba(245,165,36,.3)" },
+  warn:   { bar: "linear-gradient(90deg,#475569,#64748b)", glow: "rgba(100,116,139,.3)" },
   danger: { bar: "linear-gradient(90deg,#e03d3d,#ff5e5e)", glow: "rgba(255,94,94,.3)"  },
 };
 

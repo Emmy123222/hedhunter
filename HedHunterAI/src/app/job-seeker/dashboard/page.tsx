@@ -62,7 +62,7 @@ export default async function JobSeekerDashboard() {
     { label:"Applications", value: submittedApps.length,   icon:<FileText size={18}/>, color:"#5b8def" },
     { label:"Interviews",   value: interviewCount,          icon:<Briefcase size={18}/>, color:"#3ce8ff" },
     { label:"Offers",       value: offerCount,              icon:<Gift size={18}/>, color:"#3ddc97" },
-    { label:"Best Score",   value: bestScore + "pts",       icon:<TrendingUp size={18}/>, color:"#f5a524" },
+    { label:"Best Score",   value: bestScore + "pts",       icon:<TrendingUp size={18}/>, color:"#0f172a" },
   ];
 
   return (
@@ -70,9 +70,9 @@ export default async function JobSeekerDashboard() {
       action={<ButtonLink href="/job-seeker/jobs" variant="accent">Browse Jobs →</ButtonLink>}>
       <div className="grid gap-6">
         {!profile.registrationPaid && (
-          <div className="flex items-center justify-between p-4 rounded-xl" style={{background:"rgba(245,165,36,.08)",border:"1px solid rgba(245,165,36,.25)"}}>
+          <div className="flex items-center justify-between p-4 rounded-xl" style={{background:"rgba(91,141,239,.07)",border:"1px solid rgba(91,141,239,.2)"}}>
             <div>
-              <p className="font-medium text-[#f5a524]">Registration required</p>
+              <p className="font-medium text-[#0f172a]">Registration required</p>
               <p className="text-sm text-[#64748b] mt-0.5">Pay the $10 annual fee to start applying for jobs.</p>
             </div>
             <ButtonLink href="/job-seeker/payment" variant="accent" size="sm">Pay $10 →</ButtonLink>
@@ -107,7 +107,7 @@ export default async function JobSeekerDashboard() {
                 style={{borderBottom:i<apps.length-1?"1px solid rgba(0,0,0,.07)":"none"}}>
                 <div className="flex flex-col gap-1">
                   <p className="font-medium text-sm text-[#0f172a]">{app.jobTitle ?? "Position"}</p>
-                  <p className="text-xs" style={{color:"#64748b"}}>{formatDate(app.createdAt?.toDate?.() ?? new Date())}</p>
+                  <p className="text-xs" style={{color:"#0f172a"}}>{formatDate(app.createdAt?.toDate?.() ?? new Date())}</p>
                 </div>
                 <div className="flex items-center gap-3">
                   {app.totalScore!=null&&<MeritScore score={app.totalScore}/>}

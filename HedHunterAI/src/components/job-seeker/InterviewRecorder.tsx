@@ -106,7 +106,7 @@ export function InterviewRecorder({ question, applicationId, questionId, hasAcco
       )}
 
       {timeLeft === 0 && !audioBlob && !isRecording && (
-        <div className="p-3 rounded-xl text-sm" style={{ background: "rgba(245,165,36,.07)", border: "1px solid rgba(245,165,36,.25)", color: "#f5a524" }}>
+        <div className="p-3 rounded-xl text-sm" style={{ background: "rgba(126,138,163,.07)", border: "1px solid rgba(126,138,163,.25)", color: "#0f172a" }}>
           Time expired — no recording captured.
         </div>
       )}

@@ -57,10 +57,10 @@ export default function AdminPaymentsScreen() {
                 <MonoText>{formatDate(p.createdAt)}</MonoText>
               </View>
               <View className="items-end gap-1">
-                <Text style={{ color: p.status === "COMPLETED" ? "#4ade80" : p.status === "FAILED" ? "#f87171" : "#fbbf24", fontFamily: "monospace", fontWeight: "700" }}>
+                <Text style={{ color: p.status === "COMPLETED" ? "#4ade80" : p.status === "FAILED" ? "#f87171" : "#f3eee4", fontFamily: "monospace", fontWeight: "700" }}>
                   {formatCurrency(p.amountCents)}
                 </Text>
-                <MonoText style={{ fontSize: 9, color: p.status === "COMPLETED" ? "#4ade80" : p.status === "FAILED" ? "#f87171" : "#fbbf24" }}>
+                <MonoText style={{ fontSize: 9, color: p.status === "COMPLETED" ? "#4ade80" : p.status === "FAILED" ? "#f87171" : "#f3eee4" }}>
                   {p.status}
                 </MonoText>
               </View>

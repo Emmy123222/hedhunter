@@ -10,7 +10,7 @@ export function calculateTotalScore(scores: AIScoreResult[], maxQuestions: numbe
 export function getScoreColor(score: number): string {
   if (score >= 80) return "#3ddc97";
   if (score >= 60) return "#3ce8ff";
-  if (score >= 40) return "#f5a524";
+  if (score >= 40) return "#0f172a";
   return "#ff5e5e";
 }
 

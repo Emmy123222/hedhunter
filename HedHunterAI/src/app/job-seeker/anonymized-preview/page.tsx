@@ -20,7 +20,7 @@ export default async function AnonymizedPreviewPage() {
             <ButtonLink href="/job-seeker/resume-upload" variant="accent" size="sm">Upload resume →</ButtonLink>
           </div>
         ) : !resume.anonymizationDone ? (
-          <div className="py-10 text-center" style={{ color:"#f5a524" }}>
+          <div className="py-10 text-center" style={{ color:"#0f172a" }}>
             <p>Anonymization in progress…</p>
           </div>
         ) : (

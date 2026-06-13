@@ -1,7 +1,7 @@
 import { ButtonLink } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
-import { MapPin, Users, DollarSign, ShieldCheck } from "lucide-react";
+import { MapPin, Users, DollarSign } from "lucide-react";
 import { formatDate } from "@/utils/formatDate";
 
 interface JobCardProps {
@@ -29,13 +29,8 @@ export function JobCard({ job }: JobCardProps) {
             <h3 className="font-medium" style={{ color: "#0f172a" }}>{job.title}</h3>
             <div className="flex items-center gap-2 mt-1">
               <span className="text-sm" style={{ color: "#64748b" }}>{job.company.name}</span>
-              {job.company.meritPledgeSigned && (
-                <span className="flex items-center gap-1 text-[10px] font-mono" style={{ color: "#3ddc97" }}>
-                  <ShieldCheck size={11}/> Pledge Verified
-                </span>
-              )}
               {job.company.averageRating > 0 && (
-                <span className="text-xs font-mono" style={{ color: "#f5a524" }}>★ {job.company.averageRating.toFixed(1)}</span>
+                <span className="text-xs font-mono" style={{ color: "#0f172a" }}>★ {job.company.averageRating.toFixed(1)}</span>
               )}
             </div>
           </div>

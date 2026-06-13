@@ -60,11 +60,11 @@ export default function CompanyProfileScreen() {
           <Ionicons
             name={profile.status === "APPROVED" ? "checkmark-circle" : profile.status === "SUSPENDED" ? "close-circle" : "time"}
             size={20}
-            color={profile.status === "APPROVED" ? "#4ade80" : profile.status === "SUSPENDED" ? "#f87171" : "#fbbf24"}
+            color={profile.status === "APPROVED" ? "#4ade80" : profile.status === "SUSPENDED" ? "#f87171" : "#f3eee4"}
           />
           <View>
             <Text className="text-subtle font-medium">Account status</Text>
-            <MonoText style={{ color: profile.status === "APPROVED" ? "#4ade80" : profile.status === "SUSPENDED" ? "#f87171" : "#fbbf24" }}>
+            <MonoText style={{ color: profile.status === "APPROVED" ? "#4ade80" : profile.status === "SUSPENDED" ? "#f87171" : "#f3eee4" }}>
               {profile.status}
             </MonoText>
           </View>
@@ -81,10 +81,10 @@ export default function CompanyProfileScreen() {
 
         {profile.averageRating != null && profile.averageRating > 0 && (
           <Card className="flex-row items-center gap-3">
-            <Ionicons name="star" size={20} color="#f5a524" />
+            <Ionicons name="star" size={20} color="#f3eee4" />
             <View>
               <MonoText>Company rating</MonoText>
-              <Text className="text-yellow-300 text-lg font-bold">{profile.averageRating.toFixed(1)} / 5</Text>
+              <Text className="text-text text-lg font-bold">{profile.averageRating.toFixed(1)} / 5</Text>
             </View>
             <MonoText className="ml-auto">{profile.totalRatings} reviews</MonoText>
           </Card>

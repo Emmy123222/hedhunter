@@ -24,7 +24,7 @@ export function AnonymizedPreview({ anonymizedText, confidenceScore, flaggedItem
           <p style={{ fontFamily: "JetBrains Mono,monospace", fontSize: 10.5, letterSpacing: ".16em", textTransform: "uppercase", color: "#64748b" }}>
             Anonymization confidence
           </p>
-          <span style={{ fontFamily: "JetBrains Mono,monospace", fontSize: 12, color: pct >= 85 ? "#3ddc97" : pct >= 70 ? "#f5a524" : "#ff5e5e" }}>
+          <span style={{ fontFamily: "JetBrains Mono,monospace", fontSize: 12, color: pct >= 85 ? "#3ddc97" : pct >= 70 ? "#0f172a" : "#ff5e5e" }}>
             {pct.toFixed(0)}%
           </span>
         </div>
@@ -32,10 +32,10 @@ export function AnonymizedPreview({ anonymizedText, confidenceScore, flaggedItem
       </div>
 
       {flaggedItems && flaggedItems.length > 0 && (
-        <div className="p-4 rounded-xl" style={{ background: "rgba(245,165,36,.07)", border: "1px solid rgba(245,165,36,.2)" }}>
+        <div className="p-4 rounded-xl" style={{ background: "rgba(126,138,163,.07)", border: "1px solid rgba(126,138,163,.2)" }}>
           <div className="flex items-center gap-2 mb-2">
-            <AlertTriangle size={14} style={{ color: "#f5a524" }} />
-            <p className="text-sm font-medium" style={{ color: "#f5a524" }}>Review these uncertain removals</p>
+            <AlertTriangle size={14} style={{ color: "#0f172a" }} />
+            <p className="text-sm font-medium" style={{ color: "#0f172a" }}>Review these uncertain removals</p>
           </div>
           <ul className="space-y-1">
             {flaggedItems.map((item, i) => {

@@ -90,8 +90,8 @@ export default function JobsListScreen() {
                   </View>
                   {job.company?.averageRating > 0 && (
                     <View className="flex-row items-center gap-1 ml-3">
-                      <Ionicons name="star" size={12} color="#f5a524" />
-                      <Text className="text-yellow-300 text-xs">{job.company.averageRating.toFixed(1)}</Text>
+                      <Ionicons name="star" size={12} color="#f3eee4" />
+                      <Text className="text-text text-xs">{job.company.averageRating.toFixed(1)}</Text>
                     </View>
                   )}
                 </View>

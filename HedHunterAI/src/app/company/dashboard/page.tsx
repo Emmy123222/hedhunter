@@ -24,18 +24,13 @@ export default async function CompanyDashboard() {
     { label:"Active Jobs",      value: jobs.filter((j:any) => j.isActive).length, icon:<Briefcase size={18}/>, color:"#5b8def" },
     { label:"Total Applicants", value: "—", icon:<Users size={18}/>, color:"#3ce8ff" },
     { label:"Rating",           value: (profile.averageRating ?? 0).toFixed(1)+"★", icon:<Star size={18}/>, color:"#3ddc97" },
-    { label:"Status",           value: profile.status, icon:<DollarSign size={18}/>, color:"#f5a524" },
+    { label:"Status",           value: profile.status, icon:<DollarSign size={18}/>, color:"#0f172a" },
   ];
 
   return (
     <DashboardShell role="COMPANY" title="Dashboard" subtitle={`${profile.name || "Your Company"} · ${profile.status}`}
       action={<ButtonLink href="/company/jobs/create" variant="accent"><Plus size={14}/>Post a Job</ButtonLink>}>
       <div className="grid gap-6">
-        {profile.status==="PENDING" && (
-          <div className="flex items-center gap-3 p-4 rounded-xl" style={{background:"rgba(245,165,36,.08)",border:"1px solid rgba(245,165,36,.25)"}}>
-            <span className="text-[#f5a524] font-medium text-sm">Your company is pending admin approval. You can set up your profile while you wait.</span>
-          </div>
-        )}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {stats.map(s=>(
             <Card key={s.label} padded={false} hover>

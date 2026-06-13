@@ -54,8 +54,8 @@ export default function AppealsScreen() {
                     <Text className="text-text text-sm font-medium">{a.application?.anonymousCode ?? "Unknown"}</Text>
                     <MonoText>{formatDate(a.createdAt)}</MonoText>
                   </View>
-                  <View className={`rounded-full px-2.5 py-0.5 border ${isOpen ? "bg-yellow-500/15 border-yellow-500/30" : a.status === "APPROVED" ? "bg-green-500/15 border-green-500/30" : "bg-red-500/15 border-red-500/30"}`}>
-                    <Text style={{ fontSize: 10, color: isOpen ? "#fbbf24" : a.status === "APPROVED" ? "#4ade80" : "#f87171", fontWeight: "600" }}>{a.status}</Text>
+                  <View className={`rounded-full px-2.5 py-0.5 border ${isOpen ? "bg-white/5 border-white/10" : a.status === "APPROVED" ? "bg-green-500/15 border-green-500/30" : "bg-red-500/15 border-red-500/30"}`}>
+                    <Text style={{ fontSize: 10, color: isOpen ? "#f3eee4" : a.status === "APPROVED" ? "#4ade80" : "#f87171", fontWeight: "600" }}>{a.status}</Text>
                   </View>
                 </View>
                 <Text className="text-subtle text-sm leading-relaxed">{a.reason}</Text>

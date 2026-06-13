@@ -52,7 +52,7 @@ export default function AIHiringDisclosurePage() {
 
           <Card>
             <div className="flex items-center gap-3 mb-4">
-              <Eye size={20} style={{ color: "#f5a524" }} />
+              <Eye size={20} style={{ color: "#0f172a" }} />
               <h2 style={{ fontFamily: "Instrument Serif,serif", fontSize: 22, fontWeight: 400 }}>Human oversight</h2>
             </div>
             <p className="text-sm mb-3" style={{ color: "#475569", lineHeight: 1.6 }}>
