@@ -55,7 +55,7 @@ export default function JobSeekerLoginPage() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4" style={{ background: "#ffffff" }}>
       <div className="mb-8 text-center">
-        <Image src="/HedHunhterAi 1.png" alt="HedHunter AI" width={200} height={200} style={{ width: "100%", maxWidth: 200, height: "auto", objectFit: "contain", margin: "0 auto 12px" }} />
+        <Image src="/HedHunhterAi 1.png" alt="HedHunter AI" width={220} height={220} style={{ width: "100%", maxWidth: 220, height: "auto", objectFit: "contain", margin: "0 auto 12px" }} />
         <Logo height={76} href="/" />
         <p className="mt-3 text-sm" style={{ color: "#64748b" }}>Job seeker sign in</p>
       </div>
