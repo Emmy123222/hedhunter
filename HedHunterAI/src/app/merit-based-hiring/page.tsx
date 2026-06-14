@@ -42,7 +42,7 @@ export default function MeritBasedHiringPage() {
             <div>
               <h2 style={{ fontFamily: "Instrument Serif,serif", fontSize: 24, fontWeight: 400, marginBottom: 8 }}>The Pledge</h2>
               <blockquote className="text-base leading-relaxed italic" style={{ color: "#0f172a", borderLeft: "3px solid rgba(61,220,151,.4)", paddingLeft: 16 }}>
-                "We are a merit-based company and do not discriminate based on a job seeker&apos;s age, race, gender, disability, religion, nationality, or sexual orientation. We commit to reviewing all candidates based solely on relevant skills, experience, and qualifications as assessed through our defined rubric."
+                "We are a merit-based company and do not discriminate based on a job seeker&apos;s age, race, gender, disability, religion, nationality, or sexual orientation. We commit to hiring all candidates based solely on relevant skills, experience, and qualifications as assessed through our defined rubric."
               </blockquote>
             </div>
           </div>
