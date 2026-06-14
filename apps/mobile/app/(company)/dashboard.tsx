@@ -45,8 +45,8 @@ export default function CompanyDashboard() {
       {loading ? <ActivityIndicator color="#3ce8ff" /> : (
         <View className="flex-row flex-wrap gap-3 mb-6">
           {[
-            { label: "Jobs",        value: stats.jobs,        color: "#5b8def" },
-            { label: "Candidates",  value: stats.candidates,  color: "#3ce8ff" },
+            { label: "Jobs",        value: stats.jobs,        color: "#f3eee4" },
+            { label: "Candidates",  value: stats.candidates,  color: "#f3eee4" },
             { label: "Shortlisted", value: stats.shortlisted, color: "#f3eee4" },
             { label: "Hired",       value: stats.hired,       color: "#4ade80" },
           ].map(s => (
