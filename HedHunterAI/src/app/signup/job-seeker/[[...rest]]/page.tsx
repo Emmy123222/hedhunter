@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { ROUTES } from "@/lib/constants";
 import { Logo } from "@/components/ui/Logo";
+import Image from "next/image";
 
 export default function SignUpSeekerPage() {
   const { signUp, signInWithGoogle } = useAuth();
@@ -55,7 +56,7 @@ export default function SignUpSeekerPage() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4" style={{ background: "#ffffff" }}>
       <div className="mb-8 text-center">
-        <Logo height={52} href="/" />
+        <Image src="/HedHunhterAi 1.png" alt="HedHunter AI" width={220} height={220} style={{ width: "100%", maxWidth: 220, height: "auto", objectFit: "contain", margin: "0 auto 12px" }} />
         <p className="mt-3 text-sm" style={{ color: "#64748b" }}>Create your job seeker account</p>
       </div>
 

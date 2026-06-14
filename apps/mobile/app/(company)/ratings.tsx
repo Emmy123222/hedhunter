@@ -31,11 +31,11 @@ export default function CompanyRatingsScreen() {
         <Header title="Company Ratings" />
         {!loading && ratings.length > 0 && (
           <Card className="flex-row items-center gap-4 mb-4">
-            <Text style={{ fontFamily: "monospace", fontSize: 40, color: "#f5a524", fontWeight: "800" }}>{average.toFixed(1)}</Text>
+            <Text style={{ fontFamily: "monospace", fontSize: 40, color: "#f3eee4", fontWeight: "800" }}>{average.toFixed(1)}</Text>
             <View>
               <View className="flex-row gap-1">
                 {[1,2,3,4,5].map(s => (
-                  <Ionicons key={s} name={s <= Math.round(average) ? "star" : "star-outline"} size={16} color="#f5a524" />
+                  <Ionicons key={s} name={s <= Math.round(average) ? "star" : "star-outline"} size={16} color="#f3eee4" />
                 ))}
               </View>
               <MonoText>{ratings.length} reviews</MonoText>
@@ -62,7 +62,7 @@ export default function CompanyRatingsScreen() {
               <View className="flex-row items-center justify-between">
                 <View className="flex-row gap-1">
                   {[1,2,3,4,5].map(s => (
-                    <Ionicons key={s} name={s <= r.rating ? "star" : "star-outline"} size={14} color="#f5a524" />
+                    <Ionicons key={s} name={s <= r.rating ? "star" : "star-outline"} size={14} color="#f3eee4" />
                   ))}
                 </View>
                 <MonoText>{formatDate(r.createdAt)}</MonoText>

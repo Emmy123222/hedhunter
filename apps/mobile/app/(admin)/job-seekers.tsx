@@ -56,10 +56,10 @@ export default function AdminJobSeekersScreen() {
                   className="rounded-full px-2.5 py-0.5 border"
                   style={s.registrationPaid
                     ? { backgroundColor: "#4ade8018", borderColor: "#4ade8044" }
-                    : { backgroundColor: "#fbbf2418", borderColor: "#fbbf2444" }
+                    : { backgroundColor: "rgba(243,238,228,0.1)", borderColor: "rgba(243,238,228,0.2)" }
                   }
                 >
-                  <Text style={{ fontSize: 10, fontWeight: "600", color: s.registrationPaid ? "#4ade80" : "#fbbf24" }}>
+                  <Text style={{ fontSize: 10, fontWeight: "600", color: s.registrationPaid ? "#4ade80" : "#f3eee4" }}>
                     {s.registrationPaid ? "PAID" : "UNPAID"}
                   </Text>
                 </View>

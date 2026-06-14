@@ -2,6 +2,7 @@
 import { Navbar } from "./Navbar";
 import { Sidebar } from "./Sidebar";
 import { Footer } from "./Footer";
+import Image from "next/image";
 import type { UserRole } from "@/types/user";
 
 interface DashboardShellProps {
@@ -21,6 +22,15 @@ export function DashboardShell({children,role,title,subtitle,action,headerAction
       <div className="flex flex-1">
         <Sidebar role={role}/>
         <main className="flex-1 overflow-hidden relative z-10">
+          <div className="flex justify-center pt-6 pb-2">
+            <Image
+              src="/HedHunhterAi 1.png"
+              alt="HedHunter AI"
+              width={220}
+              height={220}
+              style={{ width: "100%", maxWidth: 220, height: "auto", objectFit: "contain" }}
+            />
+          </div>
           {(title||actionNode)&&(
             <div className="flex items-center justify-between px-8 py-6" style={{borderBottom:"1px solid rgba(0,0,0,.07)"}}>
               <div>

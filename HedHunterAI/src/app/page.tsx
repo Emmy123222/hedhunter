@@ -36,7 +36,7 @@ export default function LandingPage() {
 
           <div className="grid lg:grid-cols-[1.1fr_.9fr] gap-12 items-start">
             <div>
-              <h1 style={{ fontFamily: "Instrument Serif,serif", fontSize: "clamp(42px,6.5vw,96px)", lineHeight: 1.02, letterSpacing: "-.03em", fontWeight: 400, marginBottom: 28 }}>
+              <h1 style={{ fontFamily: "Instrument Serif,serif", fontSize: "clamp(28px,4vw,58px)", lineHeight: 1.02, letterSpacing: "-.03em", fontWeight: 400, marginBottom: 28 }}>
                 HedHunterAi —<br />
                 <em style={{ fontStyle: "italic" }}>Merit-Based</em><br />
                 Hiring Platform

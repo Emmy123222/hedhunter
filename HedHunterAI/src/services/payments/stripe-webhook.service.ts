@@ -34,7 +34,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
   if (type === "SEEKER_ANNUAL") {
     await adminCol.jobSeekerProfiles(userId).update({ registrationPaid: true, updatedAt: FieldValue.serverTimestamp() });
   } else if (type === "COMPANY_ANNUAL") {
-    await adminCol.companyProfiles(userId).update({ annualPaid: true, updatedAt: FieldValue.serverTimestamp() });
+    await adminCol.companyProfiles(userId).update({ annualPaid: true, status: "APPROVED", updatedAt: FieldValue.serverTimestamp() });
   } else if (type === "COMPANY_JOB_POST" && jobPostId) {
     await adminCol.jobPosts(jobPostId).update({ paymentConfirmed: true, updatedAt: FieldValue.serverTimestamp() });
   }

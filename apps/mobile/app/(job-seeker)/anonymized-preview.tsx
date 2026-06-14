@@ -56,18 +56,18 @@ export default function AnonymizedPreviewScreen() {
               <Card className="gap-2">
                 <View className="flex-row justify-between">
                   <MonoText>Anonymization confidence</MonoText>
-                  <MonoText style={{ color: preview.confidenceScore >= 0.8 ? "#4ade80" : "#fbbf24" }}>
+                  <MonoText style={{ color: preview.confidenceScore >= 0.8 ? "#4ade80" : "#f3eee4" }}>
                     {Math.round(preview.confidenceScore * 100)}%
                   </MonoText>
                 </View>
                 <View className="h-1.5 bg-white/10 rounded-full overflow-hidden">
                   <View
                     className="h-full rounded-full"
-                    style={{ width: `${preview.confidenceScore * 100}%`, backgroundColor: preview.confidenceScore >= 0.8 ? "#4ade80" : "#fbbf24" }}
+                    style={{ width: `${preview.confidenceScore * 100}%`, backgroundColor: preview.confidenceScore >= 0.8 ? "#4ade80" : "#f3eee4" }}
                   />
                 </View>
                 {preview.confidenceScore < 0.8 && (
-                  <Text className="text-yellow-300 text-xs">
+                  <Text className="text-text text-xs">
                     Confidence is below 80% — an admin will review before your profile is shared.
                   </Text>
                 )}

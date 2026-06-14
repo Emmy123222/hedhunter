@@ -25,10 +25,10 @@ export function CompanyRatingSummary({ total, average, distribution }: RatingBre
             return (
               <div key={star} className="flex items-center gap-2.5">
                 <span className="font-mono text-[10px] w-3 flex-none" style={{ color: "#64748b" }}>{star}</span>
-                <Star size={10} style={{ color: "#f5c518", flexShrink: 0 }} fill="#f5c518"/>
+                <Star size={10} style={{ color: "#0f172a", flexShrink: 0 }} fill="#0f172a"/>
                 <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(0,0,0,.07)" }}>
                   <div className="h-full rounded-full transition-all duration-500"
-                    style={{ width: `${pct}%`, background: "#f5c518" }}/>
+                    style={{ width: `${pct}%`, background: "#0f172a" }}/>
                 </div>
                 <span className="font-mono text-[10px] w-5 text-right flex-none" style={{ color: "#94a3b8" }}>{count}</span>
               </div>
@@ -44,8 +44,8 @@ function StarRow({ rating }: { rating: number }) {
   return (
     <div className="flex gap-0.5">
       {[1,2,3,4,5].map(s => (
-        <Star key={s} size={13} fill={s <= rating ? "#f5c518" : "transparent"}
-          style={{ color: s <= rating ? "#f5c518" : "#94a3b8" }}/>
+        <Star key={s} size={13} fill={s <= rating ? "#0f172a" : "transparent"}
+          style={{ color: s <= rating ? "#0f172a" : "#94a3b8" }}/>
       ))}
     </div>
   );

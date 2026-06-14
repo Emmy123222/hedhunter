@@ -98,7 +98,7 @@ export async function POST(req: NextRequest) {
             uid,
             name:              "",
             meritPledgeSigned: false,
-            status:            "PENDING",
+            status:            "APPROVED",
             averageRating:     0,
             totalRatings:      0,
             annualPaid:        false,

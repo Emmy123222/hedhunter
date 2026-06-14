@@ -57,7 +57,7 @@ export async function requireAuth(): Promise<SessionPayload> {
 
 export async function requireRole(role: UserRole): Promise<SessionPayload> {
   const session = await requireAuth();
-  if (session.role !== role) redirect(ROUTES.HOME);
+  if (session.role !== role) redirect(getRoleRedirect(session.role));
   return session;
 }
 

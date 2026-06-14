@@ -34,7 +34,7 @@ export default function SignupCompanyScreen() {
         <View className="gap-1">
           <MonoText style={{ color: "#3ce8ff" }}>Company · $100 / year</MonoText>
           <Text style={{ fontFamily: "serif", fontSize: 30, color: "#f3eee4" }}>Hire on merit</Text>
-          <Text className="text-muted text-sm">Your account will be reviewed by an admin before activation.</Text>
+          <Text className="text-muted text-sm">Your account is activated instantly upon sign-up.</Text>
         </View>
 
         <View className="gap-4">

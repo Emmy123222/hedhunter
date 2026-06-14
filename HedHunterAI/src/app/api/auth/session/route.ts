@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { adminCol, FieldValue } from "@/lib/db-admin";
-import { createSessionCookie, SESSION_COOKIE, getRoleRedirect } from "@/lib/auth";
+import { createSessionCookie, verifySessionCookie, SESSION_COOKIE, getRoleRedirect } from "@/lib/auth";
 import type { UserRole } from "@/types/user";
 
 // Verify Firebase ID token via REST (works without service account private key)
@@ -26,8 +26,16 @@ export async function POST(req: NextRequest) {
 
     const { uid, email } = await verifyIdToken(body.token);
 
-    // Try to get existing role from Firestore; fall back to requested role
-    let role: UserRole = (body.role as UserRole) ?? "JOB_SEEKER";
+    // Read existing cookie role as a safe fallback (beats defaulting to JOB_SEEKER)
+    const existingCookieRole = await (async () => {
+      const existing = req.cookies.get(SESSION_COOKIE)?.value;
+      if (!existing) return null;
+      const parsed = await verifySessionCookie(existing);
+      return parsed?.role ?? null;
+    })();
+
+    // Try to get existing role from Firestore; fall back to existing cookie role, then requested role
+    let role: UserRole = (body.role as UserRole) ?? existingCookieRole ?? "JOB_SEEKER";
     try {
       const userSnap = await adminCol.users(uid).get();
       if (userSnap.exists) {
@@ -40,8 +48,8 @@ export async function POST(req: NextRequest) {
         });
       }
     } catch {
-      // Firestore unavailable (no service account yet) — continue with JWT-only session
-      console.warn("[session] Firestore unavailable — session created without DB sync");
+      // Firestore unavailable — preserve role from existing cookie so we don't downgrade to JOB_SEEKER
+      console.warn("[session] Firestore unavailable — using existing session role");
     }
 
     const sessionToken = await createSessionCookie({ uid, email, role });

@@ -43,7 +43,7 @@ export function CandidateRankingTable({ candidates, jobPostId }: CandidateRankin
             <tr key={c.applicationId} style={{ borderBottom: "1px solid rgba(0,0,0,.04)" }}>
               <td className="py-3 px-3">
                 <div className="flex items-center gap-1.5">
-                  {c.rank === 1 && <Trophy size={12} style={{ color: "#f5c518" }}/>}
+                  {c.rank === 1 && <Trophy size={12} style={{ color: "#0f172a" }}/>}
                   <span className="font-mono text-xs" style={{ color: c.rank <= 3 ? "#0f172a" : "#64748b" }}>#{c.rank}</span>
                 </div>
               </td>

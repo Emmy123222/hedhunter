@@ -100,11 +100,11 @@ export default function ApplicationDetailScreen() {
 
         {/* Human review notice */}
         {app.requiresHumanReview && (
-          <Card className="flex-row gap-3 items-start bg-yellow-500/10 border-yellow-500/30">
-            <Ionicons name="eye" size={20} color="#fbbf24" style={{ marginTop: 1 }} />
+          <Card className="flex-row gap-3 items-start bg-white/5 border-white/10">
+            <Ionicons name="eye" size={20} color="#f3eee4" style={{ marginTop: 1 }} />
             <View className="flex-1">
-              <Text className="text-yellow-300 font-medium text-sm">Human review in progress</Text>
-              <Text className="text-yellow-200/70 text-xs mt-0.5">
+              <Text className="text-text font-medium text-sm">Human review in progress</Text>
+              <Text className="text-subtle text-xs mt-0.5">
                 A reviewer is examining this application. Decisions are never fully automated.
               </Text>
             </View>

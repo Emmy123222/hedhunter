@@ -34,7 +34,7 @@ export default function AdminCompaniesScreen() {
     } catch { Alert.alert("Error", "Could not suspend."); }
   }
 
-  const statusColor = { PENDING: "#fbbf24", APPROVED: "#4ade80", SUSPENDED: "#f87171" };
+  const statusColor = { PENDING: "#f3eee4", APPROVED: "#4ade80", SUSPENDED: "#f87171" };
 
   return (
     <Screen scroll={false} padded={false}>

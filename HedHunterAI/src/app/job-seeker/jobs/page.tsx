@@ -4,7 +4,7 @@ import { DashboardShell } from "@/components/layout/DashboardShell";
 import { Card } from "@/components/ui/Card";
 import { ButtonLink } from "@/components/ui/Button";
 import { formatCurrency } from "@/utils/formatCurrency";
-import { MapPin, ArrowRight, Star, Shield } from "lucide-react";
+import { MapPin, ArrowRight, Star } from "lucide-react";
 
 export default async function JobBoard() {
   await requireJobSeeker();
@@ -28,12 +28,6 @@ export default async function JobBoard() {
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
                   <h3 className="font-medium text-[#0f172a]" style={{ fontSize:16 }}>{job.title}</h3>
-                  {job.company.meritPledgeSigned && (
-                    <span className="inline-flex items-center gap-1 text-[9.5px] font-mono tracking-widest uppercase px-1.5 py-0.5 rounded"
-                      style={{ background:"rgba(61,220,151,.09)", color:"#3ddc97", border:"1px solid rgba(61,220,151,.22)" }}>
-                      <Shield size={10}/>Merit Pledge
-                    </span>
-                  )}
                 </div>
                 <p className="text-sm mb-3" style={{ color:"#64748b" }}>{job.company.name}</p>
                 <div className="flex flex-wrap gap-4 text-xs" style={{ color:"#64748b" }}>

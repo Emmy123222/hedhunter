@@ -3,6 +3,7 @@ import { Footer } from "@/components/layout/Footer";
 import { HowItWorks } from "@/components/landing/HowItWorks";
 import { Card } from "@/components/ui/Card";
 import { ShieldCheck, Cpu, Eye } from "lucide-react";
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "How It Works" };
@@ -17,7 +18,17 @@ export default function HowItWorksPage() {
   return (
     <div className="min-h-screen" style={{ background: "#ffffff", color: "#0f172a" }}>
       <Navbar />
-      <div className="relative z-10 pt-20 pb-4 text-center px-6">
+      <div className="flex justify-center pt-12 pb-2 px-6">
+        <Image
+          src="/HedHunhterAi 1.png"
+          alt="HedHunter AI"
+          width={320}
+          height={320}
+          priority
+          style={{ width: "100%", maxWidth: 320, height: "auto", objectFit: "contain" }}
+        />
+      </div>
+      <div className="relative z-10 pt-4 pb-4 text-center px-6">
         <p style={{ fontFamily: "JetBrains Mono,monospace", fontSize: 10.5, letterSpacing: ".18em", textTransform: "uppercase", color: "#3ce8ff" }}>Process</p>
         <h1 style={{ fontFamily: "Instrument Serif,serif", fontSize: "clamp(36px,6vw,68px)", fontWeight: 400, marginTop: 8, lineHeight: 1.05 }}>
           How it works

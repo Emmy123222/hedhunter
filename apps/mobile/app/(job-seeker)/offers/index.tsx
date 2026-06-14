@@ -59,8 +59,8 @@ export default function OffersScreen() {
                         {offer.application?.jobPost?.company?.name ?? "Company"}
                       </Text>
                     </View>
-                    <View className={`rounded-full px-2.5 py-0.5 border ${accepted ? "bg-green-500/15 border-green-500/30" : declined ? "bg-red-500/15 border-red-500/30" : "bg-yellow-500/15 border-yellow-500/30"}`}>
-                      <Text style={{ fontSize: 11, color: accepted ? "#4ade80" : declined ? "#f87171" : "#fbbf24", fontWeight: "600" }}>
+                    <View className={`rounded-full px-2.5 py-0.5 border ${accepted ? "bg-green-500/15 border-green-500/30" : declined ? "bg-red-500/15 border-red-500/30" : "bg-white/5 border-white/15"}`}>
+                      <Text style={{ fontSize: 11, color: accepted ? "#4ade80" : declined ? "#f87171" : "#f3eee4", fontWeight: "600" }}>
                         {accepted ? "Accepted" : declined ? "Declined" : "Pending"}
                       </Text>
                     </View>

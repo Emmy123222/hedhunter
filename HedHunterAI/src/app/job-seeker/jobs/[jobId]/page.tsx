@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/Badge";
 import { ApplyButton } from "./ApplyButton";
 import { notFound } from "next/navigation";
 import { formatCurrency } from "@/utils/formatCurrency";
-import { MapPin, Shield } from "lucide-react";
+import { MapPin } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Job Detail" };
@@ -29,18 +29,12 @@ export default async function JobDetailPage({ params }: { params: { jobId: strin
 
   return (
     <DashboardShell role="JOB_SEEKER" title={job.title} subtitle={comp?.name ?? ""}>
-      <div className="max-w-3xl space-y-5">
+      <div className="space-y-5">
         <Card>
           <div className="flex items-start justify-between mb-4">
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <h2 style={{ fontFamily:"Instrument Serif,serif", fontSize:24, fontWeight:400, color:"#0f172a" }}>{job.title}</h2>
-                {comp?.meritPledgeSigned && (
-                  <span className="inline-flex items-center gap-1 text-[9.5px] font-mono uppercase px-1.5 py-0.5 rounded"
-                    style={{ background:"rgba(61,220,151,.09)", color:"#3ddc97", border:"1px solid rgba(61,220,151,.22)" }}>
-                    <Shield size={10}/>Merit Pledge
-                  </span>
-                )}
               </div>
               <p className="text-sm" style={{ color:"#64748b" }}>{comp?.name} · <span className="flex-inline items-center gap-1"><MapPin size={11} style={{display:"inline"}}/>{job.location}{job.isRemote?" · Remote":""}</span></p>
             </div>
@@ -66,16 +60,7 @@ export default async function JobDetailPage({ params }: { params: { jobId: strin
           )}
           <div className="mb-5">
             <p className="font-mono text-[10.5px] tracking-widest uppercase mb-2" style={{ color:"#64748b" }}>Interview format</p>
-            <p className="text-sm mb-2" style={{ color:"#475569" }}>{questions.length} question{questions.length!==1?"s":""} · verbal answers recorded and AI-scored</p>
-            <div className="space-y-1.5">
-              {questions.map((q:any,i:number) => (
-                <div key={q.id} className="flex items-center gap-2 text-xs p-2.5 rounded-lg" style={{ background:"rgba(255,255,255,.03)", border:"1px solid rgba(0,0,0,.06)" }}>
-                  <span className="font-mono w-5 text-center" style={{ color:"#94a3b8" }}>{i+1}</span>
-                  <span style={{ color:"#475569" }}>{q.questionText}</span>
-                  <span className="ml-auto font-mono" style={{ color:"#94a3b8" }}>{q.timeLimitSec}s</span>
-                </div>
-              ))}
-            </div>
+            <p className="text-sm" style={{ color:"#475569" }}>{questions.length} question{questions.length!==1?"s":""} · verbal answers recorded and AI-scored · one question at a time with countdown timer</p>
           </div>
           {alreadyApplied ? (
             <Badge color="good">Already applied</Badge>

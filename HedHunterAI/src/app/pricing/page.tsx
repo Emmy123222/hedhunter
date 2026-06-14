@@ -2,6 +2,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PricingCards } from "@/components/landing/PricingCards";
 import { Card } from "@/components/ui/Card";
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Pricing" };
@@ -18,6 +19,16 @@ export default function PricingPage() {
   return (
     <div className="min-h-screen" style={{ background: "#ffffff", color: "#0f172a" }}>
       <Navbar />
+      <div className="flex justify-center pt-12 pb-2 px-6">
+        <Image
+          src="/HedHunhterAi 1.png"
+          alt="HedHunter AI"
+          width={320}
+          height={320}
+          priority
+          style={{ width: "100%", maxWidth: 320, height: "auto", objectFit: "contain" }}
+        />
+      </div>
       <PricingCards />
       <section className="relative z-10 pb-24">
         <div className="max-w-3xl mx-auto px-6">

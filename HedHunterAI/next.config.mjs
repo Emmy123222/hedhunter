@@ -4,6 +4,7 @@ const nextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "*.supabase.co" },
       { protocol: "https", hostname: "*.amazonaws.com" },
+      { protocol: "https", hostname: "res.cloudinary.com" },
     ],
   },
   experimental: { serverActions: { allowedOrigins: ["localhost:3000"] } },

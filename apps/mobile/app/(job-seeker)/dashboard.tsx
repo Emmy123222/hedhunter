@@ -48,7 +48,7 @@ export default function JobSeekerDashboard() {
         {[
           { label: "Applied",  value: stats.total,  color: "#5b8def" },
           { label: "Active",   value: stats.active, color: "#3ce8ff" },
-          { label: "Offers",   value: stats.offers, color: "#f5a524" },
+          { label: "Offers",   value: stats.offers, color: "#f3eee4" },
           { label: "Hired",    value: stats.hired,  color: "#4ade80" },
         ].map(s => (
           <Card key={s.label} className="flex-1 items-center py-3 px-0">
@@ -78,7 +78,7 @@ export default function JobSeekerDashboard() {
       </View>
 
       {/* Recent applications */}
-      <Text className="text-subtle text-sm font-medium mb-3">Recent applications</Text>
+      <Text className="text-text text-sm font-medium mb-3">Recent applications</Text>
       {loading ? (
         <ActivityIndicator color="#3ce8ff" />
       ) : applications.length === 0 ? (

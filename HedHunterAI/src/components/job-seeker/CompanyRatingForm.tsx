@@ -54,8 +54,8 @@ export function CompanyRatingForm({ companyId, companyName, onSubmit }: CompanyR
           {[1,2,3,4,5].map(n => (
             <button key={n} onClick={() => setRating(n)} onMouseEnter={() => setHover(n)} onMouseLeave={() => setHover(0)}
               className="transition-transform hover:scale-110">
-              <Star size={28} fill={(hover || rating) >= n ? "#f5a524" : "transparent"}
-                style={{ color: (hover || rating) >= n ? "#f5a524" : "#94a3b8" }} />
+              <Star size={28} fill={(hover || rating) >= n ? "#0f172a" : "transparent"}
+                style={{ color: (hover || rating) >= n ? "#0f172a" : "#94a3b8" }} />
             </button>
           ))}
         </div>

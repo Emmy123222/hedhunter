@@ -5,7 +5,7 @@ import { STATUS_COLORS } from "@/lib/constants";
 const COLOR_MAP = {
   cyan:  {bg:"rgba(60,232,255,.09)",text:"#3ce8ff",border:"rgba(60,232,255,.22)"},
   good:  {bg:"rgba(61,220,151,.09)",text:"#3ddc97",border:"rgba(61,220,151,.22)"},
-  warn:  {bg:"rgba(245,165,36,.09)",text:"#f5a524",border:"rgba(245,165,36,.22)"},
+  warn:  {bg:"rgba(126,138,163,.09)",text:"#0f172a",border:"rgba(126,138,163,.2)"},
   danger:{bg:"rgba(255,94,94,.09)", text:"#ff5e5e",border:"rgba(255,94,94,.22)"},
   accent:{bg:"rgba(91,141,239,.12)",text:"#5b8def",border:"rgba(91,141,239,.3)"},
   muted: {bg:"rgba(126,138,163,.09)",text:"#64748b",border:"rgba(126,138,163,.2)"},

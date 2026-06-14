@@ -13,10 +13,10 @@ const ACTION_COLOR: Record<string, string> = {
   ANSWER_SCORED:        "#5b8def",
   CANDIDATE_HIRED:      "#4ade80",
   CANDIDATE_REJECTED:   "#f87171",
-  PAYMENT_CHARGED:      "#fbbf24",
+  PAYMENT_CHARGED:      "#f3eee4",
   IDENTITY_UNSEALED:    "#c084fc",
   QUESTION_FLAGGED:     "#f87171",
-  APPEAL_OPENED:        "#fbbf24",
+  APPEAL_OPENED:        "#f3eee4",
   ADMIN_OVERRIDE:       "#ef4444",
 };
 
@@ -80,7 +80,7 @@ export default function AuditLogsScreen() {
               </View>
               <View className="flex-row gap-3">
                 {l.confidence != null && (
-                  <MonoText style={{ fontSize: 9, color: l.confidence >= 0.8 ? "#4ade80" : "#fbbf24" }}>
+                  <MonoText style={{ fontSize: 9, color: l.confidence >= 0.8 ? "#4ade80" : "#f3eee4" }}>
                     conf: {Math.round(l.confidence * 100)}%
                   </MonoText>
                 )}
