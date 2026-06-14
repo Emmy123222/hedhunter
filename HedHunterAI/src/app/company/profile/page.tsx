@@ -30,6 +30,7 @@ export default async function CompanyProfilePage() {
             city: profile.city, state: profile.state,
             county: profile.county, zipCode: profile.zipCode,
             annualRevenue: profile.annualRevenue, meritPledgeSigned: profile.meritPledgeSigned,
+            logoUrl: profile.logoUrl,
           } : undefined} />
         </div>
         <div>

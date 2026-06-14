@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { MeritPledgeCheckbox } from "./MeritPledgeCheckbox";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const INDUSTRIES = [
   "Accounting & Tax Services",
@@ -80,6 +81,7 @@ interface CompanyProfileFormProps {
     phone?: string;
     city?: string; state?: string; county?: string; zipCode?: string;
     annualRevenue?: string; meritPledgeSigned?: boolean;
+    logoUrl?: string;
   };
 }
 
@@ -99,13 +101,36 @@ export function CompanyProfileForm({ initialData }: CompanyProfileFormProps) {
     annualRevenue:    initialData?.annualRevenue    ?? "",
     meritPledgeSigned: initialData?.meritPledgeSigned ?? false,
   });
-  const [saving, setSaving] = useState(false);
-  const [error,  setError]  = useState<string | null>(null);
-  const [saved,  setSaved]  = useState(false);
+  const [saving,       setSaving]       = useState(false);
+  const [error,        setError]        = useState<string | null>(null);
+  const [saved,        setSaved]        = useState(false);
+  const [logoUrl,      setLogoUrl]      = useState<string | null>(initialData?.logoUrl ?? null);
+  const [logoUploading, setLogoUploading] = useState(false);
+  const [logoError,    setLogoError]    = useState<string | null>(null);
+  const logoInputRef = useRef<HTMLInputElement>(null);
 
   const set = (k: string) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => setForm(p => ({ ...p, [k]: e.target.value }));
+
+  async function handleLogoUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setLogoUploading(true); setLogoError(null);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const res = await fetch("/api/company/logo", { method: "POST", body: fd });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Upload failed");
+      setLogoUrl(data.url);
+    } catch (e: any) {
+      setLogoError(e.message ?? "Upload failed");
+    } finally {
+      setLogoUploading(false);
+      if (logoInputRef.current) logoInputRef.current.value = "";
+    }
+  }
 
   async function handleSave() {
     if (!form.meritPledgeSigned) {
@@ -133,6 +158,32 @@ export function CompanyProfileForm({ initialData }: CompanyProfileFormProps) {
 
   return (
     <div className="space-y-5 max-w-lg">
+      {/* Company logo */}
+      <div>
+        <p className="font-mono text-[10.5px] tracking-[.16em] uppercase mb-3" style={{ color: "#64748b" }}>Company Logo</p>
+        <div className="flex items-center gap-4">
+          <div className="w-20 h-20 rounded-xl flex items-center justify-center flex-none overflow-hidden"
+            style={{ background: "#f5f7fa", border: "1px solid rgba(0,0,0,.08)" }}>
+            {logoUrl
+              ? <Image src={logoUrl} alt="Company logo" width={80} height={80} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+              : <span className="text-2xl" style={{ color: "#cbd5e1" }}>🏢</span>
+            }
+          </div>
+          <div className="flex-1">
+            <input ref={logoInputRef} type="file" accept="image/jpeg,image/png,image/webp,image/svg+xml"
+              className="hidden" onChange={handleLogoUpload} />
+            <button type="button" disabled={logoUploading}
+              onClick={() => logoInputRef.current?.click()}
+              className="text-sm px-4 py-2 rounded-lg transition-all"
+              style={{ background: "#f5f7fa", border: "1px solid rgba(0,0,0,.08)", color: "#0f172a", opacity: logoUploading ? 0.6 : 1 }}>
+              {logoUploading ? "Uploading…" : logoUrl ? "Change logo" : "Upload logo"}
+            </button>
+            <p className="text-xs mt-1.5" style={{ color: "#94a3b8" }}>JPG, PNG, WebP or SVG · max 2MB</p>
+            {logoError && <p className="text-xs mt-1" style={{ color: "#ff5e5e" }}>{logoError}</p>}
+          </div>
+        </div>
+      </div>
+
       <Input label="Company name" value={form.name} onChange={set("name")} required />
 
       {/* Industry */}

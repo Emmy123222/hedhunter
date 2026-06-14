@@ -49,6 +49,17 @@ function extractPublicId(url: string): string {
   return match ? `hed-hunter/${match[1]}` : url;
 }
 
+export async function uploadImage(params: { key: string; body: Buffer; contentType: string }): Promise<string> {
+  const result = await new Promise<any>((resolve, reject) => {
+    const uploadStream = cloudinary.uploader.upload_stream(
+      { public_id: params.key.replace(/\//g, "__").replace(/\.[^.]+$/, ""), resource_type: "image", folder: "hed-hunter", access_mode: "public" },
+      (error, result) => { if (error) reject(error); else resolve(result); }
+    );
+    uploadStream.end(params.body);
+  });
+  return result.secure_url as string;
+}
+
 export function buildDocumentKey(uid: string, type: "resume" | "cover-letter" | "audio", filename: string): string {
   return `${type}s/${uid}/${Date.now()}-${filename}`;
 }
