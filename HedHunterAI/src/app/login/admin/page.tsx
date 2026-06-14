@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { firebaseAuth } from "@/lib/firebase";
 import { Logo } from "@/components/ui/Logo";
+import Image from "next/image";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -40,6 +41,7 @@ export default function AdminLoginPage() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4" style={{ background: "#ffffff" }}>
       <div className="mb-8 text-center">
+        <Image src="/HedHunhterAi 1.png" alt="HedHunter AI" width={200} height={200} style={{ width: "100%", maxWidth: 200, height: "auto", objectFit: "contain", margin: "0 auto 12px" }} />
         <Logo height={76} href="/" />
         <p className="mt-3 text-sm font-mono" style={{ color: "#64748b" }}>Admin access</p>
       </div>
