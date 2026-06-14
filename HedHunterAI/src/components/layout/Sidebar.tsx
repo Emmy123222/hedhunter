@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { clsx } from "clsx";
-import { LayoutDashboard,Briefcase,FileText,Mic,CheckSquare,Gift,Star,Users,Building2,Settings,DollarSign,ShieldAlert,Flag,ScrollText,Search } from "lucide-react";
+import { LayoutDashboard,Briefcase,FileText,Mic,CheckSquare,Gift,Star,Users,Building2,Settings,DollarSign,ShieldAlert,Flag,ScrollText,Search,Trash2 } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import type { UserRole } from "@/types/user";
 
@@ -64,6 +64,14 @@ export function Sidebar({role}:{role:UserRole}) {
           </Link>
         );
       })}
+      {role==="COMPANY"&&(
+        <button
+          className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm w-full transition-all duration-200 hover:bg-red-50"
+          style={{color:"#ef4444"}}>
+          <Trash2 size={16}/>
+          Delete Account
+        </button>
+      )}
     </aside>
   );
 }
