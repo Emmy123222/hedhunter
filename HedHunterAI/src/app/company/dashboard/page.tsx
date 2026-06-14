@@ -18,17 +18,23 @@ export default async function CompanyDashboard() {
   const profile = profileSnap.data();
   if (!profile) return <div className="p-8 text-[#64748b]">Profile not found. Please complete onboarding.</div>;
 
+  // Payment = instant approval. If annualPaid is true, status must be APPROVED.
+  const effectiveStatus = profile.annualPaid ? "APPROVED" : (profile.status ?? "PENDING");
+  if (profile.annualPaid && profile.status !== "APPROVED") {
+    adminCol.companyProfiles(session.uid).update({ status: "APPROVED" }).catch(() => {});
+  }
+
   const jobs = jobsSnap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a:any,b:any)=>(b.createdAt?.seconds??0)-(a.createdAt?.seconds??0)).slice(0,5) as any[];
 
   const stats = [
     { label:"Active Jobs",      value: jobs.filter((j:any) => j.isActive).length, icon:<Briefcase size={18}/>, color:"#0a0303ff" },
     { label:"Total Applicants", value: "—", icon:<Users size={18}/>, color:"#0f172a" },
     { label:"Rating",           value: (profile.averageRating ?? 0).toFixed(1)+"★", icon:<Star size={18}/>, color:"#0f172a" },
-    { label:"Status",           value: profile.status, icon:<DollarSign size={18}/>, color:"#0f172a" },
+    { label:"Status",           value: effectiveStatus, icon:<DollarSign size={18}/>, color:"#0f172a" },
   ];
 
   return (
-    <DashboardShell role="COMPANY" title="Dashboard" subtitle={`${profile.name || "Your Company"} · ${profile.status}`}
+    <DashboardShell role="COMPANY" title="Dashboard" subtitle={`${profile.name || "Your Company"} · ${effectiveStatus}`}
       action={<ButtonLink href="/company/jobs/create" variant="accent"><Plus size={14}/>Post a Job</ButtonLink>}>
       <div className="grid gap-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
