@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { clsx } from "clsx";
+import { useState } from "react";
 import { LayoutDashboard,Briefcase,FileText,Mic,CheckSquare,Gift,Star,Users,Building2,Settings,DollarSign,ShieldAlert,Flag,ScrollText,Search,Trash2 } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import type { UserRole } from "@/types/user";
@@ -38,40 +39,88 @@ const AD_NAV: NavItem[] = [
 ];
 
 export function Sidebar({role}:{role:UserRole}) {
-  const path = usePathname();
-  const nav  = role==="ADMIN"?AD_NAV:role==="COMPANY"?CO_NAV:JS_NAV;
+  const path   = usePathname();
+  const router = useRouter();
+  const nav    = role==="ADMIN"?AD_NAV:role==="COMPANY"?CO_NAV:JS_NAV;
+
+  const [confirm,   setConfirm]   = useState(false);
+  const [deleting,  setDeleting]  = useState(false);
+  const [delError,  setDelError]  = useState<string|null>(null);
+
+  async function handleDelete() {
+    setDeleting(true); setDelError(null);
+    try {
+      const res = await fetch("/api/account", { method: "DELETE" });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Delete failed");
+      router.push("/");
+    } catch (e: any) {
+      setDelError(e.message ?? "Delete failed");
+      setDeleting(false);
+    }
+  }
 
   return (
-    <aside className="w-56 flex-none flex flex-col gap-1 py-6 px-4" style={{borderRight:"1px solid rgba(0,0,0,.07)",background:"rgba(255,255,255,.01)"}}>
-      <div className="flex justify-center mb-4 pb-4" style={{borderBottom:"1px solid rgba(0,0,0,.07)"}}>
-        <Logo height={68} href="/" />
-      </div>
-      {nav.map(item=>{
-        const active = path===item.href || (item.href!=="/" && path.startsWith(item.href));
-        return (
-          <Link key={item.href} href={item.href}
-            className={clsx(
-              "flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-all duration-200",
-              active
-                ? "text-[#0f172a] bg-gradient-to-r from-[rgba(91,141,239,.14)] to-transparent border-l-2 border-[#3ce8ff] pl-2.5"
-                : "text-[#475569] hover:text-[#0f172a] hover:bg-black/[.04]"
-            )}>
-            <span className={active?"text-[#3ce8ff]":"text-[#64748b]"}>{item.icon}</span>
-            {item.label}
-            {item.count!==undefined&&(
-              <span className="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded" style={{background:active?"rgba(60,232,255,.14)":"rgba(0,0,0,.04)",color:active?"#3ce8ff":"#64748b"}}>{item.count}</span>
-            )}
-          </Link>
-        );
-      })}
-      {role==="COMPANY"&&(
-        <button
-          className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm w-full transition-all duration-200 hover:bg-red-50"
-          style={{color:"#ef4444"}}>
-          <Trash2 size={16}/>
-          Delete Account
-        </button>
+    <>
+      <aside className="w-56 flex-none flex flex-col gap-1 py-6 px-4" style={{borderRight:"1px solid rgba(0,0,0,.07)",background:"rgba(255,255,255,.01)"}}>
+        <div className="flex justify-center mb-4 pb-4" style={{borderBottom:"1px solid rgba(0,0,0,.07)"}}>
+          <Logo height={68} href="/" />
+        </div>
+        {nav.map(item=>{
+          const active = path===item.href || (item.href!=="/" && path.startsWith(item.href));
+          return (
+            <Link key={item.href} href={item.href}
+              className={clsx(
+                "flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-all duration-200",
+                active
+                  ? "text-[#0f172a] bg-gradient-to-r from-[rgba(91,141,239,.14)] to-transparent border-l-2 border-[#3ce8ff] pl-2.5"
+                  : "text-[#475569] hover:text-[#0f172a] hover:bg-black/[.04]"
+              )}>
+              <span className={active?"text-[#3ce8ff]":"text-[#64748b]"}>{item.icon}</span>
+              {item.label}
+              {item.count!==undefined&&(
+                <span className="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded" style={{background:active?"rgba(60,232,255,.14)":"rgba(0,0,0,.04)",color:active?"#3ce8ff":"#64748b"}}>{item.count}</span>
+              )}
+            </Link>
+          );
+        })}
+        {(role==="COMPANY"||role==="JOB_SEEKER")&&(
+          <button
+            onClick={()=>{ setConfirm(true); setDelError(null); }}
+            className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm w-full transition-all duration-200 hover:bg-red-50"
+            style={{color:"#ef4444"}}>
+            <Trash2 size={16}/>
+            Delete Account
+          </button>
+        )}
+      </aside>
+
+      {/* Confirmation modal */}
+      {confirm&&(
+        <div className="fixed inset-0 z-50 flex items-center justify-center" style={{background:"rgba(0,0,0,.45)"}}>
+          <div className="bg-white rounded-2xl p-7 shadow-2xl w-full max-w-sm mx-4">
+            <h3 style={{fontFamily:"Instrument Serif,serif",fontSize:22,fontWeight:400,color:"#0f172a",marginBottom:8}}>Delete account?</h3>
+            <p className="text-sm mb-6" style={{color:"#64748b"}}>This will permanently delete your account and all associated data. This action cannot be undone.</p>
+            {delError&&<p className="text-xs mb-4" style={{color:"#ef4444"}}>{delError}</p>}
+            <div className="flex gap-3">
+              <button
+                onClick={()=>{ setConfirm(false); setDelError(null); }}
+                disabled={deleting}
+                className="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium transition-all"
+                style={{background:"#f1f5f9",color:"#475569"}}>
+                Cancel
+              </button>
+              <button
+                onClick={handleDelete}
+                disabled={deleting}
+                className="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium transition-all"
+                style={{background:"#ef4444",color:"#fff",opacity:deleting?0.6:1}}>
+                {deleting?"Deleting…":"Yes, delete"}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
-    </aside>
+    </>
   );
 }
