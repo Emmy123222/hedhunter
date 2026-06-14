@@ -2,6 +2,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Card } from "@/components/ui/Card";
 import { ShieldCheck, Scale } from "lucide-react";
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Merit Based Hiring Pledge" };
@@ -11,7 +12,17 @@ export default function MeritBasedHiringPage() {
   return (
     <div className="min-h-screen" style={{ background: "#ffffff", color: "#0f172a" }}>
       <Navbar />
-      <div className="relative z-10 max-w-4xl mx-auto px-6 py-20">
+      <div className="flex justify-center pt-12 pb-2 px-6">
+        <Image
+          src="/HedHunhterAi 1.png"
+          alt="HedHunter AI"
+          width={320}
+          height={320}
+          priority
+          style={{ width: "100%", maxWidth: 320, height: "auto", objectFit: "contain" }}
+        />
+      </div>
+      <div className="relative z-10 max-w-4xl mx-auto px-6 py-8">
         <div className="text-center mb-16">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6"
             style={{ background: "rgba(61,220,151,.1)", border: "1px solid rgba(61,220,151,.2)" }}>
