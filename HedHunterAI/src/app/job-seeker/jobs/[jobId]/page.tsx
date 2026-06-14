@@ -29,7 +29,7 @@ export default async function JobDetailPage({ params }: { params: { jobId: strin
 
   return (
     <DashboardShell role="JOB_SEEKER" title={job.title} subtitle={comp?.name ?? ""}>
-      <div className="max-w-3xl space-y-5">
+      <div className="space-y-5">
         <Card>
           <div className="flex items-start justify-between mb-4">
             <div>
