@@ -11,8 +11,8 @@ const COLS = [
 export function Footer() {
   return (
     <footer className="relative z-10 mt-20" style={{borderTop:"1px solid rgba(0,0,0,.07)",padding:"56px 0 36px"}}>
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-8">
           <div className="col-span-2 lg:col-span-1">
             <div className="mb-3"><Logo height={32} href="/" /></div>
             <p style={{fontSize:13,color:"#64748b",lineHeight:1.6,maxWidth:280}}>Merit-based employment platform. Identity stripped, skill revealed. AI-assisted, human-reviewed, audit-logged.</p>
@@ -26,7 +26,7 @@ export function Footer() {
             </div>
           ))}
         </div>
-        <div className="flex justify-between items-center flex-wrap gap-4 mt-12 pt-8" style={{borderTop:"1px solid rgba(0,0,0,.07)"}}>
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-12 pt-8" style={{borderTop:"1px solid rgba(0,0,0,.07)"}}>
           <span style={{fontFamily:"JetBrains Mono,monospace",fontSize:10.5,letterSpacing:".13em",textTransform:"uppercase",color:"#64748b"}}>© 2026 Hed Hunter AI — All systems audit-logged.</span>
           <span className="flex items-center gap-2" style={{fontFamily:"JetBrains Mono,monospace",fontSize:10.5,letterSpacing:".13em",textTransform:"uppercase",color:"#64748b"}}>
             <span className="inline-block rounded-full w-1.5 h-1.5" style={{background:"#3ddc97",boxShadow:"0 0 10px #3ddc97"}}/>All systems · operational
