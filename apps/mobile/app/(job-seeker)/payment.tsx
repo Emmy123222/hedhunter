@@ -41,8 +41,8 @@ export default function SeekerPaymentScreen() {
     <Screen scroll={false}>
       <View className="flex-1 justify-center gap-8">
         <View className="items-center gap-2">
-          <MonoText style={{ color: "#3ce8ff" }}>One-time setup</MonoText>
-          <Text style={{ fontFamily: "serif", fontSize: 32, color: "#f3eee4", textAlign: "center" }}>
+          <MonoText style={{ color: "#3a6fe0" }}>One-time setup</MonoText>
+          <Text style={{ fontFamily: "serif", fontSize: 32, color: "#0f172a", textAlign: "center" }}>
             Activate your account
           </Text>
           <Text className="text-muted text-sm text-center">
@@ -53,7 +53,7 @@ export default function SeekerPaymentScreen() {
         <Card className="gap-4">
           <View className="flex-row items-center justify-between">
             <Text className="text-text font-semibold text-lg">Job Seeker Annual</Text>
-            <Text style={{ fontFamily: "serif", fontSize: 28, color: "#3ce8ff" }}>$10</Text>
+            <Text style={{ fontFamily: "serif", fontSize: 28, color: "#3a6fe0" }}>$10</Text>
           </View>
           <View className="h-px bg-border" />
           {[

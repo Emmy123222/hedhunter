@@ -67,7 +67,7 @@ export default function CoverLetterUploadScreen() {
           <View className="gap-4">
             <Card className="flex-row gap-3 items-center bg-green-500/10 border-green-500/30">
               <Ionicons name="checkmark-circle" size={24} color="#4ade80" />
-              <Text className="text-green-300 font-medium">Cover letter uploaded</Text>
+              <Text className="text-green-700 font-medium">Cover letter uploaded</Text>
             </Card>
             <Button onPress={() => router.replace("/(job-seeker)/dashboard")} fullWidth>
               Go to dashboard →

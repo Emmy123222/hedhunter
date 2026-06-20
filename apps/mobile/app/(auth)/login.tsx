@@ -30,8 +30,8 @@ export default function LoginScreen() {
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} className="flex-1 justify-center gap-8">
         {/* Brand */}
         <View className="items-center gap-2">
-          <MonoText style={{ fontSize: 11, color: "#3ce8ff", letterSpacing: 3 }}>HED HUNTER AI</MonoText>
-          <Text style={{ fontFamily: "serif", fontSize: 34, color: "#f3eee4", letterSpacing: -0.5 }}>Sign in</Text>
+          <MonoText style={{ fontSize: 11, color: "#3a6fe0", letterSpacing: 3 }}>HED HUNTER AI</MonoText>
+          <Text style={{ fontFamily: "serif", fontSize: 34, color: "#0f172a", letterSpacing: -0.5 }}>Sign in</Text>
           <Text className="text-muted text-sm text-center">Merit-based · Anonymous · Human-reviewed</Text>
         </View>
 
@@ -69,13 +69,13 @@ export default function LoginScreen() {
         {/* Signup links */}
         <View className="gap-3">
           <Link href="/(auth)/signup-seeker" asChild>
-            <Pressable className="border border-border rounded-xl px-5 py-3 items-center active:bg-white/5">
+            <Pressable className="border border-border rounded-xl px-5 py-3 items-center active:bg-black/5">
               <Text className="text-subtle font-medium">Apply as Job Seeker →</Text>
               <MonoText style={{ marginTop: 2 }}>$10 / year · anonymous scoring</MonoText>
             </Pressable>
           </Link>
           <Link href="/(auth)/signup-company" asChild>
-            <Pressable className="border border-border rounded-xl px-5 py-3 items-center active:bg-white/5">
+            <Pressable className="border border-border rounded-xl px-5 py-3 items-center active:bg-black/5">
               <Text className="text-subtle font-medium">Hire on Merit (Company) →</Text>
               <MonoText style={{ marginTop: 2 }}>$100 / year · merit-based candidates</MonoText>
             </Pressable>

@@ -61,8 +61,8 @@ export default function CreateJobScreen() {
               <Switch
                 value={row.value}
                 onValueChange={v => set(row.field, v)}
-                trackColor={{ false: "#1e2d45", true: "#3ce8ff44" }}
-                thumbColor={row.value ? "#3ce8ff" : "#7e8aa3"}
+                trackColor={{ false: "#1e2d45", true: "#3a6fe044" }}
+                thumbColor={row.value ? "#3a6fe0" : "#64748b"}
               />
             </View>
           ))}

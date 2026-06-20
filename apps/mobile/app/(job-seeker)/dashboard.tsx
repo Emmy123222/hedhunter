@@ -35,11 +35,11 @@ export default function JobSeekerDashboard() {
       {/* Header */}
       <View className="flex-row items-center justify-between mb-6">
         <View>
-          <MonoText style={{ color: "#3ce8ff" }}>Job Seeker</MonoText>
+          <MonoText style={{ color: "#3a6fe0" }}>Job Seeker</MonoText>
           <Text className="text-text text-2xl font-semibold mt-1">Dashboard</Text>
         </View>
         <Pressable onPress={logout} className="p-2 active:opacity-60">
-          <Ionicons name="log-out-outline" size={22} color="#7e8aa3" />
+          <Ionicons name="log-out-outline" size={22} color="#64748b" />
         </Pressable>
       </View>
 
@@ -47,8 +47,8 @@ export default function JobSeekerDashboard() {
       <View className="flex-row gap-3 mb-6">
         {[
           { label: "Applied",  value: stats.total,  color: "#5b8def" },
-          { label: "Active",   value: stats.active, color: "#3ce8ff" },
-          { label: "Offers",   value: stats.offers, color: "#f3eee4" },
+          { label: "Active",   value: stats.active, color: "#3a6fe0" },
+          { label: "Offers",   value: stats.offers, color: "#0f172a" },
           { label: "Hired",    value: stats.hired,  color: "#4ade80" },
         ].map(s => (
           <Card key={s.label} className="flex-1 items-center py-3 px-0">
@@ -71,7 +71,7 @@ export default function JobSeekerDashboard() {
             onPress={() => router.push(a.href as never)}
             className="flex-1 bg-surface border border-border rounded-2xl items-center py-4 gap-2 active:opacity-70"
           >
-            <Ionicons name={a.icon as any} size={22} color="#3ce8ff" />
+            <Ionicons name={a.icon as any} size={22} color="#3a6fe0" />
             <Text className="text-subtle text-xs text-center">{a.label}</Text>
           </Pressable>
         ))}
@@ -80,10 +80,10 @@ export default function JobSeekerDashboard() {
       {/* Recent applications */}
       <Text className="text-text text-sm font-medium mb-3">Recent applications</Text>
       {loading ? (
-        <ActivityIndicator color="#3ce8ff" />
+        <ActivityIndicator color="#3a6fe0" />
       ) : applications.length === 0 ? (
         <Card className="items-center py-8 gap-2">
-          <Ionicons name="briefcase-outline" size={32} color="#7e8aa3" />
+          <Ionicons name="briefcase-outline" size={32} color="#64748b" />
           <Text className="text-muted text-sm">No applications yet</Text>
           <Pressable onPress={() => router.push("/(job-seeker)/jobs" as never)} className="mt-1">
             <Text className="text-primary text-sm">Browse open jobs →</Text>
@@ -109,7 +109,7 @@ export default function JobSeekerDashboard() {
                 <View className="ml-3 items-end gap-1">
                   <Badge status={app.status} label={app.status.replace("_", " ")} />
                   {app.totalScore != null && (
-                    <MonoText style={{ color: "#3ce8ff" }}>{app.totalScore.toFixed(1)} / 5</MonoText>
+                    <MonoText style={{ color: "#3a6fe0" }}>{app.totalScore.toFixed(1)} / 5</MonoText>
                   )}
                 </View>
               </Card>

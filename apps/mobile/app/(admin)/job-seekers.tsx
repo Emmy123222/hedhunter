@@ -29,11 +29,11 @@ export default function AdminJobSeekersScreen() {
       <View className="px-5 pt-4">
         <Header title="Job Seekers" subtitle={`${seekers.length} registered`} />
         <View className="flex-row items-center gap-2 bg-surface border border-border rounded-xl px-3 mb-4">
-          <Ionicons name="search" size={16} color="#7e8aa3" />
+          <Ionicons name="search" size={16} color="#64748b" />
           <TextInput
             className="flex-1 py-3 text-text text-sm"
             placeholder="Search by code…"
-            placeholderTextColor="#7e8aa3"
+            placeholderTextColor="#64748b"
             value={search}
             onChangeText={setSearch}
           />
@@ -41,7 +41,7 @@ export default function AdminJobSeekersScreen() {
       </View>
 
       {loading ? (
-        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3ce8ff" size="large" /></View>
+        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3a6fe0" size="large" /></View>
       ) : (
         <FlatList
           data={filtered}
@@ -51,7 +51,7 @@ export default function AdminJobSeekersScreen() {
           renderItem={({ item: s }) => (
             <Card className="gap-2">
               <View className="flex-row items-center justify-between">
-                <MonoText style={{ color: "#3ce8ff" }}>{s.applicantCode ?? "—"}</MonoText>
+                <MonoText style={{ color: "#3a6fe0" }}>{s.applicantCode ?? "—"}</MonoText>
                 <View
                   className="rounded-full px-2.5 py-0.5 border"
                   style={s.registrationPaid
@@ -59,7 +59,7 @@ export default function AdminJobSeekersScreen() {
                     : { backgroundColor: "rgba(243,238,228,0.1)", borderColor: "rgba(243,238,228,0.2)" }
                   }
                 >
-                  <Text style={{ fontSize: 10, fontWeight: "600", color: s.registrationPaid ? "#4ade80" : "#f3eee4" }}>
+                  <Text style={{ fontSize: 10, fontWeight: "600", color: s.registrationPaid ? "#4ade80" : "#0f172a" }}>
                     {s.registrationPaid ? "PAID" : "UNPAID"}
                   </Text>
                 </View>
@@ -68,7 +68,7 @@ export default function AdminJobSeekersScreen() {
               {s.skills && s.skills.length > 0 && (
                 <View className="flex-row flex-wrap gap-1.5 mt-1">
                   {s.skills.slice(0, 4).map((skill: string) => (
-                    <View key={skill} className="bg-white/5 border border-white/10 rounded-full px-2 py-0.5">
+                    <View key={skill} className="bg-black/5 border border-black/10 rounded-full px-2 py-0.5">
                       <Text className="text-muted text-xs">{skill}</Text>
                     </View>
                   ))}

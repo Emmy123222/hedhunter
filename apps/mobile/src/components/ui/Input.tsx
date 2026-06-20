@@ -14,7 +14,7 @@ export function Input({ label, error, hint, className, ...props }: InputProps) {
       {label && <Text className="text-subtle text-sm font-medium">{label}</Text>}
       <TextInput
         {...props}
-        placeholderTextColor="#7e8aa3"
+        placeholderTextColor="#64748b"
         className={cn(
           "rounded-xl border bg-surface px-4 py-3 text-base text-text",
           error ? "border-red-500" : "border-border",

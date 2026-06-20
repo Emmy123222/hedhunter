@@ -106,7 +106,7 @@ export function InterviewRecorder({
       <Text className="text-text text-base leading-relaxed">{questionText}</Text>
 
       {phase === "recording" && (
-        <View className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+        <View className="h-1.5 bg-black/10 rounded-full overflow-hidden">
           <View className="h-full bg-red-500 rounded-full" style={{ width: `${pct}%` }} />
         </View>
       )}
@@ -114,7 +114,7 @@ export function InterviewRecorder({
       {phase === "done" && (
         <View className="flex-row items-center gap-2 bg-green-500/10 border border-green-500/30 rounded-xl px-3 py-2">
           <Ionicons name="checkmark-circle" size={18} color="#4ade80" />
-          <Text className="text-green-300 text-sm">Answer recorded</Text>
+          <Text className="text-green-700 text-sm">Answer recorded</Text>
         </View>
       )}
 

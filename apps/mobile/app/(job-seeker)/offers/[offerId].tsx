@@ -50,7 +50,7 @@ export default function OfferDetailScreen() {
     return (
       <Screen scroll={false}>
         <Header title="Offer" showBack />
-        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3ce8ff" size="large" /></View>
+        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3a6fe0" size="large" /></View>
       </Screen>
     );
   }
@@ -68,7 +68,7 @@ export default function OfferDetailScreen() {
       <View className="gap-4 mt-2">
         <Card className="items-center gap-2 py-6">
           <Text style={{ fontSize: 48 }}>🎉</Text>
-          <Text style={{ fontFamily: "serif", fontSize: 24, color: "#f3eee4", textAlign: "center" }}>
+          <Text style={{ fontFamily: "serif", fontSize: 24, color: "#0f172a", textAlign: "center" }}>
             You've received an offer!
           </Text>
           <Text className="text-muted text-sm text-center">
@@ -84,7 +84,7 @@ export default function OfferDetailScreen() {
             { icon: "time-outline", label: "Offer received", value: formatDate(offer.createdAt) },
           ].map(row => (
             <View key={row.label} className="flex-row items-center gap-3">
-              <Ionicons name={row.icon as any} size={18} color="#3ce8ff" />
+              <Ionicons name={row.icon as any} size={18} color="#3a6fe0" />
               <View className="flex-1 flex-row justify-between">
                 <MonoText>{row.label}</MonoText>
                 <Text className="text-subtle text-sm">{row.value}</Text>

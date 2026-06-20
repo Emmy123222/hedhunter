@@ -22,8 +22,8 @@ export function TabBar({ tabs }: TabBarProps) {
             onPress={() => router.replace(tab.href as never)}
             className="flex-1 items-center py-1.5 active:opacity-70"
           >
-            <Ionicons name={active ? tab.activeIcon : tab.icon} size={22} color={active ? "#3ce8ff" : "#7e8aa3"} />
-            <Text style={{ fontSize: 10, marginTop: 2, color: active ? "#3ce8ff" : "#7e8aa3", fontWeight: active ? "600" : "400" }}>
+            <Ionicons name={active ? tab.activeIcon : tab.icon} size={22} color={active ? "#3a6fe0" : "#64748b"} />
+            <Text style={{ fontSize: 10, marginTop: 2, color: active ? "#3a6fe0" : "#64748b", fontWeight: active ? "600" : "400" }}>
               {tab.label}
             </Text>
           </Pressable>

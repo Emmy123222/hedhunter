@@ -6,12 +6,12 @@ import type { ApplicationStatus } from "@hedhunter/shared";
 type Tone = "blue" | "green" | "yellow" | "red" | "gray" | "cyan";
 
 const tones: Record<Tone, string> = {
-  blue:   "bg-blue-500/15 text-blue-300 border-blue-500/30",
-  green:  "bg-green-500/15 text-green-300 border-green-500/30",
-  yellow: "bg-white/5 text-text border-white/10",
+  blue:   "bg-blue-500/15 text-blue-600 border-blue-500/30",
+  green:  "bg-green-500/15 text-green-700 border-green-500/30",
+  yellow: "bg-black/5 text-text border-black/10",
   red:    "bg-red-500/15 text-red-300 border-red-500/30",
-  gray:   "bg-white/10 text-subtle border-white/10",
-  cyan:   "bg-cyan-500/15 text-cyan-300 border-cyan-500/30",
+  gray:   "bg-black/10 text-subtle border-black/10",
+  cyan:   "bg-cyan-500/15 text-cyan-700 border-cyan-500/30",
 };
 
 const statusTone: Record<ApplicationStatus, Tone> = {

@@ -34,12 +34,12 @@ export default function AdminSettingsScreen() {
             <Pressable
               key={item.href}
               onPress={() => router.push(item.href as never)}
-              className="flex-row items-center gap-3 px-4 py-3.5 active:bg-white/5"
-              style={i > 0 ? { borderTopWidth: 1, borderTopColor: "rgba(255,255,255,0.07)" } : {}}
+              className="flex-row items-center gap-3 px-4 py-3.5 active:bg-black/5"
+              style={i > 0 ? { borderTopWidth: 1, borderTopColor: "rgba(0,0,0,0.05)" } : {}}
             >
-              <Ionicons name={item.icon as any} size={18} color="#3ce8ff" />
+              <Ionicons name={item.icon as any} size={18} color="#3a6fe0" />
               <Text className="text-subtle flex-1">{item.label}</Text>
-              <Ionicons name="chevron-forward" size={16} color="#7e8aa3" />
+              <Ionicons name="chevron-forward" size={16} color="#64748b" />
             </Pressable>
           ))}
         </Card>
@@ -55,12 +55,12 @@ export default function AdminSettingsScreen() {
             <Pressable
               key={item.href}
               onPress={() => router.push(item.href as never)}
-              className="flex-row items-center gap-3 px-4 py-3.5 active:bg-white/5"
-              style={i > 0 ? { borderTopWidth: 1, borderTopColor: "rgba(255,255,255,0.07)" } : {}}
+              className="flex-row items-center gap-3 px-4 py-3.5 active:bg-black/5"
+              style={i > 0 ? { borderTopWidth: 1, borderTopColor: "rgba(0,0,0,0.05)" } : {}}
             >
-              <Ionicons name={item.icon as any} size={18} color="#7e8aa3" />
+              <Ionicons name={item.icon as any} size={18} color="#64748b" />
               <Text className="text-subtle flex-1">{item.label}</Text>
-              <Ionicons name="chevron-forward" size={16} color="#7e8aa3" />
+              <Ionicons name="chevron-forward" size={16} color="#64748b" />
             </Pressable>
           ))}
         </Card>

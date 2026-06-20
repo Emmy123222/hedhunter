@@ -31,10 +31,10 @@ export default function AnonymizedPreviewScreen() {
         </Card>
 
         {loading ? (
-          <View className="items-center py-12"><ActivityIndicator color="#3ce8ff" size="large" /></View>
+          <View className="items-center py-12"><ActivityIndicator color="#3a6fe0" size="large" /></View>
         ) : !preview ? (
           <Card className="items-center py-8 gap-2">
-            <Ionicons name="document-outline" size={32} color="#7e8aa3" />
+            <Ionicons name="document-outline" size={32} color="#64748b" />
             <Text className="text-muted text-sm">Upload your resume to see the anonymized preview.</Text>
           </Card>
         ) : (
@@ -56,14 +56,14 @@ export default function AnonymizedPreviewScreen() {
               <Card className="gap-2">
                 <View className="flex-row justify-between">
                   <MonoText>Anonymization confidence</MonoText>
-                  <MonoText style={{ color: preview.confidenceScore >= 0.8 ? "#4ade80" : "#f3eee4" }}>
+                  <MonoText style={{ color: preview.confidenceScore >= 0.8 ? "#4ade80" : "#0f172a" }}>
                     {Math.round(preview.confidenceScore * 100)}%
                   </MonoText>
                 </View>
-                <View className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+                <View className="h-1.5 bg-black/10 rounded-full overflow-hidden">
                   <View
                     className="h-full rounded-full"
-                    style={{ width: `${preview.confidenceScore * 100}%`, backgroundColor: preview.confidenceScore >= 0.8 ? "#4ade80" : "#f3eee4" }}
+                    style={{ width: `${preview.confidenceScore * 100}%`, backgroundColor: preview.confidenceScore >= 0.8 ? "#4ade80" : "#0f172a" }}
                   />
                 </View>
                 {preview.confidenceScore < 0.8 && (

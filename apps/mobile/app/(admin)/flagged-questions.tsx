@@ -32,7 +32,7 @@ export default function FlaggedQuestionsScreen() {
         <Header title="Flagged Questions" subtitle="Possible bias detected" showBack />
       </View>
       {loading ? (
-        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3ce8ff" size="large" /></View>
+        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3a6fe0" size="large" /></View>
       ) : (
         <FlatList
           data={flags}
@@ -47,7 +47,7 @@ export default function FlaggedQuestionsScreen() {
           renderItem={({ item: f }) => (
             <Card className="gap-3" style={f.isResolved ? { opacity: 0.5 } : {}}>
               <View className="flex-row items-start gap-3">
-                <Ionicons name="flag" size={16} color={f.isResolved ? "#7e8aa3" : "#f87171"} style={{ marginTop: 2 }} />
+                <Ionicons name="flag" size={16} color={f.isResolved ? "#64748b" : "#f87171"} style={{ marginTop: 2 }} />
                 <View className="flex-1">
                   <Text className="text-text text-sm leading-relaxed">"{f.questionText}"</Text>
                   <Text className="text-red-400 text-xs mt-1">{f.flagReason}</Text>
@@ -57,7 +57,7 @@ export default function FlaggedQuestionsScreen() {
                 <MonoText>{formatDate(f.createdAt)}</MonoText>
                 {!f.isResolved && (
                   <Pressable onPress={() => resolve(f.id)} className="bg-green-500/15 border border-green-500/30 rounded-lg px-3 py-1.5 active:opacity-70">
-                    <Text className="text-green-300 text-xs font-medium">Mark resolved</Text>
+                    <Text className="text-green-700 text-xs font-medium">Mark resolved</Text>
                   </Pressable>
                 )}
                 {f.isResolved && <MonoText style={{ color: "#4ade80" }}>Resolved</MonoText>}

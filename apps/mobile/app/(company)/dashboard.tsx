@@ -7,16 +7,17 @@ import { Card } from "@/components/ui/Card";
 import { Header } from "@/components/layout/Header";
 import { MonoText } from "@/components/ui/MonoText";
 import { useAuth } from "@/contexts/AuthContext";
-import { jobsApi, applicationsApi } from "@/lib/api";
+import { jobsApi, applicationsApi, companyApi } from "@/lib/api";
 
 export default function CompanyDashboard() {
   const { logout } = useAuth();
   const [stats, setStats] = useState({ jobs: 0, candidates: 0, shortlisted: 0, hired: 0 });
   const [loading, setLoading] = useState(true);
+  const [profile, setProfile] = useState<Record<string, any> | null>(null);
 
   useEffect(() => {
-    Promise.all([jobsApi.listMine(), applicationsApi.list()])
-      .then(([jobsRes, appsRes]) => {
+    Promise.all([jobsApi.listMine(), applicationsApi.list(), companyApi.getProfile()])
+      .then(([jobsRes, appsRes, profileRes]) => {
         const jobs = jobsRes.data.jobs ?? [];
         const apps = appsRes.data ?? [];
         setStats({
@@ -25,6 +26,7 @@ export default function CompanyDashboard() {
           shortlisted: apps.filter((a: any) => a.status === "SHORTLISTED").length,
           hired:       apps.filter((a: any) => a.status === "HIRED").length,
         });
+        setProfile(profileRes.data.profile ?? null);
       })
       .catch(() => {})
       .finally(() => setLoading(false));
@@ -38,16 +40,37 @@ export default function CompanyDashboard() {
           <Text className="text-text text-2xl font-semibold mt-1">Dashboard</Text>
         </View>
         <Pressable onPress={logout} className="p-2 active:opacity-60">
-          <Ionicons name="log-out-outline" size={22} color="#7e8aa3" />
+          <Ionicons name="log-out-outline" size={22} color="#64748b" />
         </Pressable>
       </View>
 
-      {loading ? <ActivityIndicator color="#3ce8ff" /> : (
+      {/* Account status */}
+      {profile && (() => {
+        const effectiveStatus = profile.annualPaid ? "APPROVED" : (profile.status ?? "PENDING");
+        const statusColor = effectiveStatus === "APPROVED" ? "#4ade80" : effectiveStatus === "SUSPENDED" ? "#f87171" : "#0f172a";
+        const statusIcon  = effectiveStatus === "APPROVED" ? "checkmark-circle" : effectiveStatus === "SUSPENDED" ? "close-circle" : "time";
+        return (
+          <Card className="flex-row items-center gap-3 mb-4">
+            <Ionicons name={statusIcon as any} size={18} color={statusColor} />
+            <View>
+              <Text className="text-muted text-xs">Account status</Text>
+              <MonoText style={{ color: statusColor, fontSize: 12 }}>{effectiveStatus}</MonoText>
+            </View>
+            {effectiveStatus !== "APPROVED" && (
+              <Pressable onPress={() => router.push("/(company)/payment" as never)} className="ml-auto">
+                <Text style={{ color: "#5b8def", fontSize: 12 }}>Activate →</Text>
+              </Pressable>
+            )}
+          </Card>
+        );
+      })()}
+
+      {loading ? <ActivityIndicator color="#3a6fe0" /> : (
         <View className="flex-row flex-wrap gap-3 mb-6">
           {[
-            { label: "Jobs",        value: stats.jobs,        color: "#f3eee4" },
-            { label: "Candidates",  value: stats.candidates,  color: "#f3eee4" },
-            { label: "Shortlisted", value: stats.shortlisted, color: "#f3eee4" },
+            { label: "Jobs",        value: stats.jobs,        color: "#0f172a" },
+            { label: "Candidates",  value: stats.candidates,  color: "#0f172a" },
+            { label: "Shortlisted", value: stats.shortlisted, color: "#0f172a" },
             { label: "Hired",       value: stats.hired,       color: "#4ade80" },
           ].map(s => (
             <Card key={s.label} className="flex-1 min-w-[44%] items-center py-4 px-0">
@@ -71,9 +94,9 @@ export default function CompanyDashboard() {
             onPress={() => router.push(a.href as never)}
             className="flex-row items-center gap-4 bg-surface border border-border rounded-2xl px-4 py-3.5 active:opacity-70"
           >
-            <Ionicons name={a.icon as any} size={22} color="#3ce8ff" />
+            <Ionicons name={a.icon as any} size={22} color="#3a6fe0" />
             <Text className="text-subtle font-medium">{a.label}</Text>
-            <Ionicons name="chevron-forward" size={16} color="#7e8aa3" style={{ marginLeft: "auto" }} />
+            <Ionicons name="chevron-forward" size={16} color="#64748b" style={{ marginLeft: "auto" }} />
           </Pressable>
         ))}
       </View>
@@ -82,8 +105,8 @@ export default function CompanyDashboard() {
       <Card className="flex-row gap-3 items-start bg-green-500/10 border-green-500/30">
         <Ionicons name="ribbon" size={20} color="#4ade80" style={{ marginTop: 1 }} />
         <View className="flex-1">
-          <Text className="text-green-300 font-medium text-sm">Merit Pledge active</Text>
-          <Text className="text-green-200/60 text-xs mt-0.5">
+          <Text className="text-green-700 font-medium text-sm">Merit Pledge active</Text>
+          <Text className="text-green-600/80 text-xs mt-0.5">
             You're committed to evaluating candidates solely on merit. All hires require human review.
           </Text>
         </View>

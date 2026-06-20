@@ -30,7 +30,7 @@ export default function ApplicationsScreen() {
 
       {loading ? (
         <View className="flex-1 items-center justify-center">
-          <ActivityIndicator color="#3ce8ff" size="large" />
+          <ActivityIndicator color="#3a6fe0" size="large" />
         </View>
       ) : (
         <FlatList
@@ -40,7 +40,7 @@ export default function ApplicationsScreen() {
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={
             <View className="items-center py-16 gap-3">
-              <Ionicons name="document-text-outline" size={40} color="#7e8aa3" />
+              <Ionicons name="document-text-outline" size={40} color="#64748b" />
               <Text className="text-muted">No applications yet</Text>
               <Pressable onPress={() => router.push("/(job-seeker)/jobs" as never)}>
                 <Text className="text-primary text-sm">Browse jobs →</Text>
@@ -63,7 +63,7 @@ export default function ApplicationsScreen() {
                   {app.totalScore != null ? (
                     <View className="flex-row items-center gap-1.5">
                       <MonoText>Merit score</MonoText>
-                      <Text style={{ color: "#3ce8ff", fontFamily: "monospace", fontSize: 14, fontWeight: "700" }}>
+                      <Text style={{ color: "#3a6fe0", fontFamily: "monospace", fontSize: 14, fontWeight: "700" }}>
                         {app.totalScore.toFixed(1)}/5
                       </Text>
                     </View>
@@ -73,8 +73,8 @@ export default function ApplicationsScreen() {
                 </View>
 
                 {app.requiresHumanReview && (
-                  <View className="flex-row gap-2 items-center bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5">
-                    <Ionicons name="eye" size={14} color="#f3eee4" />
+                  <View className="flex-row gap-2 items-center bg-black/5 border border-black/10 rounded-lg px-2.5 py-1.5">
+                    <Ionicons name="eye" size={14} color="#0f172a" />
                     <Text className="text-text text-xs">Under human review</Text>
                   </View>
                 )}

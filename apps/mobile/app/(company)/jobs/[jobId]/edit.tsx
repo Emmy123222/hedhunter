@@ -75,7 +75,7 @@ export default function EditJobScreen() {
     return (
       <Screen scroll={false}>
         <Header title="Edit Job" showBack />
-        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3ce8ff" size="large" /></View>
+        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3a6fe0" size="large" /></View>
       </Screen>
     );
   }
@@ -101,8 +101,8 @@ export default function EditJobScreen() {
           <Switch
             value={form.isActive}
             onValueChange={v => set("isActive", v)}
-            trackColor={{ false: "#1e2d45", true: "#3ce8ff44" }}
-            thumbColor={form.isActive ? "#3ce8ff" : "#7e8aa3"}
+            trackColor={{ false: "#1e2d45", true: "#3a6fe044" }}
+            thumbColor={form.isActive ? "#3a6fe0" : "#64748b"}
           />
         </Card>
 
@@ -118,8 +118,8 @@ export default function EditJobScreen() {
               <Switch
                 value={row.value}
                 onValueChange={v => set(row.field, v)}
-                trackColor={{ false: "#1e2d45", true: "#3ce8ff44" }}
-                thumbColor={row.value ? "#3ce8ff" : "#7e8aa3"}
+                trackColor={{ false: "#1e2d45", true: "#3a6fe044" }}
+                thumbColor={row.value ? "#3a6fe0" : "#64748b"}
               />
             </View>
           ))}

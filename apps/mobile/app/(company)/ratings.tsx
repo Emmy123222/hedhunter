@@ -31,11 +31,11 @@ export default function CompanyRatingsScreen() {
         <Header title="Company Ratings" />
         {!loading && ratings.length > 0 && (
           <Card className="flex-row items-center gap-4 mb-4">
-            <Text style={{ fontFamily: "monospace", fontSize: 40, color: "#f3eee4", fontWeight: "800" }}>{average.toFixed(1)}</Text>
+            <Text style={{ fontFamily: "monospace", fontSize: 40, color: "#0f172a", fontWeight: "800" }}>{average.toFixed(1)}</Text>
             <View>
               <View className="flex-row gap-1">
                 {[1,2,3,4,5].map(s => (
-                  <Ionicons key={s} name={s <= Math.round(average) ? "star" : "star-outline"} size={16} color="#f3eee4" />
+                  <Ionicons key={s} name={s <= Math.round(average) ? "star" : "star-outline"} size={16} color="#0f172a" />
                 ))}
               </View>
               <MonoText>{ratings.length} reviews</MonoText>
@@ -45,7 +45,7 @@ export default function CompanyRatingsScreen() {
       </View>
 
       {loading ? (
-        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3ce8ff" size="large" /></View>
+        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3a6fe0" size="large" /></View>
       ) : (
         <FlatList
           data={ratings}
@@ -53,7 +53,7 @@ export default function CompanyRatingsScreen() {
           contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 20, gap: 12 }}
           ListEmptyComponent={
             <View className="items-center py-16 gap-3">
-              <Ionicons name="star-outline" size={40} color="#7e8aa3" />
+              <Ionicons name="star-outline" size={40} color="#64748b" />
               <Text className="text-muted">No ratings yet</Text>
             </View>
           }
@@ -62,7 +62,7 @@ export default function CompanyRatingsScreen() {
               <View className="flex-row items-center justify-between">
                 <View className="flex-row gap-1">
                   {[1,2,3,4,5].map(s => (
-                    <Ionicons key={s} name={s <= r.rating ? "star" : "star-outline"} size={14} color="#f3eee4" />
+                    <Ionicons key={s} name={s <= r.rating ? "star" : "star-outline"} size={14} color="#0f172a" />
                   ))}
                 </View>
                 <MonoText>{formatDate(r.createdAt)}</MonoText>

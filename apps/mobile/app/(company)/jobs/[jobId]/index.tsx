@@ -27,7 +27,7 @@ export default function CompanyJobDetailScreen() {
     return (
       <Screen scroll={false}>
         <Header title="Job" showBack />
-        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3ce8ff" size="large" /></View>
+        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3a6fe0" size="large" /></View>
       </Screen>
     );
   }
@@ -39,23 +39,23 @@ export default function CompanyJobDetailScreen() {
       <View className="gap-4 mt-2">
         <Card className="gap-3">
           <View className="flex-row items-center gap-2 flex-wrap">
-            <View className={`rounded-full px-2.5 py-0.5 border ${job.isActive ? "bg-green-500/15 border-green-500/30" : "bg-white/10 border-white/15"}`}>
-              <Text style={{ fontSize: 11, color: job.isActive ? "#4ade80" : "#7e8aa3" }}>{job.isActive ? "Active" : "Closed"}</Text>
+            <View className={`rounded-full px-2.5 py-0.5 border ${job.isActive ? "bg-green-500/15 border-green-500/30" : "bg-black/10 border-black/10"}`}>
+              <Text style={{ fontSize: 11, color: job.isActive ? "#4ade80" : "#64748b" }}>{job.isActive ? "Active" : "Closed"}</Text>
             </View>
-            {job.isRemote && <MonoText style={{ color: "#3ce8ff" }}>Remote</MonoText>}
+            {job.isRemote && <MonoText style={{ color: "#3a6fe0" }}>Remote</MonoText>}
             {job.isHybrid && <MonoText style={{ color: "#5b8def" }}>Hybrid</MonoText>}
           </View>
           <View className="flex-row items-center justify-between">
             <View className="flex-row items-center gap-1.5">
-              <Ionicons name="location-outline" size={14} color="#7e8aa3" />
+              <Ionicons name="location-outline" size={14} color="#64748b" />
               <Text className="text-muted text-sm">{job.location}</Text>
             </View>
             <View className="flex-row items-center gap-1.5">
-              <Ionicons name="people-outline" size={14} color="#7e8aa3" />
+              <Ionicons name="people-outline" size={14} color="#64748b" />
               <MonoText>{job.openPositions} positions</MonoText>
             </View>
           </View>
-          <MonoText style={{ color: "#3ce8ff" }}>{formatSalary(job.salaryMin, job.salaryMax)}</MonoText>
+          <MonoText style={{ color: "#3a6fe0" }}>{formatSalary(job.salaryMin, job.salaryMax)}</MonoText>
         </Card>
 
         {/* Actions */}

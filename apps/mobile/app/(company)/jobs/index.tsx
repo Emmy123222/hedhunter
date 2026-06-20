@@ -36,7 +36,7 @@ export default function CompanyJobsScreen() {
 
       {loading ? (
         <View className="flex-1 items-center justify-center">
-          <ActivityIndicator color="#3ce8ff" size="large" />
+          <ActivityIndicator color="#3a6fe0" size="large" />
         </View>
       ) : (
         <FlatList
@@ -46,7 +46,7 @@ export default function CompanyJobsScreen() {
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={
             <View className="items-center py-16 gap-4">
-              <Ionicons name="briefcase-outline" size={40} color="#7e8aa3" />
+              <Ionicons name="briefcase-outline" size={40} color="#64748b" />
               <Text className="text-muted">No jobs posted yet</Text>
               <Button onPress={() => router.push("/(company)/jobs/create" as never)}>Post first job</Button>
             </View>
@@ -59,19 +59,19 @@ export default function CompanyJobsScreen() {
                     <Text className="text-text font-semibold" numberOfLines={1}>{job.title}</Text>
                     <Text className="text-muted text-xs mt-0.5">{job.location}</Text>
                   </View>
-                  <View className={`rounded-full px-2.5 py-0.5 border ${job.isActive ? "bg-green-500/15 border-green-500/30" : "bg-white/10 border-white/15"}`}>
-                    <Text style={{ fontSize: 11, color: job.isActive ? "#4ade80" : "#7e8aa3" }}>
+                  <View className={`rounded-full px-2.5 py-0.5 border ${job.isActive ? "bg-green-500/15 border-green-500/30" : "bg-black/10 border-black/10"}`}>
+                    <Text style={{ fontSize: 11, color: job.isActive ? "#4ade80" : "#64748b" }}>
                       {job.isActive ? "Active" : "Closed"}
                     </Text>
                   </View>
                 </View>
                 <View className="flex-row items-center justify-between">
                   <View className="flex-row gap-2">
-                    {job.isRemote && <MonoText style={{ color: "#3ce8ff" }}>Remote</MonoText>}
+                    {job.isRemote && <MonoText style={{ color: "#3a6fe0" }}>Remote</MonoText>}
                     {job.isHybrid && <MonoText style={{ color: "#5b8def" }}>Hybrid</MonoText>}
                   </View>
                   <View className="flex-row items-center gap-1">
-                    <Ionicons name="people-outline" size={13} color="#7e8aa3" />
+                    <Ionicons name="people-outline" size={13} color="#64748b" />
                     <MonoText>{job.openPositions} positions</MonoText>
                   </View>
                 </View>

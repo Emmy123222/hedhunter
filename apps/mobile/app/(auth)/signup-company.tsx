@@ -32,8 +32,8 @@ export default function SignupCompanyScreen() {
     <Screen>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} className="flex-1 justify-center gap-8">
         <View className="gap-1">
-          <MonoText style={{ color: "#3ce8ff" }}>Company · $100 / year</MonoText>
-          <Text style={{ fontFamily: "serif", fontSize: 30, color: "#f3eee4" }}>Hire on merit</Text>
+          <MonoText style={{ color: "#3a6fe0" }}>Company · $100 / year</MonoText>
+          <Text style={{ fontFamily: "serif", fontSize: 30, color: "#0f172a" }}>Hire on merit</Text>
           <Text className="text-muted text-sm">Your account is activated instantly upon sign-up.</Text>
         </View>
 
@@ -61,7 +61,7 @@ export default function SignupCompanyScreen() {
             className="flex-row gap-3 items-start bg-surface border border-border rounded-xl p-4"
           >
             <View className={`w-5 h-5 rounded border mt-0.5 items-center justify-center ${pledged ? "bg-accent border-accent" : "border-border"}`}>
-              {pledged && <Text style={{ color: "#060d1a", fontSize: 12, fontWeight: "bold" }}>✓</Text>}
+              {pledged && <Text style={{ color: "#ffffff", fontSize: 12, fontWeight: "bold" }}>✓</Text>}
             </View>
             <View className="flex-1">
               <Text className="text-text text-sm font-medium">I sign the Merit Pledge</Text>

@@ -28,7 +28,7 @@ export default function ApplicationDetailScreen() {
     return (
       <Screen scroll={false}>
         <Header title="Application" showBack />
-        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3ce8ff" size="large" /></View>
+        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3a6fe0" size="large" /></View>
       </Screen>
     );
   }
@@ -59,18 +59,18 @@ export default function ApplicationDetailScreen() {
           <Card className="gap-3">
             <View className="flex-row items-center justify-between">
               <MonoText>Merit score</MonoText>
-              <Text style={{ fontFamily: "monospace", fontSize: 28, color: "#3ce8ff", fontWeight: "700" }}>
-                {app.totalScore.toFixed(1)}<Text style={{ fontSize: 14, color: "#7e8aa3" }}>/5</Text>
+              <Text style={{ fontFamily: "monospace", fontSize: 28, color: "#3a6fe0", fontWeight: "700" }}>
+                {app.totalScore.toFixed(1)}<Text style={{ fontSize: 14, color: "#64748b" }}>/5</Text>
               </Text>
             </View>
             {app.aiConfidence != null && (
               <View>
                 <View className="flex-row justify-between mb-1">
                   <MonoText>AI confidence</MonoText>
-                  <MonoText style={{ color: "#3ce8ff" }}>{Math.round(app.aiConfidence * 100)}%</MonoText>
+                  <MonoText style={{ color: "#3a6fe0" }}>{Math.round(app.aiConfidence * 100)}%</MonoText>
                 </View>
-                <View className="h-1.5 bg-white/10 rounded-full overflow-hidden">
-                  <View className="h-full rounded-full" style={{ width: `${app.aiConfidence * 100}%`, backgroundColor: "#3ce8ff" }} />
+                <View className="h-1.5 bg-black/10 rounded-full overflow-hidden">
+                  <View className="h-full rounded-full" style={{ width: `${app.aiConfidence * 100}%`, backgroundColor: "#3a6fe0" }} />
                 </View>
               </View>
             )}
@@ -85,9 +85,9 @@ export default function ApplicationDetailScreen() {
               <View key={score.id} className="gap-1.5">
                 <View className="flex-row justify-between">
                   <Text className="text-subtle text-xs">Q{i + 1}</Text>
-                  <Text style={{ color: "#3ce8ff", fontFamily: "monospace", fontSize: 12 }}>{score.score.toFixed(1)}/5</Text>
+                  <Text style={{ color: "#3a6fe0", fontFamily: "monospace", fontSize: 12 }}>{score.score.toFixed(1)}/5</Text>
                 </View>
-                <View className="h-1 bg-white/10 rounded-full overflow-hidden">
+                <View className="h-1 bg-black/10 rounded-full overflow-hidden">
                   <View className="h-full rounded-full" style={{ width: `${(score.score / 5) * 100}%`, backgroundColor: "#5b8def" }} />
                 </View>
                 {score.explanation && (
@@ -100,8 +100,8 @@ export default function ApplicationDetailScreen() {
 
         {/* Human review notice */}
         {app.requiresHumanReview && (
-          <Card className="flex-row gap-3 items-start bg-white/5 border-white/10">
-            <Ionicons name="eye" size={20} color="#f3eee4" style={{ marginTop: 1 }} />
+          <Card className="flex-row gap-3 items-start bg-black/5 border-black/10">
+            <Ionicons name="eye" size={20} color="#0f172a" style={{ marginTop: 1 }} />
             <View className="flex-1">
               <Text className="text-text font-medium text-sm">Human review in progress</Text>
               <Text className="text-subtle text-xs mt-0.5">
@@ -115,7 +115,7 @@ export default function ApplicationDetailScreen() {
         {app.accommodationRequested && (
           <Card className="flex-row gap-3 items-center bg-blue-500/10 border-blue-500/30">
             <Ionicons name="accessibility" size={18} color="#93c5fd" />
-            <Text className="text-blue-300 text-sm">Accommodation requested: {app.accommodationType}</Text>
+            <Text className="text-blue-600 text-sm">Accommodation requested: {app.accommodationType}</Text>
           </Card>
         )}
 

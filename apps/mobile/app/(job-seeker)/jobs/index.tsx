@@ -37,17 +37,17 @@ export default function JobsListScreen() {
 
         {/* Search */}
         <View className="flex-row items-center gap-2 bg-surface border border-border rounded-xl px-3 mb-3">
-          <Ionicons name="search" size={18} color="#7e8aa3" />
+          <Ionicons name="search" size={18} color="#64748b" />
           <TextInput
             className="flex-1 py-3 text-text text-base"
             placeholder="Search jobs…"
-            placeholderTextColor="#7e8aa3"
+            placeholderTextColor="#64748b"
             value={search}
             onChangeText={setSearch}
           />
           {search.length > 0 && (
             <Pressable onPress={() => setSearch("")}>
-              <Ionicons name="close-circle" size={18} color="#7e8aa3" />
+              <Ionicons name="close-circle" size={18} color="#64748b" />
             </Pressable>
           )}
         </View>
@@ -58,15 +58,15 @@ export default function JobsListScreen() {
             onPress={() => setRemote(r => !r)}
             className={`flex-row items-center gap-1.5 px-3 py-1.5 rounded-full border ${remote ? "bg-accent/15 border-accent/40" : "border-border bg-surface"}`}
           >
-            <Ionicons name="globe-outline" size={14} color={remote ? "#3ce8ff" : "#7e8aa3"} />
-            <Text style={{ color: remote ? "#3ce8ff" : "#7e8aa3", fontSize: 13 }}>Remote only</Text>
+            <Ionicons name="globe-outline" size={14} color={remote ? "#3a6fe0" : "#64748b"} />
+            <Text style={{ color: remote ? "#3a6fe0" : "#64748b", fontSize: 13 }}>Remote only</Text>
           </Pressable>
         </View>
       </View>
 
       {loading ? (
         <View className="flex-1 items-center justify-center">
-          <ActivityIndicator color="#3ce8ff" size="large" />
+          <ActivityIndicator color="#3a6fe0" size="large" />
         </View>
       ) : (
         <FlatList
@@ -76,7 +76,7 @@ export default function JobsListScreen() {
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={
             <View className="items-center py-16 gap-3">
-              <Ionicons name="briefcase-outline" size={40} color="#7e8aa3" />
+              <Ionicons name="briefcase-outline" size={40} color="#64748b" />
               <Text className="text-muted">No jobs found</Text>
             </View>
           }
@@ -90,7 +90,7 @@ export default function JobsListScreen() {
                   </View>
                   {job.company?.averageRating > 0 && (
                     <View className="flex-row items-center gap-1 ml-3">
-                      <Ionicons name="star" size={12} color="#f3eee4" />
+                      <Ionicons name="star" size={12} color="#0f172a" />
                       <Text className="text-text text-xs">{job.company.averageRating.toFixed(1)}</Text>
                     </View>
                   )}
@@ -98,17 +98,17 @@ export default function JobsListScreen() {
 
                 <View className="flex-row flex-wrap gap-2">
                   <View className="flex-row items-center gap-1">
-                    <Ionicons name="location-outline" size={13} color="#7e8aa3" />
+                    <Ionicons name="location-outline" size={13} color="#64748b" />
                     <Text className="text-muted text-xs">{job.location}</Text>
                   </View>
                   {job.isRemote && (
                     <View className="bg-cyan-500/10 border border-cyan-500/30 rounded-full px-2 py-0.5">
-                      <Text className="text-cyan-300 text-xs">Remote</Text>
+                      <Text className="text-cyan-700 text-xs">Remote</Text>
                     </View>
                   )}
                   {job.isHybrid && (
                     <View className="bg-blue-500/10 border border-blue-500/30 rounded-full px-2 py-0.5">
-                      <Text className="text-blue-300 text-xs">Hybrid</Text>
+                      <Text className="text-blue-600 text-xs">Hybrid</Text>
                     </View>
                   )}
                 </View>
@@ -116,7 +116,7 @@ export default function JobsListScreen() {
                 <View className="flex-row items-center justify-between">
                   <MonoText>{formatSalary(job.salaryMin, job.salaryMax)}</MonoText>
                   <View className="flex-row items-center gap-1">
-                    <Ionicons name="people-outline" size={13} color="#7e8aa3" />
+                    <Ionicons name="people-outline" size={13} color="#64748b" />
                     <MonoText>{job.openPositions} open</MonoText>
                   </View>
                 </View>

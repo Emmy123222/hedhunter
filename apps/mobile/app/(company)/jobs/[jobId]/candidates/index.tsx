@@ -33,7 +33,7 @@ export default function CandidatesListScreen() {
       </View>
 
       {loading ? (
-        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3ce8ff" size="large" /></View>
+        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3a6fe0" size="large" /></View>
       ) : (
         <FlatList
           data={candidates}
@@ -42,7 +42,7 @@ export default function CandidatesListScreen() {
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={
             <View className="items-center py-16 gap-3">
-              <Ionicons name="people-outline" size={40} color="#7e8aa3" />
+              <Ionicons name="people-outline" size={40} color="#64748b" />
               <Text className="text-muted">No candidates yet</Text>
             </View>
           }
@@ -56,7 +56,7 @@ export default function CandidatesListScreen() {
                       className="w-8 h-8 rounded-full items-center justify-center"
                       style={{ backgroundColor: index < 3 ? "#5b8def22" : "#ffffff0a", borderWidth: 1, borderColor: index < 3 ? "#5b8def55" : "#ffffff15" }}
                     >
-                      <Text style={{ fontSize: 12, color: index < 3 ? "#5b8def" : "#7e8aa3", fontWeight: "700" }}>#{index + 1}</Text>
+                      <Text style={{ fontSize: 12, color: index < 3 ? "#5b8def" : "#64748b", fontWeight: "700" }}>#{index + 1}</Text>
                     </View>
                     <View>
                       <Text className="text-text font-semibold">{app.anonymousCode}</Text>
@@ -65,7 +65,7 @@ export default function CandidatesListScreen() {
                   </View>
                   <View className="items-end gap-1">
                     {app.totalScore != null ? (
-                      <Text style={{ fontFamily: "monospace", fontSize: 20, color: "#3ce8ff", fontWeight: "700" }}>
+                      <Text style={{ fontFamily: "monospace", fontSize: 20, color: "#3a6fe0", fontWeight: "700" }}>
                         {app.totalScore.toFixed(1)}
                       </Text>
                     ) : (
@@ -76,8 +76,8 @@ export default function CandidatesListScreen() {
                 </View>
 
                 {app.requiresHumanReview && (
-                  <View className="flex-row gap-2 items-center bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5">
-                    <Ionicons name="eye" size={13} color="#f3eee4" />
+                  <View className="flex-row gap-2 items-center bg-black/5 border border-black/10 rounded-lg px-2.5 py-1.5">
+                    <Ionicons name="eye" size={13} color="#0f172a" />
                     <Text className="text-text text-xs">Human review flagged</Text>
                   </View>
                 )}

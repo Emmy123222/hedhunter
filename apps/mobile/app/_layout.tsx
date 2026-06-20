@@ -25,8 +25,8 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <StripeProvider publishableKey={STRIPE_KEY}>
         <AuthProvider>
-          <StatusBar style="light" backgroundColor="#060d1a" />
-          <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "#060d1a" } }}>
+          <StatusBar style="dark" backgroundColor="#ffffff" />
+          <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "#ffffff" } }}>
             <Stack.Screen name="index" />
             <Stack.Screen name="(auth)" />
             <Stack.Screen name="(job-seeker)" />

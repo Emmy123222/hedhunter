@@ -14,7 +14,7 @@ const TABS = [
 export default function JobSeekerLayout() {
   return (
     <SafeAreaView className="flex-1 bg-bg" edges={["bottom"]}>
-      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "#060d1a" } }} />
+      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "#ffffff" } }} />
       <TabBar tabs={TABS as any} />
     </SafeAreaView>
   );

@@ -31,11 +31,11 @@ export default function AdminJobsScreen() {
       <View className="px-5 pt-4">
         <Header title="All Jobs" subtitle={`${jobs.length} total`} />
         <View className="flex-row items-center gap-2 bg-surface border border-border rounded-xl px-3 mb-4">
-          <Ionicons name="search" size={16} color="#7e8aa3" />
+          <Ionicons name="search" size={16} color="#64748b" />
           <TextInput
             className="flex-1 py-3 text-text text-sm"
             placeholder="Search by title or company…"
-            placeholderTextColor="#7e8aa3"
+            placeholderTextColor="#64748b"
             value={search}
             onChangeText={setSearch}
           />
@@ -43,7 +43,7 @@ export default function AdminJobsScreen() {
       </View>
 
       {loading ? (
-        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3ce8ff" size="large" /></View>
+        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3a6fe0" size="large" /></View>
       ) : (
         <FlatList
           data={filtered}
@@ -58,10 +58,10 @@ export default function AdminJobsScreen() {
                   className="rounded-full px-2.5 py-0.5 border shrink-0"
                   style={j.isActive
                     ? { backgroundColor: "#4ade8018", borderColor: "#4ade8044" }
-                    : { backgroundColor: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.1)" }
+                    : { backgroundColor: "rgba(0,0,0,0.04)", borderColor: "rgba(0,0,0,0.07)" }
                   }
                 >
-                  <Text style={{ fontSize: 10, fontWeight: "600", color: j.isActive ? "#4ade80" : "#7e8aa3" }}>
+                  <Text style={{ fontSize: 10, fontWeight: "600", color: j.isActive ? "#4ade80" : "#64748b" }}>
                     {j.isActive ? "ACTIVE" : "CLOSED"}
                   </Text>
                 </View>

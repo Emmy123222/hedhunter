@@ -32,8 +32,8 @@ export default function SignupSeekerScreen() {
     <Screen>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} className="flex-1 justify-center gap-8">
         <View className="gap-1">
-          <MonoText style={{ color: "#3ce8ff" }}>Job Seeker · $10 / year</MonoText>
-          <Text style={{ fontFamily: "serif", fontSize: 30, color: "#f3eee4" }}>Create account</Text>
+          <MonoText style={{ color: "#3a6fe0" }}>Job Seeker · $10 / year</MonoText>
+          <Text style={{ fontFamily: "serif", fontSize: 30, color: "#0f172a" }}>Create account</Text>
           <Text className="text-muted text-sm">Your identity will be anonymized before any employer sees your application.</Text>
         </View>
 

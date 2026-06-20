@@ -27,7 +27,6 @@ export async function GET(req: NextRequest) {
   // Public job-seeker listing
   const snap = await adminCol.jobPostsCol()
     .where("isActive", "==", true)
-    .where("paymentConfirmed", "==", true)
     .get();
   let jobs = snap.docs.map(d => ({ id: d.id, ...d.data() })) as any[];
   jobs.sort((a, b) => (b.createdAt?.seconds ?? 0) - (a.createdAt?.seconds ?? 0));
