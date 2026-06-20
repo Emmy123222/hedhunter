@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Pressable, Text, TextInput, View } from "react-native";
+import { Image } from "expo-image";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Screen } from "@/components/ui/Screen";
@@ -83,17 +84,25 @@ export default function JobsListScreen() {
           renderItem={({ item: job }) => (
             <Pressable onPress={() => router.push(`/(job-seeker)/jobs/${job.id}` as never)} className="active:opacity-70">
               <Card className="gap-3">
-                <View className="flex-row items-start justify-between">
+                <View className="flex-row items-start gap-3">
+                  <View style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: "#f1f5f9", borderWidth: 1, borderColor: "rgba(0,0,0,0.07)", overflow: "hidden", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    {job.company?.logoUrl
+                      ? <Image source={{ uri: job.company.logoUrl }} style={{ width: 40, height: 40 }} contentFit="contain" />
+                      : <Ionicons name="business" size={18} color="#94a3b8" />
+                    }
+                  </View>
                   <View className="flex-1">
                     <Text className="text-text font-semibold text-base" numberOfLines={1}>{job.title}</Text>
-                    <Text className="text-muted text-sm mt-0.5">{job.company?.name ?? "Company"}</Text>
-                  </View>
-                  {job.company?.averageRating > 0 && (
-                    <View className="flex-row items-center gap-1 ml-3">
-                      <Ionicons name="star" size={12} color="#0f172a" />
-                      <Text className="text-text text-xs">{job.company.averageRating.toFixed(1)}</Text>
+                    <View className="flex-row items-center justify-between">
+                      <Text className="text-muted text-sm mt-0.5">{job.company?.name ?? "Company"}</Text>
+                      {job.company?.averageRating > 0 && (
+                        <View className="flex-row items-center gap-1">
+                          <Ionicons name="star" size={12} color="#0f172a" />
+                          <Text className="text-text text-xs">{job.company.averageRating.toFixed(1)}</Text>
+                        </View>
+                      )}
                     </View>
-                  )}
+                  </View>
                 </View>
 
                 <View className="flex-row flex-wrap gap-2">

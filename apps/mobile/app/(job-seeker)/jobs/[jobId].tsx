@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Alert, Pressable, Text, View } from "react-native";
+import { Image } from "expo-image";
 import { router, useLocalSearchParams } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Screen } from "@/components/ui/Screen";
@@ -16,17 +17,19 @@ export default function JobDetailScreen() {
   const [job, setJob]                   = useState<JobPost | null>(null);
   const [loading, setLoading]           = useState(true);
   const [applying, setApplying]         = useState(false);
-  const [registrationPaid, setRegistrationPaid] = useState(true);
+  const [registrationPaid, setRegistrationPaid] = useState(false);
   const [alreadyApplied, setAlreadyApplied]     = useState(false);
 
   useEffect(() => {
-    Promise.all([jobsApi.get(jobId), authApi.me()])
-      .then(([jobRes, meRes]) => {
-        setJob(jobRes.data.job);
-        setRegistrationPaid(meRes.data.jobSeekerProfile?.registrationPaid ?? false);
-      })
+    // Fetch job and seeker profile independently so one failure doesn't block the other
+    jobsApi.get(jobId)
+      .then(r => setJob(r.data.job ?? null))
       .catch(() => {})
       .finally(() => setLoading(false));
+
+    authApi.me()
+      .then(r => setRegistrationPaid(r.data.jobSeekerProfile?.registrationPaid ?? false))
+      .catch(() => {});
   }, [jobId]);
 
   async function handleApply() {
@@ -77,7 +80,15 @@ export default function JobDetailScreen() {
       <View className="gap-4 mt-2">
         {/* Company + meta */}
         <Card className="gap-3">
-          <Text className="text-text font-semibold text-lg">{job.company?.name ?? "Company"}</Text>
+          <View className="flex-row items-center gap-3">
+            <View style={{ width: 48, height: 48, borderRadius: 12, backgroundColor: "#f1f5f9", borderWidth: 1, borderColor: "rgba(0,0,0,0.07)", overflow: "hidden", alignItems: "center", justifyContent: "center" }}>
+              {(job as any).company?.logoUrl
+                ? <Image source={{ uri: (job as any).company.logoUrl }} style={{ width: 48, height: 48 }} contentFit="contain" />
+                : <Ionicons name="business" size={22} color="#94a3b8" />
+              }
+            </View>
+            <Text className="text-text font-semibold text-lg flex-1">{job.company?.name ?? "Company"}</Text>
+          </View>
           <View className="flex-row flex-wrap gap-3">
             <View className="flex-row items-center gap-1.5">
               <Ionicons name="location-outline" size={15} color="#64748b" />

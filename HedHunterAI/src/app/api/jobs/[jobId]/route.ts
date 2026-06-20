@@ -24,7 +24,7 @@ export async function GET(_req: Request, { params }: { params: { jobId: string }
   return NextResponse.json({
     job: {
       id: snap.id, ...jobData,
-      company: { name: comp?.name ?? "", averageRating: comp?.averageRating ?? 0 },
+      company: { name: comp?.name ?? "", averageRating: comp?.averageRating ?? 0, logoUrl: comp?.logoUrl ?? null },
     },
   });
 }
