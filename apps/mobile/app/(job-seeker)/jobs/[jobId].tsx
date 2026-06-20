@@ -16,15 +16,24 @@ export default function JobDetailScreen() {
   const { jobId } = useLocalSearchParams<{ jobId: string }>();
   const [job, setJob]                   = useState<JobPost | null>(null);
   const [loading, setLoading]           = useState(true);
+  const [fetchError, setFetchError]     = useState<string | null>(null);
   const [applying, setApplying]         = useState(false);
   const [registrationPaid, setRegistrationPaid] = useState(false);
   const [alreadyApplied, setAlreadyApplied]     = useState(false);
 
   useEffect(() => {
-    // Fetch job and seeker profile independently so one failure doesn't block the other
+    console.log("[JobDetail] fetching jobId:", jobId);
     jobsApi.get(jobId)
-      .then(r => setJob(r.data.job ?? null))
-      .catch(() => {})
+      .then(r => {
+        console.log("[JobDetail] response status ok, job:", r.data.job?.id);
+        setJob(r.data.job ?? null);
+      })
+      .catch((e: any) => {
+        const msg = e?.response?.data?.error ?? e?.message ?? "Unknown error";
+        const status = e?.response?.status ?? "no status";
+        console.error("[JobDetail] fetch failed:", status, msg);
+        setFetchError(`${status}: ${msg}`);
+      })
       .finally(() => setLoading(false));
 
     authApi.me()
@@ -69,7 +78,12 @@ export default function JobDetailScreen() {
 
   if (!job) {
     return (
-      <Screen><Header title="Not found" showBack /><Text className="text-muted">Job not found.</Text></Screen>
+      <Screen>
+        <Header title="Not found" showBack />
+        <Text className="text-muted mb-2">Job not found.</Text>
+        {fetchError && <Text style={{ color: "#ef4444", fontSize: 12, fontFamily: "monospace" }}>{fetchError}</Text>}
+        <Text style={{ color: "#94a3b8", fontSize: 11, marginTop: 8, fontFamily: "monospace" }}>jobId: {jobId}</Text>
+      </Screen>
     );
   }
 

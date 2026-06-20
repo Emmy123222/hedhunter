@@ -21,25 +21,42 @@ export default async function middleware(req: NextRequest) {
 
   if (isPublic(pathname)) return NextResponse.next();
 
-  const token = req.cookies.get(SESSION_COOKIE)?.value;
-  if (!token) return NextResponse.redirect(new URL("/login", req.url));
+  // Accept cookie-based session (web) or Bearer token (mobile)
+  const cookieToken = req.cookies.get(SESSION_COOKIE)?.value;
+  const authHeader  = req.headers.get("authorization") ?? "";
+  const bearerToken = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : null;
+  const token       = cookieToken ?? bearerToken;
+
+  // API routes with Bearer token: return 401 JSON instead of redirecting
+  if (!token) {
+    if (pathname.startsWith("/api/")) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
 
   try {
     const { payload } = await jwtVerify(token, JWT_SECRET);
     const role = payload.role as string;
 
-    if (pathname.startsWith("/admin") && role !== "ADMIN") {
-      return NextResponse.redirect(new URL("/", req.url));
-    }
-    if (pathname.startsWith("/company") && role !== "COMPANY" && role !== "ADMIN") {
-      return NextResponse.redirect(new URL("/", req.url));
-    }
-    if (pathname.startsWith("/job-seeker") && role !== "JOB_SEEKER" && role !== "ADMIN") {
-      return NextResponse.redirect(new URL("/", req.url));
+    // Page-level role guards (web only — API routes handle their own role checks)
+    if (!pathname.startsWith("/api/")) {
+      if (pathname.startsWith("/admin") && role !== "ADMIN") {
+        return NextResponse.redirect(new URL("/", req.url));
+      }
+      if (pathname.startsWith("/company") && role !== "COMPANY" && role !== "ADMIN") {
+        return NextResponse.redirect(new URL("/", req.url));
+      }
+      if (pathname.startsWith("/job-seeker") && role !== "JOB_SEEKER" && role !== "ADMIN") {
+        return NextResponse.redirect(new URL("/", req.url));
+      }
     }
 
     return NextResponse.next();
   } catch {
+    if (pathname.startsWith("/api/")) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
     const res = NextResponse.redirect(new URL("/login", req.url));
     res.cookies.delete(SESSION_COOKIE);
     return res;
