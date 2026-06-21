@@ -22,10 +22,34 @@ export default function ApplicationsScreen() {
       .finally(() => setLoading(false));
   }, []);
 
+  const submitted = applications.filter((a: any) => a.status === "SUBMITTED").length;
+  const reviewing = applications.filter((a: any) => ["REVIEWING","SHORTLISTED"].includes(a.status)).length;
+  const offers    = applications.filter((a: any) => ["OFFER_SENT","HIRED"].includes(a.status)).length;
+
   return (
     <Screen scroll={false} padded={false}>
       <View className="px-5 pt-4">
         <Header title="My Applications" />
+
+        {/* Summary stats */}
+        {!loading && (
+          <View className="flex-row gap-3 mb-4">
+            {[
+              { label: "Submitted",    value: submitted, color: "#5b8def" },
+              { label: "Under review", value: reviewing, color: "#3a6fe0" },
+              { label: "Offers",       value: offers,    color: "#4ade80" },
+            ].map(s => (
+              <View
+                key={s.label}
+                className="flex-1 items-center py-3 rounded-xl"
+                style={{ backgroundColor: "rgba(0,0,0,0.03)", borderWidth: 1, borderColor: "rgba(0,0,0,0.07)" }}
+              >
+                <Text style={{ fontSize: 26, fontWeight: "700", color: s.color }}>{s.value}</Text>
+                <MonoText style={{ fontSize: 10, marginTop: 1 }}>{s.label}</MonoText>
+              </View>
+            ))}
+          </View>
+        )}
       </View>
 
       {loading ? (
