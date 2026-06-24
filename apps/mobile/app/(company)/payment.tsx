@@ -16,7 +16,7 @@ export default function CompanyPaymentScreen() {
   async function handlePay() {
     setLoading(true);
     try {
-      const res = await stripeApi.checkout({ type: "COMPANY_ANNUAL" });
+      const res = await stripeApi.paymentIntent({ type: "COMPANY_ANNUAL" });
       const { clientSecret } = res.data;
       const { error: initError } = await initPaymentSheet({
         paymentIntentClientSecret: clientSecret,

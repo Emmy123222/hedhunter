@@ -9,6 +9,9 @@ export async function handleWebhookEvent(event: Stripe.Event): Promise<void> {
     case "checkout.session.completed":
       await handleCheckoutCompleted(event.data.object as Stripe.Checkout.Session);
       break;
+    case "payment_intent.succeeded":
+      await handlePaymentIntentSucceeded(event.data.object as Stripe.PaymentIntent);
+      break;
     case "payment_intent.payment_failed":
       await handlePaymentFailed(event.data.object as Stripe.PaymentIntent);
       break;
@@ -43,6 +46,36 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session): Promis
   const email    = userSnap.data()?.email;
   if (email) {
     const amount = sorted[0].data().amountCents;
+    await logPayment({ userId, paymentId, amount, type });
+    await sendPaymentReceiptEmail(email, { amount, type, date: formatDate(new Date()) });
+  }
+}
+
+// Handles mobile Payment Sheet completions (PaymentIntent flow)
+async function handlePaymentIntentSucceeded(intent: Stripe.PaymentIntent): Promise<void> {
+  const { userId, type } = intent.metadata ?? {};
+  if (!userId || !type) return;
+
+  const snap = await adminCol.paymentsCol()
+    .where("stripePaymentId", "==", intent.id)
+    .where("status", "==", "PENDING")
+    .get();
+  if (snap.empty) return;
+
+  const paymentRef = snap.docs[0].ref;
+  const paymentId  = snap.docs[0].id;
+  await paymentRef.update({ status: "COMPLETED" });
+
+  if (type === "SEEKER_ANNUAL") {
+    await adminCol.jobSeekerProfiles(userId).update({ registrationPaid: true, updatedAt: FieldValue.serverTimestamp() });
+  } else if (type === "COMPANY_ANNUAL") {
+    await adminCol.companyProfiles(userId).update({ annualPaid: true, status: "APPROVED", updatedAt: FieldValue.serverTimestamp() });
+  }
+
+  const userSnap = await adminCol.users(userId).get();
+  const email    = userSnap.data()?.email;
+  if (email) {
+    const amount = snap.docs[0].data().amountCents;
     await logPayment({ userId, paymentId, amount, type });
     await sendPaymentReceiptEmail(email, { amount, type, date: formatDate(new Date()) });
   }
