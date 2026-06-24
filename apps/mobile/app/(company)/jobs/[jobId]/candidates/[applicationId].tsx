@@ -46,7 +46,7 @@ export default function CandidateDetailScreen() {
     return (
       <Screen scroll={false}>
         <Header title="Candidate" showBack />
-        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3ce8ff" size="large" /></View>
+        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3a6fe0" size="large" /></View>
       </Screen>
     );
   }
@@ -64,7 +64,7 @@ export default function CandidateDetailScreen() {
           <MonoText>Merit score</MonoText>
           {app.totalScore != null ? (
             <>
-              <Text style={{ fontFamily: "monospace", fontSize: 52, color: "#3ce8ff", fontWeight: "800", lineHeight: 58 }}>
+              <Text style={{ fontFamily: "monospace", fontSize: 52, color: "#3a6fe0", fontWeight: "800", lineHeight: 58 }}>
                 {app.totalScore.toFixed(1)}
               </Text>
               <Text className="text-muted text-xs">out of 5.0</Text>
@@ -80,12 +80,12 @@ export default function CandidateDetailScreen() {
           <Card className="gap-2">
             <View className="flex-row justify-between">
               <MonoText>AI confidence</MonoText>
-              <MonoText style={{ color: app.aiConfidence >= 0.8 ? "#4ade80" : "#f3eee4" }}>
+              <MonoText style={{ color: app.aiConfidence >= 0.8 ? "#4ade80" : "#0f172a" }}>
                 {Math.round(app.aiConfidence * 100)}%
               </MonoText>
             </View>
-            <View className="h-1.5 bg-white/10 rounded-full overflow-hidden">
-              <View className="h-full rounded-full" style={{ width: `${app.aiConfidence * 100}%`, backgroundColor: app.aiConfidence >= 0.8 ? "#4ade80" : "#f3eee4" }} />
+            <View className="h-1.5 bg-black/10 rounded-full overflow-hidden">
+              <View className="h-full rounded-full" style={{ width: `${app.aiConfidence * 100}%`, backgroundColor: app.aiConfidence >= 0.8 ? "#4ade80" : "#0f172a" }} />
             </View>
           </Card>
         )}
@@ -98,9 +98,9 @@ export default function CandidateDetailScreen() {
               <View key={s.id} className="gap-2">
                 <View className="flex-row justify-between">
                   <Text className="text-subtle text-sm">Q{i + 1}</Text>
-                  <Text style={{ color: "#3ce8ff", fontFamily: "monospace", fontSize: 13, fontWeight: "700" }}>{s.score.toFixed(1)}/5</Text>
+                  <Text style={{ color: "#3a6fe0", fontFamily: "monospace", fontSize: 13, fontWeight: "700" }}>{s.score.toFixed(1)}/5</Text>
                 </View>
-                <View className="h-1 bg-white/10 rounded-full overflow-hidden">
+                <View className="h-1 bg-black/10 rounded-full overflow-hidden">
                   <View className="h-full rounded-full" style={{ width: `${(s.score / 5) * 100}%`, backgroundColor: "#5b8def" }} />
                 </View>
                 {s.strengths?.length > 0 && (
@@ -113,8 +113,8 @@ export default function CandidateDetailScreen() {
 
         {/* Flags */}
         {app.requiresHumanReview && (
-          <Card className="flex-row gap-3 items-start bg-white/5 border-white/10">
-            <Ionicons name="warning" size={18} color="#f3eee4" style={{ marginTop: 1 }} />
+          <Card className="flex-row gap-3 items-start bg-black/5 border-black/10">
+            <Ionicons name="warning" size={18} color="#0f172a" style={{ marginTop: 1 }} />
             <View className="flex-1">
               <Text className="text-text font-medium text-sm">Human review required</Text>
               <Text className="text-subtle text-xs mt-0.5">AI confidence is low. A reviewer must approve before you hire.</Text>

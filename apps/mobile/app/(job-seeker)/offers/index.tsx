@@ -29,7 +29,7 @@ export default function OffersScreen() {
 
       {loading ? (
         <View className="flex-1 items-center justify-center">
-          <ActivityIndicator color="#3ce8ff" size="large" />
+          <ActivityIndicator color="#3a6fe0" size="large" />
         </View>
       ) : (
         <FlatList
@@ -39,7 +39,7 @@ export default function OffersScreen() {
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={
             <View className="items-center py-16 gap-3">
-              <Ionicons name="gift-outline" size={40} color="#7e8aa3" />
+              <Ionicons name="gift-outline" size={40} color="#64748b" />
               <Text className="text-muted">No offers yet</Text>
               <Text className="text-muted text-xs">Offers appear here after an employer wants to hire you.</Text>
             </View>
@@ -59,15 +59,15 @@ export default function OffersScreen() {
                         {offer.application?.jobPost?.company?.name ?? "Company"}
                       </Text>
                     </View>
-                    <View className={`rounded-full px-2.5 py-0.5 border ${accepted ? "bg-green-500/15 border-green-500/30" : declined ? "bg-red-500/15 border-red-500/30" : "bg-white/5 border-white/15"}`}>
-                      <Text style={{ fontSize: 11, color: accepted ? "#4ade80" : declined ? "#f87171" : "#f3eee4", fontWeight: "600" }}>
+                    <View className={`rounded-full px-2.5 py-0.5 border ${accepted ? "bg-green-500/15 border-green-500/30" : declined ? "bg-red-500/15 border-red-500/30" : "bg-black/5 border-black/10"}`}>
+                      <Text style={{ fontSize: 11, color: accepted ? "#4ade80" : declined ? "#f87171" : "#0f172a", fontWeight: "600" }}>
                         {accepted ? "Accepted" : declined ? "Declined" : "Pending"}
                       </Text>
                     </View>
                   </View>
                   <View className="flex-row items-center justify-between">
                     <MonoText>Start {formatDate(offer.hireDate)}</MonoText>
-                    {offer.salary && <MonoText style={{ color: "#3ce8ff" }}>{formatSalary(offer.salary * 100, null)}/yr</MonoText>}
+                    {offer.salary && <MonoText style={{ color: "#3a6fe0" }}>{formatSalary(offer.salary * 100, null)}/yr</MonoText>}
                   </View>
                 </Card>
               </Pressable>

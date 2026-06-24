@@ -9,14 +9,14 @@ import { api } from "@/lib/api";
 import { formatDateTime } from "@hedhunter/shared";
 
 const ACTION_COLOR: Record<string, string> = {
-  RESUME_ANONYMIZED:    "#3ce8ff",
+  RESUME_ANONYMIZED:    "#3a6fe0",
   ANSWER_SCORED:        "#5b8def",
   CANDIDATE_HIRED:      "#4ade80",
   CANDIDATE_REJECTED:   "#f87171",
-  PAYMENT_CHARGED:      "#f3eee4",
+  PAYMENT_CHARGED:      "#0f172a",
   IDENTITY_UNSEALED:    "#c084fc",
   QUESTION_FLAGGED:     "#f87171",
-  APPEAL_OPENED:        "#f3eee4",
+  APPEAL_OPENED:        "#0f172a",
   ADMIN_OVERRIDE:       "#ef4444",
 };
 
@@ -43,18 +43,18 @@ export default function AuditLogsScreen() {
       <View className="px-5 pt-4">
         <Header title="Audit Log" subtitle="Immutable event trail" showBack />
         <View className="flex-row items-center gap-2 bg-surface border border-border rounded-xl px-3 mb-4">
-          <Ionicons name="search" size={16} color="#7e8aa3" />
+          <Ionicons name="search" size={16} color="#64748b" />
           <TextInput
             className="flex-1 py-3 text-text text-sm"
             placeholder="Search action, actor…"
-            placeholderTextColor="#7e8aa3"
+            placeholderTextColor="#64748b"
             value={search}
             onChangeText={setSearch}
           />
         </View>
       </View>
       {loading ? (
-        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3ce8ff" size="large" /></View>
+        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3a6fe0" size="large" /></View>
       ) : (
         <FlatList
           data={filtered}
@@ -66,9 +66,9 @@ export default function AuditLogsScreen() {
               <View className="flex-row items-center justify-between">
                 <View
                   className="rounded px-2 py-0.5"
-                  style={{ backgroundColor: `${ACTION_COLOR[l.action] ?? "#7e8aa3"}22` }}
+                  style={{ backgroundColor: `${ACTION_COLOR[l.action] ?? "#64748b"}22` }}
                 >
-                  <Text style={{ fontSize: 10, color: ACTION_COLOR[l.action] ?? "#7e8aa3", fontFamily: "monospace", fontWeight: "600" }}>
+                  <Text style={{ fontSize: 10, color: ACTION_COLOR[l.action] ?? "#64748b", fontFamily: "monospace", fontWeight: "600" }}>
                     {l.action}
                   </Text>
                 </View>
@@ -80,7 +80,7 @@ export default function AuditLogsScreen() {
               </View>
               <View className="flex-row gap-3">
                 {l.confidence != null && (
-                  <MonoText style={{ fontSize: 9, color: l.confidence >= 0.8 ? "#4ade80" : "#f3eee4" }}>
+                  <MonoText style={{ fontSize: 9, color: l.confidence >= 0.8 ? "#4ade80" : "#0f172a" }}>
                     conf: {Math.round(l.confidence * 100)}%
                   </MonoText>
                 )}

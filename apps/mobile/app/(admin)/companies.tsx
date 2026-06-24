@@ -34,7 +34,7 @@ export default function AdminCompaniesScreen() {
     } catch { Alert.alert("Error", "Could not suspend."); }
   }
 
-  const statusColor = { PENDING: "#f3eee4", APPROVED: "#4ade80", SUSPENDED: "#f87171" };
+  const statusColor = { PENDING: "#0f172a", APPROVED: "#4ade80", SUSPENDED: "#f87171" };
 
   return (
     <Screen scroll={false} padded={false}>
@@ -42,7 +42,7 @@ export default function AdminCompaniesScreen() {
         <Header title="Companies" subtitle={`${companies.length} total`} />
       </View>
       {loading ? (
-        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3ce8ff" size="large" /></View>
+        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3a6fe0" size="large" /></View>
       ) : (
         <FlatList
           data={companies}
@@ -67,7 +67,7 @@ export default function AdminCompaniesScreen() {
               {c.status === "PENDING" && (
                 <View className="flex-row gap-2">
                   <Pressable onPress={() => approve(c.id)} className="flex-1 bg-green-500/15 border border-green-500/30 rounded-xl py-2.5 items-center active:opacity-70">
-                    <Text className="text-green-300 text-sm font-medium">Approve</Text>
+                    <Text className="text-green-700 text-sm font-medium">Approve</Text>
                   </Pressable>
                   <Pressable onPress={() => suspend(c.id)} className="flex-1 bg-red-500/15 border border-red-500/30 rounded-xl py-2.5 items-center active:opacity-70">
                     <Text className="text-red-300 text-sm font-medium">Reject</Text>

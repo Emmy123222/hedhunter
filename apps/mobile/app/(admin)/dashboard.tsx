@@ -34,11 +34,11 @@ export default function AdminDashboard() {
 
   const statCards = [
     { label: "Users",       value: stats.totalUsers,        color: "#5b8def", href: "/(admin)/users" },
-    { label: "Companies",   value: stats.totalCompanies,    color: "#3ce8ff", href: "/(admin)/companies" },
-    { label: "Pending",     value: stats.pendingCompanies,  color: "#f3eee4", href: "/(admin)/companies" },
+    { label: "Companies",   value: stats.totalCompanies,    color: "#3a6fe0", href: "/(admin)/companies" },
+    { label: "Pending",     value: stats.pendingCompanies,  color: "#0f172a", href: "/(admin)/companies" },
     { label: "Applications",value: stats.totalApplications, color: "#c084fc", href: "/(admin)/audit-logs" },
     { label: "Flagged",     value: stats.flaggedItems,      color: "#f87171", href: "/(admin)/flagged-questions" },
-    { label: "Appeals",     value: stats.openAppeals,       color: "#f3eee4", href: "/(admin)/appeals" },
+    { label: "Appeals",     value: stats.openAppeals,       color: "#0f172a", href: "/(admin)/appeals" },
   ];
 
   return (
@@ -49,11 +49,11 @@ export default function AdminDashboard() {
           <Text className="text-text text-2xl font-semibold mt-1">Control Panel</Text>
         </View>
         <Pressable onPress={logout} className="p-2 active:opacity-60">
-          <Ionicons name="log-out-outline" size={22} color="#7e8aa3" />
+          <Ionicons name="log-out-outline" size={22} color="#64748b" />
         </Pressable>
       </View>
 
-      {loading ? <ActivityIndicator color="#3ce8ff" /> : (
+      {loading ? <ActivityIndicator color="#3a6fe0" /> : (
         <View className="flex-row flex-wrap gap-3 mb-6">
           {statCards.map(s => (
             <Pressable key={s.label} onPress={() => router.push(s.href as never)} className="active:opacity-70" style={{ width: "30%", flexGrow: 1 }}>
@@ -81,14 +81,14 @@ export default function AdminDashboard() {
             onPress={() => router.push(a.href as never)}
             className="flex-row items-center gap-4 bg-surface border border-border rounded-2xl px-4 py-3.5 active:opacity-70"
           >
-            <Ionicons name={a.icon as any} size={20} color="#3ce8ff" />
+            <Ionicons name={a.icon as any} size={20} color="#3a6fe0" />
             <Text className="text-subtle font-medium flex-1">{a.label}</Text>
             {a.badge != null && a.badge > 0 && (
               <View className="bg-red-500 rounded-full min-w-5 h-5 items-center justify-center px-1.5">
                 <Text style={{ color: "#fff", fontSize: 10, fontWeight: "700" }}>{a.badge}</Text>
               </View>
             )}
-            <Ionicons name="chevron-forward" size={16} color="#7e8aa3" />
+            <Ionicons name="chevron-forward" size={16} color="#64748b" />
           </Pressable>
         ))}
       </View>

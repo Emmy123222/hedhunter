@@ -16,7 +16,7 @@ export function Header({ title, subtitle, showBack = false, right }: HeaderProps
       <View className="flex-row items-center gap-3 flex-1">
         {showBack && (
           <Pressable onPress={() => router.back()} className="p-1 -ml-1 active:opacity-60">
-            <Ionicons name="arrow-back" size={22} color="#c7cfdf" />
+            <Ionicons name="arrow-back" size={22} color="#475569" />
           </Pressable>
         )}
         <View className="flex-1">

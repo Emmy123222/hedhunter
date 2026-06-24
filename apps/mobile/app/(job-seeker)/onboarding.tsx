@@ -46,8 +46,8 @@ export default function OnboardingScreen() {
       <View className="flex-1 justify-between py-8">
         <View className="items-center gap-6 flex-1 justify-center px-4">
           <Text style={{ fontSize: 64 }}>{current.icon}</Text>
-          <MonoText style={{ color: "#3ce8ff" }}>Step {step + 1} of {STEPS.length}</MonoText>
-          <Text style={{ fontFamily: "serif", fontSize: 28, color: "#f3eee4", textAlign: "center", lineHeight: 34 }}>
+          <MonoText style={{ color: "#3a6fe0" }}>Step {step + 1} of {STEPS.length}</MonoText>
+          <Text style={{ fontFamily: "serif", fontSize: 28, color: "#0f172a", textAlign: "center", lineHeight: 34 }}>
             {current.title}
           </Text>
           <Text className="text-subtle text-base text-center leading-relaxed">{current.body}</Text>
@@ -59,7 +59,7 @@ export default function OnboardingScreen() {
             <View
               key={i}
               className="rounded-full"
-              style={{ width: i === step ? 20 : 6, height: 6, backgroundColor: i === step ? "#3ce8ff" : "#1e2d45" }}
+              style={{ width: i === step ? 20 : 6, height: 6, backgroundColor: i === step ? "#3a6fe0" : "#1e2d45" }}
             />
           ))}
         </View>

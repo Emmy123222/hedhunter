@@ -19,7 +19,7 @@ export default function Root() {
 
   return (
     <View className="flex-1 items-center justify-center bg-bg">
-      <ActivityIndicator color="#3ce8ff" size="large" />
+      <ActivityIndicator color="#3a6fe0" size="large" />
       <Text className="text-muted mt-3 text-sm">Loading…</Text>
     </View>
   );

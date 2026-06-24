@@ -39,7 +39,7 @@ export default function CompanyPaymentScreen() {
       <View className="flex-1 justify-center gap-8">
         <View className="items-center gap-2">
           <MonoText style={{ color: "#5b8def" }}>Company plan</MonoText>
-          <Text style={{ fontFamily: "serif", fontSize: 32, color: "#f3eee4", textAlign: "center" }}>Activate hiring</Text>
+          <Text style={{ fontFamily: "serif", fontSize: 32, color: "#0f172a", textAlign: "center" }}>Activate hiring</Text>
           <Text className="text-muted text-sm text-center">Post jobs and access merit-scored anonymous candidates.</Text>
         </View>
 

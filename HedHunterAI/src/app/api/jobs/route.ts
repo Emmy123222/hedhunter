@@ -27,7 +27,6 @@ export async function GET(req: NextRequest) {
   // Public job-seeker listing
   const snap = await adminCol.jobPostsCol()
     .where("isActive", "==", true)
-    .where("paymentConfirmed", "==", true)
     .get();
   let jobs = snap.docs.map(d => ({ id: d.id, ...d.data() })) as any[];
   jobs.sort((a, b) => (b.createdAt?.seconds ?? 0) - (a.createdAt?.seconds ?? 0));
@@ -40,7 +39,7 @@ export async function GET(req: NextRequest) {
   const enriched = await Promise.all(paged.map(async (j: any) => {
     const compSnap = await adminCol.companyProfiles(j.companyId).get();
     const comp     = compSnap.data();
-    return { ...j, company: { uid: j.companyId, name: comp?.name, averageRating: comp?.averageRating, meritPledgeSigned: comp?.meritPledgeSigned } };
+    return { ...j, company: { uid: j.companyId, name: comp?.name, averageRating: comp?.averageRating, meritPledgeSigned: comp?.meritPledgeSigned, logoUrl: comp?.logoUrl ?? null } };
   }));
 
   return NextResponse.json({ jobs: enriched.filter(Boolean), total, page, pages: Math.ceil(total / limit) });

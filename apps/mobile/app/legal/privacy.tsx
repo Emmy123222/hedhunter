@@ -44,7 +44,7 @@ const SECTIONS = [
 
 export default function PrivacyPolicyScreen() {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#060d1a" }} edges={["bottom"]}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#ffffff" }} edges={["bottom"]}>
       <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={{ paddingBottom: 40 }}
@@ -52,7 +52,7 @@ export default function PrivacyPolicyScreen() {
       >
         <View style={{ paddingHorizontal: 20, paddingTop: 16 }}>
           <Header title="Privacy Policy" showBack />
-          <Text style={{ color: "#7e8aa3", fontFamily: "monospace", fontSize: 11, marginBottom: 24 }}>
+          <Text style={{ color: "#64748b", fontFamily: "monospace", fontSize: 11, marginBottom: 24 }}>
             Last updated: June 2025
           </Text>
 
@@ -66,7 +66,7 @@ export default function PrivacyPolicyScreen() {
               <Text style={{ color: "#e2e8f0", fontSize: 14, fontWeight: "600", marginBottom: 8 }}>
                 {section.title}
               </Text>
-              <Text style={{ color: "#7e8aa3", fontSize: 13, lineHeight: 20 }}>
+              <Text style={{ color: "#64748b", fontSize: 13, lineHeight: 20 }}>
                 {section.body}
               </Text>
             </View>

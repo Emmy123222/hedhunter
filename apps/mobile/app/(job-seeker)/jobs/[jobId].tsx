@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Alert, Pressable, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, Alert, Pressable, Text, View } from "react-native";
+import { Image } from "expo-image";
 import { router, useLocalSearchParams } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Screen } from "@/components/ui/Screen";
@@ -7,32 +8,54 @@ import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Header } from "@/components/layout/Header";
 import { MonoText } from "@/components/ui/MonoText";
-import { jobsApi, applicationsApi } from "@/lib/api";
+import { jobsApi, applicationsApi, authApi } from "@/lib/api";
 import { formatSalary } from "@hedhunter/shared";
 import type { JobPost } from "@hedhunter/shared";
 
 export default function JobDetailScreen() {
   const { jobId } = useLocalSearchParams<{ jobId: string }>();
-  const [job, setJob]         = useState<JobPost | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [applying, setApplying] = useState(false);
+  const [job, setJob]                   = useState<JobPost | null>(null);
+  const [loading, setLoading]           = useState(true);
+  const [fetchError, setFetchError]     = useState<string | null>(null);
+  const [applying, setApplying]         = useState(false);
+  const [registrationPaid, setRegistrationPaid] = useState(false);
+  const [alreadyApplied, setAlreadyApplied]     = useState(false);
 
   useEffect(() => {
+    console.log("[JobDetail] fetching jobId:", jobId);
     jobsApi.get(jobId)
-      .then(r => setJob(r.data.job))
-      .catch(() => {})
+      .then(r => {
+        console.log("[JobDetail] response status ok, job:", r.data.job?.id);
+        setJob(r.data.job ?? null);
+      })
+      .catch((e: any) => {
+        const msg = e?.response?.data?.error ?? e?.message ?? "Unknown error";
+        const status = e?.response?.status ?? "no status";
+        console.error("[JobDetail] fetch failed:", status, msg);
+        setFetchError(`${status}: ${msg}`);
+      })
       .finally(() => setLoading(false));
+
+    authApi.me()
+      .then(r => setRegistrationPaid(r.data.jobSeekerProfile?.registrationPaid ?? false))
+      .catch(() => {});
   }, [jobId]);
 
   async function handleApply() {
+    if (!registrationPaid) {
+      router.push("/(job-seeker)/payment" as never);
+      return;
+    }
     setApplying(true);
     try {
       const res = await applicationsApi.apply({ jobPostId: jobId });
       const applicationId = res.data.id;
+      setAlreadyApplied(true);
       router.push(`/(job-seeker)/applications/${applicationId}` as never);
     } catch (e: any) {
       const msg = e?.response?.data?.error ?? "Please try again.";
       if (msg === "Already applied") {
+        setAlreadyApplied(true);
         Alert.alert("Already applied", "You have already applied for this position.");
       } else {
         Alert.alert("Could not apply", msg);
@@ -47,7 +70,7 @@ export default function JobDetailScreen() {
       <Screen scroll={false}>
         <Header title="Job Details" showBack />
         <View className="flex-1 items-center justify-center">
-          <ActivityIndicator color="#3ce8ff" size="large" />
+          <ActivityIndicator color="#3a6fe0" size="large" />
         </View>
       </Screen>
     );
@@ -55,7 +78,12 @@ export default function JobDetailScreen() {
 
   if (!job) {
     return (
-      <Screen><Header title="Not found" showBack /><Text className="text-muted">Job not found.</Text></Screen>
+      <Screen>
+        <Header title="Not found" showBack />
+        <Text className="text-muted mb-2">Job not found.</Text>
+        {fetchError && <Text style={{ color: "#ef4444", fontSize: 12, fontFamily: "monospace" }}>{fetchError}</Text>}
+        <Text style={{ color: "#94a3b8", fontSize: 11, marginTop: 8, fontFamily: "monospace" }}>jobId: {jobId}</Text>
+      </Screen>
     );
   }
 
@@ -66,26 +94,34 @@ export default function JobDetailScreen() {
       <View className="gap-4 mt-2">
         {/* Company + meta */}
         <Card className="gap-3">
-          <Text className="text-text font-semibold text-lg">{job.company?.name ?? "Company"}</Text>
+          <View className="flex-row items-center gap-3">
+            <View style={{ width: 48, height: 48, borderRadius: 12, backgroundColor: "#f1f5f9", borderWidth: 1, borderColor: "rgba(0,0,0,0.07)", overflow: "hidden", alignItems: "center", justifyContent: "center" }}>
+              {(job as any).company?.logoUrl
+                ? <Image source={{ uri: (job as any).company.logoUrl }} style={{ width: 48, height: 48 }} contentFit="contain" />
+                : <Ionicons name="business" size={22} color="#94a3b8" />
+              }
+            </View>
+            <Text className="text-text font-semibold text-lg flex-1">{job.company?.name ?? "Company"}</Text>
+          </View>
           <View className="flex-row flex-wrap gap-3">
             <View className="flex-row items-center gap-1.5">
-              <Ionicons name="location-outline" size={15} color="#7e8aa3" />
+              <Ionicons name="location-outline" size={15} color="#64748b" />
               <Text className="text-muted text-sm">{job.location}</Text>
             </View>
             <View className="flex-row items-center gap-1.5">
-              <Ionicons name="people-outline" size={15} color="#7e8aa3" />
+              <Ionicons name="people-outline" size={15} color="#64748b" />
               <Text className="text-muted text-sm">{job.openPositions} positions</Text>
             </View>
           </View>
           <View className="flex-row gap-2 flex-wrap">
-            {job.isRemote     && <View className="bg-cyan-500/10 border border-cyan-500/30 rounded-full px-2.5 py-1"><Text className="text-cyan-300 text-xs">Remote</Text></View>}
-            {job.isHybrid     && <View className="bg-blue-500/10 border border-blue-500/30 rounded-full px-2.5 py-1"><Text className="text-blue-300 text-xs">Hybrid</Text></View>}
-            {(job as any).isOnLocation && <View className="bg-purple-500/10 border border-purple-500/30 rounded-full px-2.5 py-1"><Text className="text-purple-300 text-xs">On Location</Text></View>}
-            {job.isOffice     && <View className="bg-orange-500/10 border border-orange-500/30 rounded-full px-2.5 py-1"><Text className="text-orange-300 text-xs">Office</Text></View>}
+            {job.isRemote     && <View className="bg-cyan-500/10 border border-cyan-500/30 rounded-full px-2.5 py-1"><Text className="text-cyan-700 text-xs">Remote</Text></View>}
+            {job.isHybrid     && <View className="bg-blue-500/10 border border-blue-500/30 rounded-full px-2.5 py-1"><Text className="text-blue-600 text-xs">Hybrid</Text></View>}
+            {(job as any).isOnLocation && <View className="bg-purple-500/10 border border-purple-500/30 rounded-full px-2.5 py-1"><Text className="text-purple-700 text-xs">On Location</Text></View>}
+            {job.isOffice     && <View className="bg-orange-500/10 border border-orange-500/30 rounded-full px-2.5 py-1"><Text className="text-orange-600 text-xs">Office</Text></View>}
           </View>
           <View className="flex-row items-center gap-2 pt-2 border-t border-border">
-            <Ionicons name="cash-outline" size={16} color="#3ce8ff" />
-            <MonoText style={{ color: "#3ce8ff" }}>{formatSalary(job.salaryMin, job.salaryMax)}</MonoText>
+            <Ionicons name="cash-outline" size={16} color="#3a6fe0" />
+            <MonoText style={{ color: "#3a6fe0" }}>{formatSalary(job.salaryMin, job.salaryMax)}</MonoText>
           </View>
         </Card>
 
@@ -116,9 +152,32 @@ export default function JobDetailScreen() {
           </Text>
         </Card>
 
-        <Button onPress={handleApply} loading={applying} fullWidth size="lg">
-          Apply anonymously →
-        </Button>
+        {alreadyApplied ? (
+          <Card className="flex-row items-center gap-3 bg-green-500/10 border-green-500/30">
+            <Ionicons name="checkmark-circle" size={20} color="#4ade80" />
+            <Text style={{ color: "#4ade80", fontWeight: "500" }}>Already applied</Text>
+          </Card>
+        ) : !registrationPaid ? (
+          <View className="gap-2">
+            <Button onPress={handleApply} fullWidth size="lg" variant="secondary">
+              Apply (registration required)
+            </Button>
+            <Card className="flex-row items-center gap-3 bg-primary/10 border-primary/30">
+              <Ionicons name="lock-closed" size={18} color="#5b8def" />
+              <View className="flex-1">
+                <Text style={{ color: "#5b8def", fontWeight: "500", fontSize: 14 }}>Registration required</Text>
+                <Text style={{ color: "#64748b", fontSize: 12, marginTop: 2 }}>Pay $10/year to unlock job applications.</Text>
+              </View>
+              <Pressable onPress={() => router.push("/(job-seeker)/payment" as never)}>
+                <Text style={{ color: "#3a6fe0", fontSize: 13, fontWeight: "500" }}>Pay $10 →</Text>
+              </Pressable>
+            </Card>
+          </View>
+        ) : (
+          <Button onPress={handleApply} loading={applying} fullWidth size="lg">
+            Apply anonymously →
+          </Button>
+        )}
       </View>
     </Screen>
   );

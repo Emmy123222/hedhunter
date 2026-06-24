@@ -101,7 +101,16 @@ export const ratingsApi = {
 // ─── Company Profile ──────────────────────────────────────────────────────────
 export const companyApi = {
   getProfile: () => api.get("/api/company/profile"),
-  updateProfile: (body: unknown) => api.put("/api/company/profile", body),
+  updateProfile: (body: unknown) => api.patch("/api/company/profile", body),
+  uploadLogo: (formData: FormData) =>
+    api.post("/api/company/logo", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    }),
+};
+
+// ─── Account ──────────────────────────────────────────────────────────────────
+export const accountApi = {
+  deleteAccount: () => api.delete("/api/account"),
 };
 
 // ─── Stripe ───────────────────────────────────────────────────────────────────

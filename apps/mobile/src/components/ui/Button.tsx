@@ -23,7 +23,7 @@ const variantClasses: Record<Variant, { container: string; text: string }> = {
     text: "text-text font-medium",
   },
   ghost: {
-    container: "active:bg-white/5",
+    container: "active:bg-black/5",
     text: "text-subtle",
   },
   danger: {

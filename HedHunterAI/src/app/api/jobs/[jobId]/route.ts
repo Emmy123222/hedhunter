@@ -4,13 +4,29 @@ import { adminCol, FieldValue } from "@/lib/db-admin";
 
 export async function GET(_req: Request, { params }: { params: { jobId: string } }) {
   const session = await getSessionFromCookies();
-  if (!session || session.role !== "COMPANY") return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const snap = await adminCol.jobPosts(params.jobId).get();
-  if (!snap.exists || snap.data()?.companyId !== session.uid)
-    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  if (!snap.exists) return NextResponse.json({ error: "Not found" }, { status: 404 });
+  const jobData = snap.data()!;
 
-  return NextResponse.json({ job: { id: snap.id, ...snap.data() } });
+  // Company: may only read their own jobs
+  if (session.role === "COMPANY") {
+    if (jobData.companyId !== session.uid)
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    return NextResponse.json({ job: { id: snap.id, ...jobData } });
+  }
+
+  // Job seeker / admin: may read any active job, enriched with company name
+  if (!jobData.isActive) return NextResponse.json({ error: "Not found" }, { status: 404 });
+  const compSnap = await adminCol.companyProfiles(jobData.companyId).get();
+  const comp = compSnap.data();
+  return NextResponse.json({
+    job: {
+      id: snap.id, ...jobData,
+      company: { name: comp?.name ?? "", averageRating: comp?.averageRating ?? 0, logoUrl: comp?.logoUrl ?? null },
+    },
+  });
 }
 
 export async function PATCH(req: Request, { params }: { params: { jobId: string } }) {

@@ -22,15 +22,39 @@ export default function ApplicationsScreen() {
       .finally(() => setLoading(false));
   }, []);
 
+  const submitted = applications.filter((a: any) => a.status === "SUBMITTED").length;
+  const reviewing = applications.filter((a: any) => ["REVIEWING","SHORTLISTED"].includes(a.status)).length;
+  const offers    = applications.filter((a: any) => ["OFFER_SENT","HIRED"].includes(a.status)).length;
+
   return (
     <Screen scroll={false} padded={false}>
       <View className="px-5 pt-4">
         <Header title="My Applications" />
+
+        {/* Summary stats */}
+        {!loading && (
+          <View className="flex-row gap-3 mb-4">
+            {[
+              { label: "Submitted",    value: submitted, color: "#5b8def" },
+              { label: "Under review", value: reviewing, color: "#3a6fe0" },
+              { label: "Offers",       value: offers,    color: "#4ade80" },
+            ].map(s => (
+              <View
+                key={s.label}
+                className="flex-1 items-center py-3 rounded-xl"
+                style={{ backgroundColor: "rgba(0,0,0,0.03)", borderWidth: 1, borderColor: "rgba(0,0,0,0.07)" }}
+              >
+                <Text style={{ fontSize: 26, fontWeight: "700", color: s.color }}>{s.value}</Text>
+                <MonoText style={{ fontSize: 10, marginTop: 1 }}>{s.label}</MonoText>
+              </View>
+            ))}
+          </View>
+        )}
       </View>
 
       {loading ? (
         <View className="flex-1 items-center justify-center">
-          <ActivityIndicator color="#3ce8ff" size="large" />
+          <ActivityIndicator color="#3a6fe0" size="large" />
         </View>
       ) : (
         <FlatList
@@ -40,7 +64,7 @@ export default function ApplicationsScreen() {
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={
             <View className="items-center py-16 gap-3">
-              <Ionicons name="document-text-outline" size={40} color="#7e8aa3" />
+              <Ionicons name="document-text-outline" size={40} color="#64748b" />
               <Text className="text-muted">No applications yet</Text>
               <Pressable onPress={() => router.push("/(job-seeker)/jobs" as never)}>
                 <Text className="text-primary text-sm">Browse jobs →</Text>
@@ -63,7 +87,7 @@ export default function ApplicationsScreen() {
                   {app.totalScore != null ? (
                     <View className="flex-row items-center gap-1.5">
                       <MonoText>Merit score</MonoText>
-                      <Text style={{ color: "#3ce8ff", fontFamily: "monospace", fontSize: 14, fontWeight: "700" }}>
+                      <Text style={{ color: "#3a6fe0", fontFamily: "monospace", fontSize: 14, fontWeight: "700" }}>
                         {app.totalScore.toFixed(1)}/5
                       </Text>
                     </View>
@@ -73,8 +97,8 @@ export default function ApplicationsScreen() {
                 </View>
 
                 {app.requiresHumanReview && (
-                  <View className="flex-row gap-2 items-center bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5">
-                    <Ionicons name="eye" size={14} color="#f3eee4" />
+                  <View className="flex-row gap-2 items-center bg-black/5 border border-black/10 rounded-lg px-2.5 py-1.5">
+                    <Ionicons name="eye" size={14} color="#0f172a" />
                     <Text className="text-text text-xs">Under human review</Text>
                   </View>
                 )}

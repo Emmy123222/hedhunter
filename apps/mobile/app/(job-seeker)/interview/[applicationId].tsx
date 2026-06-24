@@ -66,7 +66,7 @@ export default function InterviewScreen() {
       <Screen scroll={false}>
         <Header title="Interview" showBack />
         <View className="flex-1 items-center justify-center gap-3">
-          <ActivityIndicator color="#3ce8ff" size="large" />
+          <ActivityIndicator color="#3a6fe0" size="large" />
           <Text className="text-muted text-sm">Loading questions…</Text>
         </View>
       </Screen>
@@ -87,8 +87,8 @@ export default function InterviewScreen() {
       <Screen scroll={false}>
         <View className="flex-1 items-center justify-center gap-6 px-4">
           <Text style={{ fontSize: 56 }}>🎉</Text>
-          <MonoText style={{ color: "#3ce8ff" }}>Interview complete</MonoText>
-          <Text style={{ fontFamily: "serif", fontSize: 26, color: "#f3eee4", textAlign: "center" }}>
+          <MonoText style={{ color: "#3a6fe0" }}>Interview complete</MonoText>
+          <Text style={{ fontFamily: "serif", fontSize: 26, color: "#0f172a", textAlign: "center" }}>
             Your answers are being scored
           </Text>
           <Text className="text-muted text-sm text-center leading-relaxed">
@@ -108,8 +108,8 @@ export default function InterviewScreen() {
         <Header title="Interview" showBack />
         <View className="flex-1 justify-center gap-6">
           <Card className="gap-4">
-            <MonoText style={{ color: "#3ce8ff" }}>{questions.length} questions</MonoText>
-            <Text style={{ fontFamily: "serif", fontSize: 22, color: "#f3eee4" }}>Before you start</Text>
+            <MonoText style={{ color: "#3a6fe0" }}>{questions.length} questions</MonoText>
+            <Text style={{ fontFamily: "serif", fontSize: 22, color: "#0f172a" }}>Before you start</Text>
             {[
               "Find a quiet place with a stable internet connection",
               "Each question has a time limit — start when you're ready",
@@ -136,7 +136,7 @@ export default function InterviewScreen() {
       <Header title="Interview" subtitle={`Question ${currentIdx + 1} of ${questions.length}`} showBack />
       {submitting ? (
         <View className="flex-1 items-center justify-center gap-3">
-          <ActivityIndicator color="#3ce8ff" size="large" />
+          <ActivityIndicator color="#3a6fe0" size="large" />
           <Text className="text-muted text-sm">Uploading and scoring your answers…</Text>
         </View>
       ) : (

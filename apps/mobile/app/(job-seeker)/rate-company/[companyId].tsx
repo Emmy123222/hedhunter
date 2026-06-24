@@ -33,7 +33,7 @@ export default function RateCompanyScreen() {
       <Screen scroll={false}>
         <View className="flex-1 items-center justify-center gap-6">
           <Text style={{ fontSize: 56 }}>⭐</Text>
-          <Text style={{ fontFamily: "serif", fontSize: 26, color: "#f3eee4", textAlign: "center" }}>Thank you for your review</Text>
+          <Text style={{ fontFamily: "serif", fontSize: 26, color: "#0f172a", textAlign: "center" }}>Thank you for your review</Text>
           <Text className="text-muted text-sm text-center">Your rating helps other candidates make informed decisions.</Text>
           <Button onPress={() => router.replace("/(job-seeker)/dashboard")} fullWidth>Back to dashboard</Button>
         </View>
@@ -58,7 +58,7 @@ export default function RateCompanyScreen() {
                 <Ionicons
                   name={star <= rating ? "star" : "star-outline"}
                   size={36}
-                  color={star <= rating ? "#f3eee4" : "#7e8aa3"}
+                  color={star <= rating ? "#0f172a" : "#64748b"}
                 />
               </Pressable>
             ))}
@@ -75,7 +75,7 @@ export default function RateCompanyScreen() {
           <TextInput
             className="bg-surface border border-border rounded-xl px-4 py-3 text-text text-base"
             placeholder="Share your experience with the hiring process…"
-            placeholderTextColor="#7e8aa3"
+            placeholderTextColor="#64748b"
             multiline
             numberOfLines={4}
             textAlignVertical="top"

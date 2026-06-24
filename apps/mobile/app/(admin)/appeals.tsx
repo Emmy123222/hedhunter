@@ -33,7 +33,7 @@ export default function AppealsScreen() {
         <Header title="Appeals" subtitle="Candidate challenges" showBack />
       </View>
       {loading ? (
-        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3ce8ff" size="large" /></View>
+        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3a6fe0" size="large" /></View>
       ) : (
         <FlatList
           data={appeals}
@@ -54,8 +54,8 @@ export default function AppealsScreen() {
                     <Text className="text-text text-sm font-medium">{a.application?.anonymousCode ?? "Unknown"}</Text>
                     <MonoText>{formatDate(a.createdAt)}</MonoText>
                   </View>
-                  <View className={`rounded-full px-2.5 py-0.5 border ${isOpen ? "bg-white/5 border-white/10" : a.status === "APPROVED" ? "bg-green-500/15 border-green-500/30" : "bg-red-500/15 border-red-500/30"}`}>
-                    <Text style={{ fontSize: 10, color: isOpen ? "#f3eee4" : a.status === "APPROVED" ? "#4ade80" : "#f87171", fontWeight: "600" }}>{a.status}</Text>
+                  <View className={`rounded-full px-2.5 py-0.5 border ${isOpen ? "bg-black/5 border-black/10" : a.status === "APPROVED" ? "bg-green-500/15 border-green-500/30" : "bg-red-500/15 border-red-500/30"}`}>
+                    <Text style={{ fontSize: 10, color: isOpen ? "#0f172a" : a.status === "APPROVED" ? "#4ade80" : "#f87171", fontWeight: "600" }}>{a.status}</Text>
                   </View>
                 </View>
                 <Text className="text-subtle text-sm leading-relaxed">{a.reason}</Text>
@@ -64,13 +64,13 @@ export default function AppealsScreen() {
                     <TextInput
                       className="bg-bg border border-border rounded-xl px-3 py-2 text-text text-sm"
                       placeholder="Reviewer notes (optional)…"
-                      placeholderTextColor="#7e8aa3"
+                      placeholderTextColor="#64748b"
                       value={noteMap[a.id] ?? ""}
                       onChangeText={v => setNoteMap(m => ({ ...m, [a.id]: v }))}
                     />
                     <View className="flex-row gap-2">
                       <Pressable onPress={() => resolveAppeal(a.id, "APPROVED")} className="flex-1 bg-green-500/15 border border-green-500/30 rounded-xl py-2.5 items-center active:opacity-70">
-                        <Text className="text-green-300 text-sm font-medium">Approve</Text>
+                        <Text className="text-green-700 text-sm font-medium">Approve</Text>
                       </Pressable>
                       <Pressable onPress={() => resolveAppeal(a.id, "DENIED")} className="flex-1 bg-red-500/15 border border-red-500/30 rounded-xl py-2.5 items-center active:opacity-70">
                         <Text className="text-red-300 text-sm font-medium">Deny</Text>

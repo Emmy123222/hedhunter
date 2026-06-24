@@ -56,7 +56,7 @@ export default function ResumeUploadScreen() {
             { icon: "eye-off",          text: "Employer sees only skills and experience" },
           ].map(i => (
             <View key={i.text} className="flex-row gap-3 items-center">
-              <Ionicons name={i.icon as any} size={18} color="#3ce8ff" />
+              <Ionicons name={i.icon as any} size={18} color="#3a6fe0" />
               <Text className="text-subtle text-sm flex-1">{i.text}</Text>
             </View>
           ))}
@@ -78,7 +78,7 @@ export default function ResumeUploadScreen() {
             <Card className="flex-row gap-3 items-center bg-green-500/10 border-green-500/30">
               <Ionicons name="checkmark-circle" size={24} color="#4ade80" />
               <View className="flex-1">
-                <Text className="text-green-300 font-medium">Resume uploaded</Text>
+                <Text className="text-green-700 font-medium">Resume uploaded</Text>
                 <Text className="text-muted text-xs mt-0.5">AI anonymization is running in the background.</Text>
               </View>
             </Card>

@@ -40,11 +40,11 @@ export default function AdminUsersScreen() {
       <View className="px-5 pt-4">
         <Header title="Users" subtitle={`${users.length} total`} />
         <View className="flex-row items-center gap-2 bg-surface border border-border rounded-xl px-3 mb-4">
-          <Ionicons name="search" size={16} color="#7e8aa3" />
+          <Ionicons name="search" size={16} color="#64748b" />
           <TextInput
             className="flex-1 py-3 text-text text-sm"
             placeholder="Search by email or role…"
-            placeholderTextColor="#7e8aa3"
+            placeholderTextColor="#64748b"
             value={search}
             onChangeText={setSearch}
           />
@@ -52,7 +52,7 @@ export default function AdminUsersScreen() {
       </View>
 
       {loading ? (
-        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3ce8ff" size="large" /></View>
+        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3a6fe0" size="large" /></View>
       ) : (
         <FlatList
           data={filtered}
@@ -70,9 +70,9 @@ export default function AdminUsersScreen() {
                   <View className={`rounded-full px-2 py-0.5 border ${
                     u.role === "ADMIN" ? "bg-red-500/15 border-red-500/30" :
                     u.role === "COMPANY" ? "bg-blue-500/15 border-blue-500/30" :
-                    "bg-white/10 border-white/15"
+                    "bg-black/10 border-black/10"
                   }`}>
-                    <Text style={{ fontSize: 10, color: u.role === "ADMIN" ? "#f87171" : u.role === "COMPANY" ? "#93c5fd" : "#7e8aa3" }}>
+                    <Text style={{ fontSize: 10, color: u.role === "ADMIN" ? "#f87171" : u.role === "COMPANY" ? "#93c5fd" : "#64748b" }}>
                       {u.role}
                     </Text>
                   </View>

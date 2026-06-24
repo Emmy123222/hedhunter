@@ -39,7 +39,7 @@ export default function AnonymizationReviewScreen() {
         <Header title="Anonymization Review" subtitle="Low-confidence documents" showBack />
       </View>
       {loading ? (
-        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3ce8ff" size="large" /></View>
+        <View className="flex-1 items-center justify-center"><ActivityIndicator color="#3a6fe0" size="large" /></View>
       ) : (
         <FlatList
           data={items}
@@ -56,7 +56,7 @@ export default function AnonymizationReviewScreen() {
               <View className="flex-row items-center justify-between">
                 <MonoText>Resume · {formatDate(item.createdAt)}</MonoText>
                 <View style={{ backgroundColor: item.confidenceScore >= 0.8 ? "#4ade8022" : "rgba(243,238,228,0.13)", borderRadius: 8, paddingHorizontal: 8, paddingVertical: 3 }}>
-                  <Text style={{ fontSize: 11, color: item.confidenceScore >= 0.8 ? "#4ade80" : "#f3eee4", fontFamily: "monospace" }}>
+                  <Text style={{ fontSize: 11, color: item.confidenceScore >= 0.8 ? "#4ade80" : "#0f172a", fontFamily: "monospace" }}>
                     {Math.round(item.confidenceScore * 100)}% conf
                   </Text>
                 </View>
@@ -67,7 +67,7 @@ export default function AnonymizationReviewScreen() {
                   <MonoText>Flagged items</MonoText>
                   {item.flaggedItems.slice(0, 3).map((fi: any, j: number) => (
                     <View key={j} className="flex-row gap-2 items-start">
-                      <Ionicons name="alert-circle" size={13} color="#f3eee4" style={{ marginTop: 1 }} />
+                      <Ionicons name="alert-circle" size={13} color="#0f172a" style={{ marginTop: 1 }} />
                       <Text className="text-text text-xs flex-1">
                         "{fi.original}" — {fi.reason}
                       </Text>
@@ -78,7 +78,7 @@ export default function AnonymizationReviewScreen() {
 
               <View className="flex-row gap-2">
                 <Pressable onPress={() => approve(item.resumeId)} className="flex-1 bg-green-500/15 border border-green-500/30 rounded-xl py-2.5 items-center active:opacity-70">
-                  <Text className="text-green-300 text-sm font-medium">Approve</Text>
+                  <Text className="text-green-700 text-sm font-medium">Approve</Text>
                 </Pressable>
                 <Pressable onPress={() => flag(item.resumeId)} className="flex-1 bg-red-500/15 border border-red-500/30 rounded-xl py-2.5 items-center active:opacity-70">
                   <Text className="text-red-300 text-sm font-medium">Re-flag</Text>
