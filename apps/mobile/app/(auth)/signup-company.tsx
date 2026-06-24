@@ -22,7 +22,7 @@ export default function SignupCompanyScreen() {
     try {
       await register(email.trim().toLowerCase(), password, "COMPANY", companyName);
     } catch (e: any) {
-      Alert.alert("Registration failed", e?.response?.data?.error ?? "Please try again.");
+      Alert.alert("Registration failed", e?.message ?? "Please try again.");
     } finally {
       setLoading(false);
     }

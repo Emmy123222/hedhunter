@@ -16,7 +16,7 @@ export default function SeekerPaymentScreen() {
   async function handlePay() {
     setLoading(true);
     try {
-      const res = await stripeApi.checkout({ type: "SEEKER_ANNUAL" });
+      const res = await stripeApi.paymentIntent({ type: "SEEKER_ANNUAL" });
       const { clientSecret } = res.data;
 
       const { error: initError } = await initPaymentSheet({

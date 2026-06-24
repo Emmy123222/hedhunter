@@ -115,7 +115,8 @@ export const accountApi = {
 
 // ─── Stripe ───────────────────────────────────────────────────────────────────
 export const stripeApi = {
-  checkout: (body: { type: string }) => api.post("/api/stripe/checkout", body),
+  // Mobile uses Payment Sheet (PaymentIntent flow), not the web Checkout redirect
+  paymentIntent: (body: { type: string }) => api.post("/api/stripe/payment-intent", body),
 };
 
 // ─── Admin ────────────────────────────────────────────────────────────────────

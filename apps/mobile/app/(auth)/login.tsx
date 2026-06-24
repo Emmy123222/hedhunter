@@ -19,7 +19,7 @@ export default function LoginScreen() {
     try {
       await login(email.trim().toLowerCase(), password);
     } catch (e: any) {
-      Alert.alert("Login failed", e?.response?.data?.error ?? "Check credentials and try again.");
+      Alert.alert("Login failed", e?.message ?? "Check credentials and try again.");
     } finally {
       setLoading(false);
     }
