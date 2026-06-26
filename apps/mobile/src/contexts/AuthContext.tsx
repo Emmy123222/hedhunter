@@ -24,10 +24,11 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 function firebaseErrorMessage(code: string): string {
   switch (code) {
     case "auth/user-not-found":
-    case "auth/invalid-credential":
       return "No account found with that email. Please sign up first.";
     case "auth/wrong-password":
       return "Incorrect password. Please try again.";
+    case "auth/invalid-credential":
+      return "Incorrect email or password. Please try again.";
     case "auth/email-already-in-use":
       return "An account with this email already exists. Please sign in instead.";
     case "auth/invalid-email":
