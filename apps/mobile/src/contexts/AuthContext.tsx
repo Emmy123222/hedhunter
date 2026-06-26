@@ -15,6 +15,7 @@ interface AuthContextValue {
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string, role: UserRole, companyName?: string) => Promise<void>;
+  loginWithGoogle: (idToken: string, uid: string, email: string, role?: UserRole) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -108,6 +109,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     redirectByRole(role, true);
   }, []);
 
+  const loginWithGoogle = useCallback(async (idToken: string, uid: string, email: string, role?: UserRole) => {
+    let res;
+    try {
+      if (role) {
+        res = await api.post("/api/auth/register", { token: idToken, role });
+      } else {
+        res = await api.post("/api/auth/session", { token: idToken });
+      }
+    } catch (e: any) {
+      const msg = e?.response?.data?.error ?? e?.message ?? "Google sign-in failed. Please try again.";
+      throw new Error(msg);
+    }
+
+    const { token, role: assignedRole } = res.data as { token: string; role: UserRole };
+    const sessionUser: SessionPayload = { uid, email, role: assignedRole };
+    await saveSession(token);
+    await saveUser(sessionUser);
+    setUser(sessionUser);
+    redirectByRole(assignedRole, !!role);
+  }, []);
+
   const logout = useCallback(async () => {
     await signOut(firebaseAuth);
     await clearSession();
@@ -116,7 +138,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, login, register, loginWithGoogle, logout }}>
       {children}
     </AuthContext.Provider>
   );

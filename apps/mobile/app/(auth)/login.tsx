@@ -2,16 +2,31 @@ import React, { useState } from "react";
 import { Alert, KeyboardAvoidingView, Platform, Pressable, Text, View } from "react-native";
 import { Link } from "expo-router";
 import { useAuth } from "@/contexts/AuthContext";
+import { useGoogleAuth } from "@/hooks/useGoogleAuth";
 import { Screen } from "@/components/ui/Screen";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { MonoText } from "@/components/ui/MonoText";
 
+function GoogleIcon() {
+  return (
+    <Text style={{ fontSize: 16 }}>G</Text>
+  );
+}
+
 export default function LoginScreen() {
-  const { login } = useAuth();
+  const { login, loginWithGoogle } = useAuth();
   const [email, setEmail]       = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading]   = useState(false);
+
+  const { promptAsync, loading: googleLoading } = useGoogleAuth(async (idToken, uid, userEmail) => {
+    try {
+      await loginWithGoogle(idToken, uid, userEmail);
+    } catch (e: any) {
+      Alert.alert("Google sign-in failed", e?.message ?? "Please try again.");
+    }
+  });
 
   async function handleLogin() {
     if (!email || !password) { Alert.alert("Enter email and password"); return; }
@@ -24,6 +39,8 @@ export default function LoginScreen() {
       setLoading(false);
     }
   }
+
+  const busy = loading || googleLoading;
 
   return (
     <Screen>
@@ -54,9 +71,29 @@ export default function LoginScreen() {
             value={password}
             onChangeText={setPassword}
           />
-          <Button onPress={handleLogin} loading={loading} fullWidth size="lg">
+          <Button onPress={handleLogin} loading={loading} disabled={busy} fullWidth size="lg">
             Sign in
           </Button>
+
+          {/* Divider */}
+          <View className="flex-row items-center gap-3">
+            <View className="flex-1 h-px bg-border" />
+            <MonoText style={{ fontSize: 11, color: "#94a3b8" }}>or</MonoText>
+            <View className="flex-1 h-px bg-border" />
+          </View>
+
+          {/* Google Sign-In */}
+          <Pressable
+            onPress={() => promptAsync()}
+            disabled={busy}
+            className="flex-row items-center justify-center gap-3 border border-border rounded-xl py-3 active:bg-black/5"
+            style={{ opacity: busy ? 0.6 : 1 }}
+          >
+            <Text style={{ fontFamily: "monospace", fontSize: 14, color: "#4285F4", fontWeight: "bold" }}>G</Text>
+            <Text style={{ color: "#0f172a", fontSize: 15, fontWeight: "500" }}>
+              {googleLoading ? "Signing in…" : "Continue with Google"}
+            </Text>
+          </Pressable>
         </View>
 
         {/* Divider */}

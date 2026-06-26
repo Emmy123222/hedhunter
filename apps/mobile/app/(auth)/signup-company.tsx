@@ -2,18 +2,31 @@ import React, { useState } from "react";
 import { Alert, KeyboardAvoidingView, Platform, Pressable, Text, View } from "react-native";
 import { Link } from "expo-router";
 import { useAuth } from "@/contexts/AuthContext";
+import { useGoogleAuth } from "@/hooks/useGoogleAuth";
 import { Screen } from "@/components/ui/Screen";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { MonoText } from "@/components/ui/MonoText";
 
 export default function SignupCompanyScreen() {
-  const { register } = useAuth();
+  const { register, loginWithGoogle } = useAuth();
   const [companyName, setCompanyName] = useState("");
   const [email, setEmail]             = useState("");
   const [password, setPassword]       = useState("");
   const [pledged, setPledged]         = useState(false);
   const [loading, setLoading]         = useState(false);
+
+  const { promptAsync, loading: googleLoading } = useGoogleAuth(async (idToken, uid, userEmail) => {
+    if (!pledged) {
+      Alert.alert("Merit Pledge required", "Please sign the Merit Pledge before signing up with Google.");
+      return;
+    }
+    try {
+      await loginWithGoogle(idToken, uid, userEmail, "COMPANY");
+    } catch (e: any) {
+      Alert.alert("Google sign-up failed", e?.message ?? "Please try again.");
+    }
+  });
 
   async function handleSignup() {
     if (!companyName || !email || !password) { Alert.alert("Fill in all fields"); return; }
@@ -28,6 +41,8 @@ export default function SignupCompanyScreen() {
     }
   }
 
+  const busy = loading || googleLoading;
+
   return (
     <Screen>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} className="flex-1 justify-center gap-8">
@@ -38,6 +53,26 @@ export default function SignupCompanyScreen() {
         </View>
 
         <View className="gap-4">
+          {/* Google Sign-Up */}
+          <Pressable
+            onPress={() => promptAsync()}
+            disabled={busy}
+            className="flex-row items-center justify-center gap-3 border border-border rounded-xl py-3 active:bg-black/5"
+            style={{ opacity: busy ? 0.6 : 1 }}
+          >
+            <Text style={{ fontFamily: "monospace", fontSize: 14, color: "#4285F4", fontWeight: "bold" }}>G</Text>
+            <Text style={{ color: "#0f172a", fontSize: 15, fontWeight: "500" }}>
+              {googleLoading ? "Signing up…" : "Sign up with Google"}
+            </Text>
+          </Pressable>
+
+          {/* Divider */}
+          <View className="flex-row items-center gap-3">
+            <View className="flex-1 h-px bg-border" />
+            <MonoText style={{ fontSize: 11, color: "#94a3b8" }}>or</MonoText>
+            <View className="flex-1 h-px bg-border" />
+          </View>
+
           <Input label="Company name" placeholder="Acme Corp" value={companyName} onChangeText={setCompanyName} />
           <Input
             label="Admin email"
@@ -71,7 +106,7 @@ export default function SignupCompanyScreen() {
             </View>
           </Pressable>
 
-          <Button onPress={handleSignup} loading={loading} fullWidth size="lg">
+          <Button onPress={handleSignup} loading={loading} disabled={busy} fullWidth size="lg">
             Create company account
           </Button>
         </View>
